@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 function Courses() {
   const [errorss, setErrorss] = useState({});
+  const [message, setMessage] = useState("");
   const addCoursehandler = async (e) => {
     const errors = {};
     e.preventDefault();
@@ -25,7 +26,10 @@ function Courses() {
       });
       if (!res.ok) return console.log((await res.json()).message);
       const result = await res.json();
-      console.log(result);
+      setMessage(result.message);
+      setInterval(() => {
+        setMessage("");
+      }, 3000);
     } else {
       if (!data.code) errors.code = "enter code";
       if (!data.name) errors.name = "enter name";
@@ -146,9 +150,16 @@ function Courses() {
           ></textarea>
         </div>
         <div className="flex gap-10 font-bold items-center justify-center mb-5">
-          <button className="inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-blue-500 rounded-lg h-[60px]">
+          <button className="inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-blue-500 hover:bg-blue-700 rounded-lg h-[60px]">
             Add course
           </button>
+          {message ? (
+            <span className=" border border-slate-700 px-2 py-1 bg-gray-400 rounded-lg text-white">
+              {message}
+            </span>
+          ) : (
+            ""
+          )}
         </div>
       </form>
     </div>
