@@ -17,13 +17,18 @@ export const POST = async (req) => {
       schedule,
     } = await reqbody;
 
-    // const codeCourse = await Courses.findOne({ code });
-    // if (codeCourse)
-    //   return NextResponse.json(
-    //     { success: false, message: "course is found" },
-    //     { status: 400 }
-    //   );
-    // else {
+    const codeCourse = await Courses.findOne({ code });
+    const nameCourse = await Courses.findOne({ name });
+    if (codeCourse || nameCourse) {
+      const e = {};
+      if (codeCourse) e.code = "code is already";
+      if (nameCourse) e.name = "name is already";
+
+      return NextResponse.json(
+        { success: false, message: "course is already", error: e },
+        { status: 400 }
+      );
+    } else {
       const newCourse = await Courses({
         code,
         name,
@@ -45,7 +50,7 @@ export const POST = async (req) => {
           { message: "new course not save", success: false },
           { status: 400 }
         );
-    // }
+    }
   } catch (error) {
     return NextResponse.json(
       {

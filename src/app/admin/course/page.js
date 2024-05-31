@@ -3,9 +3,12 @@ import React, { useEffect, useState } from "react";
 
 function Courses() {
   const [errorss, setErrorss] = useState({});
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({});
   const addCoursehandler = async (e) => {
-    const errors = {};
+    let errors = {};
+    let m = {},
+      er = {};
+
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const data = Object.fromEntries(fd);
@@ -24,19 +27,59 @@ function Courses() {
           "Content-Type": "application/json",
         },
       });
-      if (!res.ok) return console.log((await res.json()).message);
+      if (!res.ok) {
+        errors = {
+          code: "",
+          name: "",
+          description: "",
+          capacity: "",
+          instructor: "",
+          prerequisites: "",
+        };
+        const error = await res.json();
+        er.success = error.success;
+        er.message = error.message;
+        er.code = error.error.code;
+        er.name = error.error.name;
+        console.log(er);
+        setMessage(er);
+        // setInterval(() => {
+        //   setMessage({});
+        // }, 1000 * 10);
+        setErrorss(errors)
+        return;
+      }
+
       const result = await res.json();
-      setMessage(result.message);
-      setInterval(() => {
-        setMessage("");
-      }, 3000);
+      errors = {
+        code: "",
+        name: "",
+        description: "",
+        capacity: "",
+        instructor: "",
+        prerequisites: "",
+      };
+      m.success = result.success;
+      m.message = result.message;
+      setMessage(m);
+      // if (res.status !== 400) {
+      //   setInterval(() => {
+      //     setMessage({});
+      //   }, 3000);
+      // }
     } else {
       if (!data.code) errors.code = "enter code";
+      else errors.code = "";
       if (!data.name) errors.name = "enter name";
+      else errors.name = "";
       if (!data.description) errors.description = "enter description";
+      else errors.description = "";
       if (!data.instructor) errors.instructor = "enter instructor";
+      else errors.instructor = "";
       if (!data.capacity) errors.capacity = "enter capacity";
+      else errors.capacity = "";
       if (!data.prerequisites) errors.prerequisites = "enter prerequisites";
+      else errors.prerequisites = "";
     }
     setErrorss(errors);
   };
@@ -47,6 +90,13 @@ function Courses() {
         onSubmit={addCoursehandler}
         className="w-2/4 m-auto mt-10 mb-10  p-5"
       >
+        {message.code ? (
+          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+            {message.code}
+          </div>
+        ) : (
+          ""
+        )}
         {errorss.code ? (
           <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
             {errorss.code}
@@ -56,14 +106,31 @@ function Courses() {
         )}
         <div className="flex gap-32 font-bold items-center mb-5">
           <label for="code">Code</label>
-          <input
-            type="text"
-            id="code"
-            name="code"
-            placeholder="enter code"
-            className="w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none	bg-transparent"
-          />
+          {message.code ? (
+            <input
+              type="text"
+              id="code"
+              name="code"
+              placeholder="enter code"
+              className="w-[300px] border border-red-700 rounded-lg py-3 px-5 outline-none	bg-transparent"
+            />
+          ) : (
+            <input
+              type="text"
+              id="code"
+              name="code"
+              placeholder="enter code"
+              className="w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none	bg-transparent"
+            />
+          )}
         </div>
+        {message.name ? (
+          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+            {message.name}
+          </div>
+        ) : (
+          ""
+        )}
         {errorss.name ? (
           <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
             {errorss.name}
@@ -73,13 +140,23 @@ function Courses() {
         )}
         <div className="flex gap-32 font-bold items-center mb-5">
           <label for="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="enter name"
-            className="w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none	bg-transparent"
-          />
+          {message.name ? (
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="enter name"
+              className="w-[300px] border border-red-700 rounded-lg py-3 px-5 outline-none	bg-transparent"
+            />
+          ) : (
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="enter name"
+              className="w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none	bg-transparent"
+            />
+          )}
         </div>
         {errorss.description ? (
           <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
@@ -153,12 +230,17 @@ function Courses() {
           <button className="inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-blue-500 hover:bg-blue-700 rounded-lg h-[60px]">
             Add course
           </button>
-          {message ? (
+
+          {message.success === undefined ? (
+            ""
+          ) : message.success ? (
             <span className=" border border-slate-700 px-2 py-1 bg-gray-400 rounded-lg text-white">
-              {message}
+              {message.message}
             </span>
           ) : (
-            ""
+            <span className=" border border-red-700 p-1 bg-red-400 rounded-lg text-red-950 font-normal">
+              {message.message}
+            </span>
           )}
         </div>
       </form>

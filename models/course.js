@@ -3,10 +3,12 @@ const coursesSchema = new Schema({
   code: {
     type: String,
     required: [true, "provide a course code"],
+    unique: true,
   },
   name: {
     type: String,
     required: [true, "provide a name course"],
+    unique: true,
   },
   description: {
     type: String,
@@ -21,7 +23,6 @@ const coursesSchema = new Schema({
     required: [true, "provide a instructor course"],
   },
   capacity: String,
-  schedule: String,
 });
 
 const Courses = models.courses || model("courses", coursesSchema);

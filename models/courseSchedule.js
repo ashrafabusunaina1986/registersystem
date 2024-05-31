@@ -5,6 +5,7 @@ const courseScheduleSchema = new Schema({
   startTime: Date,
   endTime: Date,
   roomId: String,
+  courseId: String,
 });
 
 const CourseSchedule =
