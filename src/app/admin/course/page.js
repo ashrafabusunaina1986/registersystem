@@ -1,9 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
+import { MdDelete } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
 function Courses() {
+  const [courses, setCourses] = useState([]);
   const [errorss, setErrorss] = useState({});
   const [message, setMessage] = useState({});
+
   const addCoursehandler = async (e) => {
     let errors = {};
     let m = {},
@@ -46,7 +49,7 @@ function Courses() {
         // setInterval(() => {
         //   setMessage({});
         // }, 1000 * 10);
-        setErrorss(errors)
+        setErrorss(errors);
         return;
       }
 
@@ -83,7 +86,34 @@ function Courses() {
     }
     setErrorss(errors);
   };
-  useEffect(() => {}, []);
+  const delCourseHandler = async (id) => {
+    const delCourse = confirm("Are you sure");
+    if (delCourse) {
+      const res = await fetch("/api/courses", {
+        method: "DELETE",
+        body: JSON.stringify({ id: id }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!res.ok) {
+        console.log(await res.json());
+        return;
+      }
+      const del = await res.json();
+      getCourses();
+    }
+  };
+  const editCourseHandler = async (id) => {};
+  const getCourses = async () => {
+    const res = await fetch("/api/courses");
+    if (!res.ok) return;
+    const dataCourse = await res.json();
+    setCourses(dataCourse.courses);
+  };
+  useEffect(() => {
+    getCourses();
+  }, [message.success]);
   return (
     <div>
       <form
@@ -244,6 +274,42 @@ function Courses() {
           )}
         </div>
       </form>
+      <div className=" w-5/6 border border-purple-700 bg-slate-300 m-auto mb-10 mt-10">
+        <div className="flex  p-5 font-bold">
+          <span className="w-1/4">Code</span>
+          <span className="w-1/4">Name</span>
+          <span className="w-1/4">Instructor</span>
+          <span className="w-1/6">Capacity</span>
+          <div className="flex gap-5">
+            <span className="">update</span>
+            <span className="">del</span>
+          </div>
+        </div>
+        {courses &&
+          courses.map((course) => {
+            return (
+              <div key={course._id} className="flex p-5">
+                <div className="w-1/4">{course.code}</div>
+                <div className="w-1/4">{course.name}</div>
+                <div className="w-1/4">{course.instructor}</div>
+                <div className="w-1/6">{course.capacity}</div>
+                <div className="flex gap-12">
+                  <CiEdit
+                    onClick={() => {
+                      editCourseHandler(course._id);
+                    }}
+                  />
+                  <MdDelete
+                    className="text-blue-600 cursor-pointer"
+                    onClick={() => {
+                      delCourseHandler(course._id);
+                    }}
+                  />
+                </div>
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 }

@@ -67,13 +67,43 @@ export const GET = async (req) => {
     const dataCourses = await Courses.find();
     if (dataCourses.length > 0)
       return NextResponse.json(
-        { courses: dataCourses, success: true, length: dataCourses.length },
+        {
+          courses: dataCourses.reverse(),
+          success: true,
+          length: dataCourses.length,
+        },
         { status: 201 }
       );
     else
       return NextResponse.json(
         { message: "Not fount courses", success: false },
         { status: 400 }
+      );
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 }
+    );
+  }
+};
+
+export const DELETE = async (req) => {
+  try {
+    const reqbody = await req.json();
+    const { id } = await reqbody;
+
+    console.log(id);
+    const delCourse = await Courses.deleteOne({ _id: id });
+
+    if (delCourse)
+      return NextResponse.json(
+        { success: true, message: "course is deleted" },
+        { status: 201 }
+      );
+    else
+      return NextResponse.json(
+        { success: false, message: "course is not deleted" },
+        { status: 404 }
       );
   } catch (error) {
     return NextResponse.json(
