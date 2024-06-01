@@ -65,6 +65,7 @@ function Courses() {
       m.success = result.success;
       m.message = result.message;
       setMessage(m);
+      window.location.reload()
       // if (res.status !== 400) {
       //   setInterval(() => {
       //     setMessage({});
