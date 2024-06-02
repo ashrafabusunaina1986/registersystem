@@ -87,6 +87,39 @@ export const GET = async (req) => {
   }
 };
 
+export const PUT = async (req) => {
+  try {
+    const body = await req.json();
+    const { prerequisites, capacity, description, id } = await body;
+    const uptateCourse = await Courses.findByIdAndUpdate(
+      { _id: id },
+      {
+        description: description,
+        capacity: capacity,
+        prerequisites: prerequisites,
+      }
+    );
+    if (uptateCourse) {
+      return NextResponse.json(
+        {
+          message: "course is updated",
+          success: true,
+        },
+        { status: 201 }
+      );
+    } else
+      return NextResponse.json(
+        { message: "Not update courses", success: false },
+        { status: 400 }
+      );
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 }
+    );
+  }
+};
+
 export const DELETE = async (req) => {
   try {
     const reqbody = await req.json();

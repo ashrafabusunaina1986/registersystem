@@ -2,10 +2,14 @@
 import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
+import Modal from "@/components/modal/Modal";
+import Cart from "@/components/cart/Cart";
 function Courses() {
   const [courses, setCourses] = useState([]);
+  const [course, setCourse] = useState([]);
   const [errorss, setErrorss] = useState({});
   const [message, setMessage] = useState({});
+  const [isShow, setIsShow] = useState(false);
 
   const addCoursehandler = async (e) => {
     let errors = {};
@@ -65,7 +69,6 @@ function Courses() {
       m.success = result.success;
       m.message = result.message;
       setMessage(m);
-      window.location.reload()
       // if (res.status !== 400) {
       //   setInterval(() => {
       //     setMessage({});
@@ -105,18 +108,29 @@ function Courses() {
       getCourses();
     }
   };
-  const editCourseHandler = async (id) => {};
+  const editCourseHandler = (id) => {
+    const course = courses.find((c) => c._id === id);
+    setCourse(course);
+    setIsShow(true);
+  };
   const getCourses = async () => {
     const res = await fetch("/api/courses");
     if (!res.ok) return;
     const dataCourse = await res.json();
     setCourses(dataCourse.courses);
   };
+
   useEffect(() => {
     getCourses();
+    setInterval(() => {
+      setMessage({ success: undefined, message: "" });
+    }, 5000);
   }, [message.success]);
   return (
     <div>
+      {isShow && (
+        <Cart course={course} setIsShow={setIsShow} setMessage={setMessage} />
+      )}
       <form
         onSubmit={addCoursehandler}
         className="w-2/4 m-auto mt-10 mb-10  p-5"

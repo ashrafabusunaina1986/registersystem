@@ -1,11 +1,14 @@
+import Modal from '@/components/modal/Modal'
 import React from 'react'
 
-function LayoutCourse({children}) {
+
+function layout({children}) {
   return (
     <div>
+      
       {children}
     </div>
   )
 }
 
-export default LayoutCourse
+export default layout
