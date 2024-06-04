@@ -34,9 +34,31 @@ export const GET = async (req) => {
   try {
     const courseSchedules = await CourseSchedule.find();
     return NextResponse.json(
-      { success: true, courseSchedules:courseSchedules.reverse() },
+      { success: true, courseSchedules: courseSchedules.reverse() },
       { status: 201 }
     );
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 }
+    );
+  }
+};
+
+export const DELETE = async (req) => {
+  try {
+    const { id } = await req.json();
+    const delSechedule = await CourseSchedule.findByIdAndDelete({ _id: id });
+    if (delSechedule)
+      return NextResponse.json(
+        { success: true, message: "course schedule is deleted" },
+        { status: 201 }
+      );
+    else
+      return NextResponse.json(
+        { success: false, message: "course schedule is not deleted" },
+        { status: 201 }
+      );
   } catch (error) {
     return NextResponse.json(
       { success: false, message: error.message },

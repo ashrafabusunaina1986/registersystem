@@ -88,13 +88,28 @@ function CourseSchedule() {
     setErrorss(errors);
   };
 
-  const delHandler = async (id) => {};
+  const delHandler = async (id) => {
+    const del = confirm("Are you sure");
+    if (del) {
+      const res = await fetch("/api/courseschedule", {
+        method: "DELETE",
+        body: JSON.stringify({ id: id }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!res.ok) return console.log(await res.json());
+      const dels = await res.json();
+      console.log(dels);
+      getCoursesSchedules();
+    }
+  };
 
   const editHandler = (id) => {
-    const schedule=coursesSchedule.find(schedule=>schedule._id===id)
-    setCourseSchedule(schedule)
+    const schedule = coursesSchedule.find((schedule) => schedule._id === id);
+    setCourseSchedule(schedule);
     // console.log(schedule)
-    setIsShow(true)
+    setIsShow(true);
   };
 
   const getCourses = async () => {
@@ -115,7 +130,7 @@ function CourseSchedule() {
   }, [message.success]);
   return (
     <div>
-      {isShow && <Schedule/> }
+      {isShow && <Schedule />}
       <form
         onSubmit={addCourseScheduleHandler}
         className="w-2/4 m-auto mt-10 mb-10  p-5"
