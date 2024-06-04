@@ -2,8 +2,8 @@ import { Schema, models, model } from "mongoose";
 
 const courseScheduleSchema = new Schema({
   day: String,
-  startTime: Date,
-  endTime: Date,
+  startTime: String,
+  endTime: String,
   roomId: String,
   courseId: String,
 });
