@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import connectDB from "../../../../dbConfig/db";
 import CourseSchedule from "../../../../models/courseSchedule";
-import Courses from "../../../../models/course";
 
 connectDB();
 
@@ -58,6 +57,36 @@ export const DELETE = async (req) => {
       return NextResponse.json(
         { success: false, message: "course schedule is not deleted" },
         { status: 201 }
+      );
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 }
+    );
+  }
+};
+
+export const PUT = async (req) => {
+  try {
+    const body = await req.json();
+    const { startTime, endTime, roomId, dayValue, id } = await body;
+    
+    const uptateCourse = await CourseSchedule.findByIdAndUpdate(
+      { _id: id },
+      { endTime: endTime, startTime: startTime, roomId: roomId, day: dayValue }
+    );
+    if (uptateCourse) {
+      return NextResponse.json(
+        {
+          message: "course schedule is updated",
+          success: true,
+        },
+        { status: 201 }
+      );
+    } else
+      return NextResponse.json(
+        { message: "Not update course schedule", success: false },
+        { status: 400 }
       );
   } catch (error) {
     return NextResponse.json(

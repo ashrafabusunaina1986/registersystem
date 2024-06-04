@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import downarrow from "../../../../public/img/downArrow.svg";
-import { stringify } from "postcss";
 import Get from "@/components/Get";
 import Schedule from "@/components/Schedule";
 
@@ -68,7 +67,7 @@ function CourseSchedule() {
         const result = await res.json();
         m.success = result.success;
         m.message = result.message;
-        console.log(m, result);
+        // console.log(m, result);
         setMessage(m);
       } else {
         errors.time = "enter start time less than end time";
@@ -100,7 +99,7 @@ function CourseSchedule() {
       });
       if (!res.ok) return console.log(await res.json());
       const dels = await res.json();
-      console.log(dels);
+      // console.log(dels);
       getCoursesSchedules();
     }
   };
@@ -130,7 +129,13 @@ function CourseSchedule() {
   }, [message.success]);
   return (
     <div>
-      {isShow && <Schedule />}
+      {isShow && (
+        <Schedule
+          courseSchedule={courseSchedule}
+          setIsShow={setIsShow}
+          setMessage={setMessage}
+        />
+      )}
       <form
         onSubmit={addCourseScheduleHandler}
         className="w-2/4 m-auto mt-10 mb-10  p-5"
@@ -209,7 +214,7 @@ function CourseSchedule() {
                 onClick={(e) => setDayValue(e.target.innerText)}
                 className=" cursor-pointer hover:bg-gray-500 py-4 px-2"
               >
-                Friday
+                Thursday
               </div>
             </div>
           </div>
