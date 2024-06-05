@@ -25,7 +25,7 @@ function Cart({ course, setIsShow, setMessage }) {
         m.success = er.success;
         m.message = er.message;
         setMessage(m);
-        return ;
+        return;
       }
       errors = { prerequisites: "", capacity: "", description: "" };
       const result = await res.json();
@@ -34,6 +34,7 @@ function Cart({ course, setIsShow, setMessage }) {
       m.message = result.message;
       setMessage(m);
       setIsShow(false);
+      window.location.reload();
     } else {
       if (!values.capacity) errors.capacity = "enter capacity";
       else errors.capacity = "";

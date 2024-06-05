@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "../../../../dbConfig/db";
 import Courses from "../../../../models/course";
+import CourseSchedule from "../../../../models/courseSchedule";
 
 connectDB();
 
@@ -71,12 +72,17 @@ export const GET = async (req) => {
           courses: dataCourses.reverse(),
           success: true,
           length: dataCourses.length,
+          message: "number of courses is " + dataCourses.length,
         },
         { status: 201 }
       );
     else
       return NextResponse.json(
-        { message: "Not fount courses", success: false },
+        {
+          message: "Not fount courses",
+          success:false,
+          length: dataCourses.length,
+        },
         { status: 400 }
       );
   } catch (error) {
@@ -125,7 +131,25 @@ export const DELETE = async (req) => {
     const reqbody = await req.json();
     const { id } = await reqbody;
 
-    console.log(id);
+    const course = await Courses.findById({ _id: id });
+
+    const name_course = course.name;
+    const courseSchedulesName = await CourseSchedule.find({
+      courseId: name_course,
+    });
+    if (courseSchedulesName.length > 0)
+      return NextResponse.json(
+        {
+          name_course,
+          courseSchedulesName,
+          length: courseSchedulesName.length,
+          success: false,
+          message:
+            "course is not deleted because he has details information of course schedules\nnumber of course schedules :" +
+            courseSchedulesName.length,
+        },
+        { status: 404 }
+      );
     const delCourse = await Courses.deleteOne({ _id: id });
 
     if (delCourse)

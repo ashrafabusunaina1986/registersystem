@@ -69,6 +69,7 @@ function Courses() {
       m.success = result.success;
       m.message = result.message;
       setMessage(m);
+      window.location.reload();
       // if (res.status !== 400) {
       //   setInterval(() => {
       //     setMessage({});
@@ -101,11 +102,13 @@ function Courses() {
         },
       });
       if (!res.ok) {
-        console.log(await res.json());
+        const er = await res.json();
+
+        alert(er.message);
         return;
       }
       const del = await res.json();
-      getCourses();
+      window.location.reload();
     }
   };
   const editCourseHandler = (id) => {
@@ -115,17 +118,21 @@ function Courses() {
   };
   const getCourses = async () => {
     const res = await fetch("/api/courses");
-    if (!res.ok) return;
+    if (!res.ok) {
+      const er = await res.json();
+      setMessage({ success: er.success });
+      // console.log(er);
+      return;
+    }
     const dataCourse = await res.json();
     setCourses(dataCourse.courses);
   };
 
   useEffect(() => {
     getCourses();
-    setInterval(() => {
-      setMessage({ success: undefined, message: "" });
-    }, 5000);
-  }, [message.success]);
+
+    setMessage({ success: undefined, message: "" });
+  }, []);
   return (
     <div>
       {isShow && (
@@ -283,9 +290,11 @@ function Courses() {
               {message.message}
             </span>
           ) : (
-            <span className=" border border-red-700 p-1 bg-red-400 rounded-lg text-red-950 font-normal">
-              {message.message}
-            </span>
+            courses.length > 0 && (
+              <span className=" border border-red-700 p-1 bg-red-400 rounded-lg text-red-950 font-normal">
+                {message.message}
+              </span>
+            )
           )}
         </div>
       </form>
@@ -301,6 +310,7 @@ function Courses() {
           </div>
         </div>
         {courses &&
+          courses.length > 0 &&
           courses.map((course) => {
             return (
               <div key={course._id} className="flex p-5">
