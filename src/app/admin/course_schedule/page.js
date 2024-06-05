@@ -4,8 +4,13 @@ import Image from "next/image";
 import downarrow from "../../../../public/img/downArrow.svg";
 import Get from "@/components/Get";
 import Schedule from "@/components/Schedule";
+import { usePathname, useRouter } from "next/navigation";
+import ChechCourses from "@/components/ChechCourses";
 
 function CourseSchedule() {
+  const url = usePathname();
+  const router = useRouter();
+  const [numCourses,setNumCourses]=useState(-1)
   const [coursesSchedule, setCoursesSchedule] = useState([]);
   const [courseSchedule, setCourseSchedule] = useState([]);
   const [courses, setCourses] = useState([]);
@@ -116,6 +121,7 @@ function CourseSchedule() {
     if (!res.ok) return;
     const dataCourse = await res.json();
     setCourses(dataCourse.courses);
+    setNumCourses(dataCourse.courses.length)
   };
   const getCoursesSchedules = async () => {
     const res = await fetch("/api/courseschedule");
@@ -129,6 +135,12 @@ function CourseSchedule() {
   }, [message.success]);
   return (
     <div>
+      {url === "/admin/course_schedule" && numCourses===0 && (
+        <ChechCourses
+          message={"not found courses"}
+          setNumCourses={setNumCourses}
+        />
+      )}
       {isShow && (
         <Schedule
           courseSchedule={courseSchedule}

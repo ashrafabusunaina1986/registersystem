@@ -66,13 +66,16 @@ export const POST = async (req) => {
 export const GET = async (req) => {
   try {
     const dataCourses = await Courses.find();
-    if (dataCourses.length > 0)
+    if (dataCourses)
       return NextResponse.json(
         {
           courses: dataCourses.reverse(),
           success: true,
           length: dataCourses.length,
-          message: "number of courses is " + dataCourses.length,
+          message:
+            dataCourses.length === 0
+              ? "Not found courses"
+              : "number of courses is " + dataCourses.length ,
         },
         { status: 201 }
       );
@@ -80,7 +83,7 @@ export const GET = async (req) => {
       return NextResponse.json(
         {
           message: "Not fount courses",
-          success:false,
+          success: false,
           length: dataCourses.length,
         },
         { status: 400 }

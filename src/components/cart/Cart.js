@@ -34,7 +34,7 @@ function Cart({ course, setIsShow, setMessage }) {
       m.message = result.message;
       setMessage(m);
       setIsShow(false);
-      window.location.reload();
+      // window.location.reload();
     } else {
       if (!values.capacity) errors.capacity = "enter capacity";
       else errors.capacity = "";

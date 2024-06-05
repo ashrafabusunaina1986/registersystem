@@ -1,10 +1,11 @@
 "use client";
 import ChechCourses from "@/components/ChechCourses";
 import Modal from "@/components/modal/Modal";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useParams, usePathname, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 function Layout({ children }) {
+  const url = usePathname();
   const [numCourses, setNumCourses] = useState(-1);
   const [message, setMesssage] = useState("");
   const router = useRouter();
@@ -16,15 +17,19 @@ function Layout({ children }) {
     const res = await fetch("/api/courses");
     if (!res.ok) {
       const er = await res.json();
-      setMesssage(er.message);
-      setNumCourses(er.length);
-      console.log(er);
+
+      // console.log(er);
       return;
     }
-    // const dataCourse = await res.json();
-
-    router.refresh();
-    router.push("/admin/course_schedule");
+    const dataCourse = await res.json();
+    // console.log(dataCourse);
+    if (dataCourse.length === 0) {
+      setMesssage(dataCourse.message);
+      setNumCourses(dataCourse.length);
+    } else {
+      router.refresh();
+      router.push("/admin/course_schedule");
+    }
   };
   return (
     <div>
@@ -42,8 +47,10 @@ function Layout({ children }) {
           Add Course
         </button>
       </div>
-      {numCourses === 0 && (
+      {numCourses === 0 ? (
         <ChechCourses message={message} setNumCourses={setNumCourses} />
+      ) : (
+        ""
       )}
       {children}
     </div>

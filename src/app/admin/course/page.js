@@ -69,7 +69,7 @@ function Courses() {
       m.success = result.success;
       m.message = result.message;
       setMessage(m);
-      window.location.reload();
+      // window.location.reload();
       // if (res.status !== 400) {
       //   setInterval(() => {
       //     setMessage({});
@@ -108,7 +108,8 @@ function Courses() {
         return;
       }
       const del = await res.json();
-      window.location.reload();
+      // console.log(del);
+      getCourses();
     }
   };
   const editCourseHandler = (id) => {
@@ -126,13 +127,12 @@ function Courses() {
     }
     const dataCourse = await res.json();
     setCourses(dataCourse.courses);
+    // console.log(dataCourse);
   };
 
   useEffect(() => {
     getCourses();
-
-    setMessage({ success: undefined, message: "" });
-  }, []);
+  }, [message.success]);
   return (
     <div>
       {isShow && (
@@ -290,11 +290,9 @@ function Courses() {
               {message.message}
             </span>
           ) : (
-            courses.length > 0 && (
-              <span className=" border border-red-700 p-1 bg-red-400 rounded-lg text-red-950 font-normal">
-                {message.message}
-              </span>
-            )
+            <span className=" border border-red-700 p-1 bg-red-400 rounded-lg text-red-950 font-normal">
+              {message.message}
+            </span>
           )}
         </div>
       </form>
