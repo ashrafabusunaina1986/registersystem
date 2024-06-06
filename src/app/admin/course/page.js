@@ -132,6 +132,9 @@ function Courses() {
 
   useEffect(() => {
     getCourses();
+    setInterval(() => {
+      setMessage({success:undefined,message:''})
+    }, 5000);
   }, [message.success]);
   return (
     <div>

@@ -33,6 +33,7 @@ function Cart({ course, setIsShow, setMessage }) {
       m.success = result.success;
       m.message = result.message;
       setMessage(m);
+      // console.log(m)
       setIsShow(false);
       // window.location.reload();
     } else {
