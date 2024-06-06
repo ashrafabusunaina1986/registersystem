@@ -1,15 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { MdDelete } from "react-icons/md";
-import { CiEdit } from "react-icons/ci";
-import Modal from "@/components/modal/Modal";
-import Cart from "@/components/cart/Cart";
+import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+
 function Courses() {
-  const [courses, setCourses] = useState([]);
-  const [course, setCourse] = useState([]);
+  const formRef=useRef(null)
+  const route=useRouter()
   const [errorss, setErrorss] = useState({});
   const [message, setMessage] = useState({});
-  const [isShow, setIsShow] = useState(false);
 
   const addCoursehandler = async (e) => {
     let errors = {};
@@ -66,15 +63,10 @@ function Courses() {
         instructor: "",
         prerequisites: "",
       };
-      m.success = result.success;
-      m.message = result.message;
-      setMessage(m);
-      // window.location.reload();
-      // if (res.status !== 400) {
-      //   setInterval(() => {
-      //     setMessage({});
-      //   }, 3000);
-      // }
+      // m.success = result.success;
+      // m.message = result.message;
+      route.push('/admin/view_courses')
+      formRef.current.reset()
     } else {
       if (!data.code) errors.code = "enter code";
       else errors.code = "";
@@ -91,59 +83,15 @@ function Courses() {
     }
     setErrorss(errors);
   };
-  const delCourseHandler = async (id) => {
-    const delCourse = confirm("Are you sure");
-    if (delCourse) {
-      const res = await fetch("/api/courses", {
-        method: "DELETE",
-        body: JSON.stringify({ id: id }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!res.ok) {
-        const er = await res.json();
+  // after page view course
+  
 
-        alert(er.message);
-        return;
-      }
-      const del = await res.json();
-      // console.log(del);
-      getCourses();
-    }
-  };
-  const editCourseHandler = (id) => {
-    const course = courses.find((c) => c._id === id);
-    setCourse(course);
-    setIsShow(true);
-  };
-  const getCourses = async () => {
-    const res = await fetch("/api/courses");
-    if (!res.ok) {
-      const er = await res.json();
-      setMessage({ success: er.success });
-      // console.log(er);
-      return;
-    }
-    const dataCourse = await res.json();
-    setCourses(dataCourse.courses);
-    // console.log(dataCourse);
-  };
-
-  useEffect(() => {
-    getCourses();
-    setInterval(() => {
-      setMessage({success:undefined,message:''})
-    }, 5000);
-  }, [message.success]);
   return (
     <div>
-      {isShow && (
-        <Cart course={course} setIsShow={setIsShow} setMessage={setMessage} />
-      )}
-      <form
+      
+      <form ref={formRef}
         onSubmit={addCoursehandler}
-        className="w-2/4 m-auto mt-10 mb-10  p-5"
+        className="w-4/5 m-auto mt-10 mb-10  p-5"
       >
         {message.code ? (
           <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
@@ -299,43 +247,7 @@ function Courses() {
           )}
         </div>
       </form>
-      <div className=" w-5/6 border border-purple-700 bg-slate-300 m-auto mb-10 mt-10">
-        <div className="flex  p-5 font-bold">
-          <span className="w-1/4">Code</span>
-          <span className="w-1/4">Name</span>
-          <span className="w-1/4">Instructor</span>
-          <span className="w-1/6">Capacity</span>
-          <div className="flex gap-5">
-            <span className="">update</span>
-            <span className="">del</span>
-          </div>
-        </div>
-        {courses &&
-          courses.length > 0 &&
-          courses.map((course) => {
-            return (
-              <div key={course._id} className="flex p-5">
-                <div className="w-1/4">{course.code}</div>
-                <div className="w-1/4">{course.name}</div>
-                <div className="w-1/4">{course.instructor}</div>
-                <div className="w-1/6">{course.capacity}</div>
-                <div className="flex gap-12">
-                  <CiEdit
-                    onClick={() => {
-                      editCourseHandler(course._id);
-                    }}
-                  />
-                  <MdDelete
-                    className="text-blue-600 cursor-pointer"
-                    onClick={() => {
-                      delCourseHandler(course._id);
-                    }}
-                  />
-                </div>
-              </div>
-            );
-          })}
-      </div>
+      
     </div>
   );
 }

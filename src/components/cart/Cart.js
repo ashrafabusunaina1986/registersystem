@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Modal from "../modal/Modal";
+import { useRouter } from "next/navigation";
 
 function Cart({ course, setIsShow, setMessage }) {
+  const route=useRouter()
   const [errorss, setErrorss] = useState({});
   // const [message, setMessage] = useState({});
   const editCourseHandler = async (e) => {
@@ -25,17 +27,17 @@ function Cart({ course, setIsShow, setMessage }) {
         m.success = er.success;
         m.message = er.message;
         setMessage(m);
+
         return;
       }
       errors = { prerequisites: "", capacity: "", description: "" };
       const result = await res.json();
-      console.log(result);
+      // console.log(result);
       m.success = result.success;
       m.message = result.message;
       setMessage(m);
-      // console.log(m)
       setIsShow(false);
-      // window.location.reload();
+      route.push('/admin/view_courses')
     } else {
       if (!values.capacity) errors.capacity = "enter capacity";
       else errors.capacity = "";
@@ -50,7 +52,7 @@ function Cart({ course, setIsShow, setMessage }) {
     <Modal>
       <form
         onSubmit={editCourseHandler}
-        className="w-full m-auto mt-10 mb-10  p-5"
+        className="w-full m-auto mt-10 mb-10 text-black  p-5"
       >
         <div className="font-bold flex justify-center m-auto py-2 px-4 -mt-10 mb-5 border border-slate-950 bg-gray-500 text-white w-max">
           Edit Course

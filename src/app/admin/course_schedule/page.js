@@ -166,19 +166,19 @@ function CourseSchedule() {
         ) : (
           ""
         )}
-        <div className="flex gap-36 font-bold items-center mb-5">
+        <div className="flex gap-36  font-bold items-center mb-5">
           <label for="day">Day</label>
-          <div className=" relative">
+          <div className=" relative text-black">
             <div
               onClick={() => {
                 setHideDay((prev) => !prev);
               }}
-              className=" font-semibold border cursor-pointer border-slate-600 px-2 py-1 gap-10 rounded-lg flex justify-between"
+              className=" border-[1px] border-slate-100 font-semibold  cursor-pointer  px-2 py-1 gap-10 rounded-lg flex justify-between"
             >
               {dayValue ? (
                 dayValue
               ) : (
-                <div className="font-semibold border cursor-pointer border-slate-600 px-2 py-1 gap-10 rounded-lg flex justify-between">
+                <div className="font-semibold border cursor-pointer border-slate-100 px-2 py-1 gap-10 rounded-lg flex justify-between">
                   day
                   <Image
                     src={downarrow}
@@ -194,7 +194,7 @@ function CourseSchedule() {
               id="box"
               className={
                 hideDay
-                  ? "rounded absolute z-30 bg-white w-[300px]   top-[40px] shadow-md border-[1px] border-gray-300"
+                  ? "  rounded absolute  z-30 bg-white w-[300px]   top-[40px] shadow-md border-[1px] border-gray-300"
                   : "hidden"
               }
             >
@@ -240,17 +240,17 @@ function CourseSchedule() {
         )}
         <div className="flex gap-32 font-bold items-center mb-5">
           <label for="course">Course</label>
-          <div className=" relative ">
+          <div className=" relative text-black ">
             <div
               onClick={() => {
                 setHideCourse((prev) => !prev);
               }}
-              className=" font-semibold border cursor-pointer border-slate-600 px-2 py-1 gap-10 rounded-lg flex justify-between"
+              className=" font-semibold border cursor-pointer border-slate-100 px-2 py-1 gap-10 rounded-lg flex justify-between"
             >
               {courseValue ? (
                 courseValue
               ) : (
-                <div className="font-semibold border cursor-pointer border-slate-600 px-2 py-1 gap-5 rounded-lg flex justify-between">
+                <div className="font-semibold border cursor-pointer border-slate-100 px-2 py-1 gap-5 rounded-lg flex justify-between">
                   course
                   <Image
                     src={downarrow}
@@ -337,7 +337,7 @@ function CourseSchedule() {
           />
         </div>
         <div className="flex gap-10 font-bold items-center justify-center mb-5">
-          <button className="inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-blue-500 hover:bg-blue-700 rounded-lg h-[60px]">
+          <button className="inline-flex items-center justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500 hover:bg-blue-700 rounded-lg ">
             Add course schedule
           </button>
           {message.success === undefined ? (

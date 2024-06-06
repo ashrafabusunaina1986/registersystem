@@ -8,6 +8,7 @@ function Layout({ children }) {
   const url = usePathname();
   const [numCourses, setNumCourses] = useState(-1);
   const [message, setMesssage] = useState("");
+
   const router = useRouter();
   const goCourseHandler = () => {
     router.refresh();
@@ -31,29 +32,74 @@ function Layout({ children }) {
       router.push("/admin/course_schedule");
     }
   };
+
+  const goStudents = () => {
+    router.refresh();
+    // router.push('/admin/student')
+  };
+  const goCourses=()=>{
+    router.push('/admin/view_courses')
+  }
   return (
-    <div>
-      <div className="flex font-bold items-center justify-between w-full m-auto  bg-gray-400 text-white px-5 py-7  shadow-2xl">
-        <button
-          onClick={goCourseScheduleHandler}
-          className="inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-blue-500 rounded-lg h-[60px]"
-        >
-          Add Course Schedule
-        </button>
-        <button
-          onClick={goCourseHandler}
-          className="inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-blue-500 rounded-lg h-[60px]"
-        >
-          Add Course
-        </button>
-      </div>
+    <main className="w-11/12 m-auto mt-5">
       {numCourses === 0 ? (
         <ChechCourses message={message} setNumCourses={setNumCourses} />
       ) : (
         ""
       )}
-      {children}
-    </div>
+      <div className="flex gap-3">
+        <section className="flex flex-col gap-3 w-1/4 bg-blue-950 rounded-md p-3 h-max">
+          <button
+            onClick={goCourseHandler}
+            className={
+              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500 rounded-lg w-[230px] hover:bg-blue-400"
+            }
+          >
+            Add Course
+          </button>
+          <button
+            onClick={goCourseScheduleHandler}
+            className={
+              " inline-flex items-center  justify-center py-1 px-3 font-sans font-semibold tracking-wide text-white bg-blue-500 rounded-lg w-[230px] hover:bg-blue-400"
+            }
+          >
+            Add Course Schedule
+          </button>
+
+          <button
+            onClick={goStudents}
+            className={
+              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500 rounded-lg w-[230px] hover:bg-blue-400 "
+            }
+          >
+            Students
+          </button>
+          <button
+            onClick={goCourses}
+            className={
+              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500 rounded-lg w-[230px] hover:bg-blue-400 "
+            }
+          >
+            Courses
+          </button>
+          <button
+            onClick={goStudents}
+            className={
+              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500 rounded-lg w-[230px] hover:bg-blue-400 "
+            }
+          >
+            Courses Schedule
+          </button>
+        </section>
+        <div
+          className={
+            "   w-5/6 rounded-md min-h-[60vh] mb-5 text-white border-[1.5px] border-blue-600 bg-slate-600"
+          }
+        >
+          {children}
+        </div>
+      </div>
+    </main>
   );
 }
 
