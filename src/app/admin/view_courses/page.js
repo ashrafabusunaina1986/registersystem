@@ -4,6 +4,7 @@ import { MdDelete } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import { FaSearch } from "react-icons/fa";
 import Cart from "@/components/cart/Cart";
+import SearchValue from "@/components/SearchValue";
 
 function ViewCourse() {
   const searchRef = useRef(null);
@@ -60,13 +61,13 @@ function ViewCourse() {
     const res = await fetch(`/api/courses?course=${search.course}`);
     if (!res.ok) {
       const er = await res.json();
-      console.log(er);
+      // console.log(er);
       setMessage({ success: er.success });
       return;
     }
     const result = await res.json();
     console.log(result);
-    setCourses(result.courses);
+    // setCourses(result.courses);
     setMessage({ success: result.success });
   };
 
@@ -77,21 +78,11 @@ function ViewCourse() {
   }, [message.success]);
   return (
     <>
-      <div className="flex w-max border-[1px] m-auto items-center justify-center mt-10 rounded-md shadow-lg bg-white">
-        <form className="  flex" onSubmit={searchCourseHandeler}>
-          <input
-            type="search"
-            id="course"
-            name="course"
-            ref={searchRef}
-            placeholder="Search course - code "
-            className=" text-black w-[300px] border-[2px] border-blue-950 border-e-white rounded-s-2xl py-3 px-5 outline-none	bg-transparent font-bold"
-          />
-          <button className="flex items-center justify-center py-3 px-5 font-sans font-semibold tracking-wide  text-black border-[2px]  border-blue-950 rounded-e-2xl ">
-            <FaSearch />
-          </button>
-        </form>
-      </div>
+      <SearchValue
+        searchRef={searchRef}
+        searchHandeler={searchCourseHandeler}
+        name={"course"}
+      />
       {courses.length > 0 ? (
         <div>
           {isShow && (

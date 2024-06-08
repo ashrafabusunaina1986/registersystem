@@ -4,6 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import Schedule from "@/components/Schedule";
+import SearchValue from "@/components/SearchValue";
 function View_Schedule() {
   const searchRef = useRef(null);
   const [coursesSchedule, setCoursesSchedule] = useState([]);
@@ -66,6 +67,7 @@ function View_Schedule() {
     // console.log(result);
     setCoursesSchedule(result.courseSchedules);
     setMessage({ success: result.success });
+    searchRef.reset();
   };
   useEffect(() => {
     getCoursesSchedules();
@@ -73,21 +75,11 @@ function View_Schedule() {
   }, [message.success]);
   return (
     <>
-      <div className="flex w-max border-[1px] m-auto items-center justify-center mt-10 rounded-md shadow-lg bg-white">
-        <form className="  flex" onSubmit={searchCourseScheduleHandeler}>
-          <input
-            type="search"
-            id="schedule"
-            name="schedule"
-            ref={searchRef}
-            placeholder="Search course name"
-            className=" text-black w-[300px] border-[2px] border-blue-950 border-e-white rounded-s-2xl py-3 px-5 outline-none	bg-transparent font-bold"
-          />
-          <button className="flex items-center justify-center py-3 px-5 font-sans font-semibold tracking-wide  text-black border-[2px]  border-blue-950 rounded-e-2xl ">
-            <FaSearch />
-          </button>
-        </form>
-      </div>
+      <SearchValue
+        name={"schedule"}
+        searchHandeler={searchCourseScheduleHandeler}
+        searchRef={searchRef}
+      />
       {coursesSchedule.length > 0 ? (
         <div className="">
           {isShow && (
