@@ -10,14 +10,11 @@ import ChechCourses from "@/components/ChechCourses";
 function CourseSchedule() {
   const url = usePathname();
   const router = useRouter();
-  const [numCourses,setNumCourses]=useState(-1)
-  const [coursesSchedule, setCoursesSchedule] = useState([]);
-  const [courseSchedule, setCourseSchedule] = useState([]);
-  const [courses, setCourses] = useState([]);
 
+  const [numCourses, setNumCourses] = useState(-1);
   const [errorss, setErrorss] = useState({});
   const [message, setMessage] = useState({});
-  const [isShow, setIsShow] = useState(false);
+  const [courses, setCourses] = useState([]);
 
   const [hideDay, setHideDay] = useState(false);
   const [hideCourse, setHideCourse] = useState(false);
@@ -74,6 +71,7 @@ function CourseSchedule() {
         m.message = result.message;
         // console.log(m, result);
         setMessage(m);
+        router.push("/admin/view_schedule");
       } else {
         errors.time = "enter start time less than end time";
       }
@@ -91,66 +89,30 @@ function CourseSchedule() {
     }
     setErrorss(errors);
   };
-
-  const delHandler = async (id) => {
-    const del = confirm("Are you sure");
-    if (del) {
-      const res = await fetch("/api/courseschedule", {
-        method: "DELETE",
-        body: JSON.stringify({ id: id }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!res.ok) return console.log(await res.json());
-      const dels = await res.json();
-      // console.log(dels);
-      getCoursesSchedules();
-    }
-  };
-
-  const editHandler = (id) => {
-    const schedule = coursesSchedule.find((schedule) => schedule._id === id);
-    setCourseSchedule(schedule);
-    // console.log(schedule)
-    setIsShow(true);
-  };
-
+  // after view page
   const getCourses = async () => {
     const res = await fetch("/api/courses");
     if (!res.ok) return;
     const dataCourse = await res.json();
     setCourses(dataCourse.courses);
-    setNumCourses(dataCourse.courses.length)
+    setNumCourses(dataCourse.courses.length);
   };
-  const getCoursesSchedules = async () => {
-    const res = await fetch("/api/courseschedule");
-    if (!res.ok) return;
-    const dataCourseSchedule = await res.json();
-    setCoursesSchedule(dataCourseSchedule.courseSchedules);
-  };
+
   useEffect(() => {
     getCourses();
-    getCoursesSchedules();
   }, [message.success]);
   return (
     <div>
-      {url === "/admin/course_schedule" && numCourses===0 && (
+      {url === "/admin/course_schedule" && numCourses === 0 && (
         <ChechCourses
           message={"not found courses"}
           setNumCourses={setNumCourses}
         />
       )}
-      {isShow && (
-        <Schedule
-          courseSchedule={courseSchedule}
-          setIsShow={setIsShow}
-          setMessage={setMessage}
-        />
-      )}
+
       <form
         onSubmit={addCourseScheduleHandler}
-        className="w-2/4 m-auto mt-10 mb-10  p-5"
+        className="w-3/4 m-auto mt-10 mb-10 bg-gray-500 rounded-md  p-5"
       >
         {errorss.time ? (
           <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
@@ -353,11 +315,11 @@ function CourseSchedule() {
           )}
         </div>
       </form>
-      <Get
+      {/* <Get
         data={coursesSchedule}
         delHandler={delHandler}
         editHandler={editHandler}
-      />
+      /> */}
     </div>
   );
 }

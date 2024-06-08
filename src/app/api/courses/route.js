@@ -65,7 +65,15 @@ export const POST = async (req) => {
 
 export const GET = async (req) => {
   try {
-    const dataCourses = await Courses.find();
+    const url = new URL(req.url);
+    const searchParams = new URLSearchParams(url.searchParams);
+    const course = searchParams.get("course");
+    let dataCourses;
+    if (!course) dataCourses = await Courses.find();
+    else
+      dataCourses = await Courses.find({
+        $or: [{ code: course }, { name: course }, { instructor: course }],
+      });
     if (dataCourses)
       return NextResponse.json(
         {
@@ -75,7 +83,7 @@ export const GET = async (req) => {
           message:
             dataCourses.length === 0
               ? "Not found courses"
-              : "number of courses is " + dataCourses.length ,
+              : "number of courses is " + dataCourses.length,
         },
         { status: 201 }
       );

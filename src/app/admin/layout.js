@@ -37,6 +37,9 @@ function Layout({ children }) {
     router.refresh();
     // router.push('/admin/student')
   };
+  const goCoursesSchedule=()=>{
+    router.push('/admin/view_schedule')
+  }
   const goCourses=()=>{
     router.push('/admin/view_courses')
   }
@@ -83,7 +86,7 @@ function Layout({ children }) {
             Courses
           </button>
           <button
-            onClick={goStudents}
+            onClick={goCoursesSchedule}
             className={
               " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500 rounded-lg w-[230px] hover:bg-blue-400 "
             }

@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Modal from "./modal/Modal";
 import Image from "next/image";
 import downarrow from "../../public/img/downArrow.svg";
+import { useRouter } from "next/navigation";
 
 function Schedule({ courseSchedule, setIsShow, setMessage }) {
+  const route=useRouter()
   const [coursesSchedule, setCoursesSchedule] = useState([]);
   const [courses, setCourses] = useState([]);
 
@@ -60,6 +62,7 @@ function Schedule({ courseSchedule, setIsShow, setMessage }) {
         // console.log(m, result);
         setMessage(m);
         setIsShow(false);
+        route.push('/admin/view_schedule')
       } else {
         errors.time = "enter start time less than end time";
       }
@@ -82,7 +85,7 @@ function Schedule({ courseSchedule, setIsShow, setMessage }) {
       </div>
       <form
         onSubmit={editCourseScheduleHandler}
-        className="w-full m-auto mt-10 mb-10  p-5"
+        className="w-full m-auto text-black mt-10 mb-10  p-5"
       >
         {errorss.time ? (
           <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
@@ -101,7 +104,7 @@ function Schedule({ courseSchedule, setIsShow, setMessage }) {
         <input type="hidden" name="id" id="id" value={courseSchedule._id} />
         <div className="flex gap-36 font-bold items-center mb-5">
           <label for="day">Day</label>
-          <div className=" relative">
+          <div className=" relative text-black">
             <div
               onClick={() => {
                 setHideDay((prev) => !prev);

@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 function Courses() {
-  const formRef=useRef(null)
-  const route=useRouter()
+  const formRef = useRef(null);
+  const route = useRouter();
   const [errorss, setErrorss] = useState({});
   const [message, setMessage] = useState({});
 
@@ -65,8 +65,8 @@ function Courses() {
       };
       // m.success = result.success;
       // m.message = result.message;
-      route.push('/admin/view_courses')
-      formRef.current.reset()
+      route.push("/admin/view_courses");
+      formRef.current.reset();
     } else {
       if (!data.code) errors.code = "enter code";
       else errors.code = "";
@@ -84,14 +84,13 @@ function Courses() {
     setErrorss(errors);
   };
   // after page view course
-  
 
   return (
     <div>
-      
-      <form ref={formRef}
+      <form
+        ref={formRef}
         onSubmit={addCoursehandler}
-        className="w-4/5 m-auto mt-10 mb-10  p-5"
+        className="w-4/5 m-auto mt-10 bg-gray-500 rounded-md mb-10  p-5"
       >
         {message.code ? (
           <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
@@ -247,7 +246,6 @@ function Courses() {
           )}
         </div>
       </form>
-      
     </div>
   );
 }

@@ -1,11 +1,10 @@
 import React from "react";
-import { MdDelete } from "react-icons/md";
-import { CiEdit } from "react-icons/ci";
 
 function Get({ editHandler, delHandler, data }) {
   return (
     <div className=" w-5/6 border border-purple-700 bg-slate-300 m-auto mb-10 mt-10">
-      <div className="flex  p-5 font-bold">
+
+      {/* <div className="flex  p-5 font-bold">
         <span className="w-1/4">Course</span>
         <span className="w-1/4">Day</span>
         <span className="w-1/4">Start Time</span>
@@ -40,7 +39,7 @@ function Get({ editHandler, delHandler, data }) {
               </div>
             </div>
           );
-        })}
+        })} */}
     </div>
   );
 }
