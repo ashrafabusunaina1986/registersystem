@@ -1,7 +1,6 @@
 import React from "react";
 
 function SelectValue({ data, name }) {
-  console.log(typeof Object.values(data)[0]);
   return (
     <select
       id={name}

@@ -85,7 +85,7 @@ function ViewData({
                     })}
 
                     <td className="px-3 py-4">
-                      <CiEdit
+                      <CiEdit className="text-blue-600 cursor-pointer"
                         onClick={() => {
                           editHandler(value._id);
                         }}

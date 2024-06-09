@@ -83,11 +83,11 @@ export const DELETE = async (req) => {
 export const PUT = async (req) => {
   try {
     const body = await req.json();
-    const { startTime, endTime, roomId, dayValue, id } = await body;
+    const { startTime, endTime, roomId, day, id } = await body;
 
     const uptateCourse = await CourseSchedule.findByIdAndUpdate(
       { _id: id },
-      { endTime: endTime, startTime: startTime, roomId: roomId, day: dayValue }
+      { endTime: endTime, startTime: startTime, roomId: roomId, day: day }
     );
     if (uptateCourse) {
       return NextResponse.json(

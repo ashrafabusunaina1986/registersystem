@@ -41,3 +41,25 @@ export const GET = async (req) => {
       );
     }
   };
+
+  export const DELETE = async (req) => {
+    try {
+      const { id } = await req.json();
+      const delStudent = await Students.findByIdAndDelete({ _id: id });
+      if (delStudent)
+        return NextResponse.json(
+          { success: true, message: "Student is deleted" },
+          { status: 201 }
+        );
+      else
+        return NextResponse.json(
+          { success: false, message: "Student is not deleted" },
+          { status: 201 }
+        );
+    } catch (error) {
+      return NextResponse.json(
+        { success: false, message: error.message },
+        { status: 500 }
+      );
+    }
+  };
