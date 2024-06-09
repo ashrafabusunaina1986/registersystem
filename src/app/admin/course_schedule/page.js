@@ -6,6 +6,7 @@ import Get from "@/components/Get";
 import Schedule from "@/components/Schedule";
 import { usePathname, useRouter } from "next/navigation";
 import ChechCourses from "@/components/ChechCourses";
+import SelectValue from "@/components/SelectValue";
 
 function CourseSchedule() {
   const url = usePathname();
@@ -31,8 +32,8 @@ function CourseSchedule() {
       values.startTime &&
       values.endTime &&
       values.roomId &&
-      dayValue &&
-      courseValue
+      values.day &&
+      values.course
     ) {
       errors = {
         startTime: "",
@@ -45,15 +46,18 @@ function CourseSchedule() {
         errors.time = "";
         const startTime = values.startTime.toString(),
           endTime = values.endTime.toString(),
-          roomId = values.roomId;
+          roomId = values.roomId,
+          day = values.day,
+          course = values.course;
+
         const res = await fetch("/api/courseschedule", {
           method: "POST",
           body: JSON.stringify({
             startTime,
             endTime,
             roomId,
-            dayValue,
-            courseValue,
+            day,
+            course,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -82,9 +86,9 @@ function CourseSchedule() {
       else errors.endTime = "";
       if (!values.roomId) errors.roomId = "enter roomId";
       else errors.roomId = "";
-      if (!dayValue) errors.dayValue = "enter day value";
+      if (!values.day) errors.dayValue = "enter day value";
       else errors.dayValue = "";
-      if (!courseValue) errors.courseValue = "ente course value";
+      if (!values.course) errors.courseValue = "ente course value";
       else errors.courseValue = "";
     }
     setErrorss(errors);
@@ -97,10 +101,10 @@ function CourseSchedule() {
     setCourses(dataCourse.courses);
     setNumCourses(dataCourse.courses.length);
   };
-
   useEffect(() => {
     getCourses();
   }, [message.success]);
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "thursday"];
   return (
     <div>
       {url === "/admin/course_schedule" && numCourses === 0 && (
@@ -112,17 +116,20 @@ function CourseSchedule() {
 
       <form
         onSubmit={addCourseScheduleHandler}
-        className="w-3/4 m-auto mt-10 mb-10 bg-gray-500 rounded-md  p-5"
+        className="w-4/6 m-auto mt-2 mb-10 bg-gray-100   p-10"
       >
+        <div className="px-5 py-3 m-auto w-max font-bold shadow-lg mb-10 text-black border-[2px] border-blue-950">
+          Courses schedule
+        </div>
         {errorss.time ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
             {errorss.time}
           </div>
         ) : (
           ""
         )}
         {errorss.dayValue ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
             {errorss.dayValue}
           </div>
         ) : (
@@ -130,71 +137,10 @@ function CourseSchedule() {
         )}
         <div className="flex gap-36  font-bold items-center mb-5">
           <label for="day">Day</label>
-          <div className=" relative text-black">
-            <div
-              onClick={() => {
-                setHideDay((prev) => !prev);
-              }}
-              className=" border-[1px] border-slate-100 font-semibold  cursor-pointer  px-2 py-1 gap-10 rounded-lg flex justify-between"
-            >
-              {dayValue ? (
-                dayValue
-              ) : (
-                <div className="font-semibold border cursor-pointer border-slate-100 px-2 py-1 gap-10 rounded-lg flex justify-between">
-                  day
-                  <Image
-                    src={downarrow}
-                    alt="Down Arrow"
-                    width={15}
-                    height={10}
-                  />
-                </div>
-              )}
-            </div>
-            <div
-              onClick={() => setHideDay(false)}
-              id="box"
-              className={
-                hideDay
-                  ? "  rounded absolute  z-30 bg-white w-[300px]   top-[40px] shadow-md border-[1px] border-gray-300"
-                  : "hidden"
-              }
-            >
-              <div
-                onClick={(e) => setDayValue(e.target.innerText)}
-                className="  cursor-pointer hover:bg-gray-500 py-4 px-2"
-              >
-                Sunday
-              </div>
-              <div
-                onClick={(e) => setDayValue(e.target.innerText)}
-                className=" cursor-pointer hover:bg-gray-500 py-4 px-2"
-              >
-                Monday
-              </div>
-              <div
-                onClick={(e) => setDayValue(e.target.innerText)}
-                className=" cursor-pointer hover:bg-gray-500 py-4 px-2"
-              >
-                Tueday
-              </div>
-              <div
-                onClick={(e) => setDayValue(e.target.innerText)}
-                className=" cursor-pointer hover:bg-gray-500 py-4 px-2"
-              >
-                Wednesday
-              </div>
-              <div
-                onClick={(e) => setDayValue(e.target.innerText)}
-                className=" cursor-pointer hover:bg-gray-500 py-4 px-2"
-              >
-                Thursday
-              </div>
-            </div>
-          </div>
+          <SelectValue data={days} name="day" />
         </div>
         {errorss.courseValue ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
             {errorss.courseValue}
           </div>
         ) : (
@@ -202,114 +148,71 @@ function CourseSchedule() {
         )}
         <div className="flex gap-32 font-bold items-center mb-5">
           <label for="course">Course</label>
-          <div className=" relative text-black ">
-            <div
-              onClick={() => {
-                setHideCourse((prev) => !prev);
-              }}
-              className=" font-semibold border cursor-pointer border-slate-100 px-2 py-1 gap-10 rounded-lg flex justify-between"
-            >
-              {courseValue ? (
-                courseValue
-              ) : (
-                <div className="font-semibold border cursor-pointer border-slate-100 px-2 py-1 gap-5 rounded-lg flex justify-between">
-                  course
-                  <Image
-                    src={downarrow}
-                    alt="Down Arrow"
-                    width={15}
-                    height={10}
-                  />
-                </div>
-              )}
-            </div>
-            <div
-              onClick={() => setHideCourse(false)}
-              id="box"
-              className={
-                hideCourse
-                  ? "rounded absolute  bg-white w-[300px]   top-[40px] shadow-md border-[1px] border-gray-300"
-                  : "hidden"
-              }
-            >
-              {courses &&
-                courses.map((course) => {
-                  return (
-                    <div
-                      key={course._id}
-                      onClick={(e) => setCourseValue(e.target.innerText)}
-                      className="  cursor-pointer hover:bg-gray-500 py-4 px-2"
-                    >
-                      {course.name}
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
+          <SelectValue data={courses} name="course" />
         </div>
         {errorss.startTime ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
             {errorss.startTime}
           </div>
         ) : (
           ""
         )}
-        <div className="flex gap-24 font-bold items-center mb-5">
+        <div className="flex gap-12 font-bold items-center mb-5">
           <label for="startTime">start Time</label>
           <input
             type="time"
             id="startTime"
             name="startTime"
             placeholder="enter startTime"
-            className="w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none	bg-transparent"
+            className="w-[300px] border border-slate-400  py-3 px-5 outline-none 	bg-transparent"
           />
         </div>
         {errorss.endTime ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
             {errorss.endTime}
           </div>
         ) : (
           ""
         )}
-        <div className="flex gap-24 font-bold items-center mb-5">
+        <div className="flex gap-14 font-bold items-center mb-5">
           <label for="endTime">end Time</label>
           <input
             type="time"
             id="endTime"
             name="endTime"
             placeholder="enter endTime"
-            className="w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none	bg-transparent"
+            className="w-[300px] border border-slate-400  py-3 px-5 outline-none 	bg-transparent"
           />
         </div>
         {errorss.roomId ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
             {errorss.roomId}
           </div>
         ) : (
           ""
         )}
-        <div className="flex gap-24 font-bold items-center mb-5">
+        <div className="flex gap-16 font-bold items-center mb-5">
           <label for="roomId">Room Id</label>
           <input
             type="text"
             id="roomId"
             name="roomId"
             placeholder="enter roomId"
-            className="w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none	bg-transparent"
+            className="w-[300px] border border-slate-400  py-3 px-5 outline-none 	bg-transparent"
           />
         </div>
         <div className="flex gap-10 font-bold items-center justify-center mb-5">
-          <button className="inline-flex items-center justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500 hover:bg-blue-700 rounded-lg ">
+          <button className="inline-flex items-center justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500 hover:bg-blue-700 -ml-32 ">
             Add course schedule
           </button>
           {message.success === undefined ? (
             ""
           ) : message.success ? (
-            <span className=" border border-slate-700 px-2 py-1 bg-gray-400 rounded-lg text-white">
+            <span className=" border border-slate-700 px-2 py-1 bg-gray-400  text-white">
               {message.message}
             </span>
           ) : (
-            <span className=" border border-red-700 p-1 bg-red-400 rounded-lg text-red-950 font-normal">
+            <span className=" border border-red-700 p-1 bg-red-400  text-red-950 font-normal">
               {message.message}
             </span>
           )}

@@ -55,7 +55,7 @@ function ViewCourse() {
     // console.log(dataCourse);
   };
   const searchCourseHandeler = async (e) => {
-    console.log(Object.keys(courses[0])[0]);
+    // console.log(Object.keys(courses[0])[0]);
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const search = Object.fromEntries(fd);
@@ -83,7 +83,7 @@ function ViewCourse() {
       <SearchValue
         searchRef={searchRef}
         searchHandeler={searchCourseHandeler}
-        name={"course"}
+        name={"CODE-NAME-INSTRUCTOR"}
       />
       <ViewData
         keys={courses[0]}
@@ -94,6 +94,7 @@ function ViewCourse() {
         data={courses}
         editHandler={editCourseHandler}
         delHandler={delCourseHandler}
+        message="Courses"
       />
     </>
   );

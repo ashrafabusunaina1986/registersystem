@@ -90,17 +90,20 @@ function Courses() {
       <form
         ref={formRef}
         onSubmit={addCoursehandler}
-        className="w-4/5 m-auto mt-10 bg-gray-500 rounded-md mb-10  p-5"
+        className="w-4/6  m-auto mt-2 bg-gray-100 p-5  mb-10  "
       >
+        <div className="px-5 py-3 m-auto w-max font-bold shadow-lg mb-10 text-black border-[2px] border-blue-950">
+          Courses
+        </div>
         {message.code ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
             {message.code}
           </div>
         ) : (
           ""
         )}
         {errorss.code ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
             {errorss.code}
           </div>
         ) : (
@@ -114,7 +117,7 @@ function Courses() {
               id="code"
               name="code"
               placeholder="enter code"
-              className="w-[300px] border border-red-700 rounded-lg py-3 px-5 outline-none	bg-transparent"
+              className="w-[300px] border border-red-400  py-3 px-5 outline-none	bg-transparent "
             />
           ) : (
             <input
@@ -122,19 +125,19 @@ function Courses() {
               id="code"
               name="code"
               placeholder="enter code"
-              className="w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none	bg-transparent"
+              className="w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
             />
           )}
         </div>
         {message.name ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
             {message.name}
           </div>
         ) : (
           ""
         )}
         {errorss.name ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
             {errorss.name}
           </div>
         ) : (
@@ -148,7 +151,7 @@ function Courses() {
               id="name"
               name="name"
               placeholder="enter name"
-              className="w-[300px] border border-red-700 rounded-lg py-3 px-5 outline-none	bg-transparent"
+              className="w-[300px] border border-red-400  py-3 px-5 outline-none	bg-transparent "
             />
           ) : (
             <input
@@ -156,12 +159,12 @@ function Courses() {
               id="name"
               name="name"
               placeholder="enter name"
-              className="w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none	bg-transparent"
+              className="w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
             />
           )}
         </div>
         {errorss.description ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
             {errorss.description}
           </div>
         ) : (
@@ -174,11 +177,11 @@ function Courses() {
             id="description"
             name="description"
             placeholder="enter description"
-            className=" resize-none h-32 w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none	bg-transparent"
+            className=" resize-none h-32 w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
           ></textarea>
         </div>
         {errorss.instructor ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
             {errorss.instructor}
           </div>
         ) : (
@@ -191,11 +194,11 @@ function Courses() {
             id="instructor"
             name="instructor"
             placeholder="enter instructor"
-            className="w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none	bg-transparent"
+            className="w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
           />
         </div>
         {errorss.capacity ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
             {errorss.capacity}
           </div>
         ) : (
@@ -208,11 +211,11 @@ function Courses() {
             id="capacity"
             name="capacity"
             placeholder="enter capacity"
-            className="w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none	bg-transparent"
+            className="w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
           />
         </div>
         {errorss.prerequisites ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
             {errorss.prerequisites}
           </div>
         ) : (
@@ -225,22 +228,22 @@ function Courses() {
             id="prerequisites"
             name="prerequisites"
             placeholder="enter prerequisites"
-            className=" resize-none h-32 w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none	bg-transparent"
+            className=" resize-none h-32 w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
           ></textarea>
         </div>
         <div className="flex gap-10 font-bold items-center justify-center mb-5">
-          <button className="inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-blue-500 hover:bg-blue-700 rounded-lg h-[60px]">
+          <button className="inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-blue-500 hover:bg-blue-700  h-[60px]">
             Add course
           </button>
 
           {message.success === undefined ? (
             ""
           ) : message.success ? (
-            <span className=" border border-slate-700 px-2 py-1 bg-gray-400 rounded-lg text-white">
+            <span className=" border border-slate-700 px-2 py-1 bg-gray-400  text-white">
               {message.message}
             </span>
           ) : (
-            <span className=" border border-red-700 p-1 bg-red-400 rounded-lg text-red-950 font-normal">
+            <span className=" border border-red-700 p-1 bg-red-400  text-red-950 font-normal">
               {message.message}
             </span>
           )}

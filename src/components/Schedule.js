@@ -78,8 +78,11 @@ function Schedule({ courseSchedule, setIsShow, setMessage }) {
     }
     setErrorss(errors);
   };
+  const onHide=()=>{
+    setIsShow(false)
+  }
   return (
-    <Modal>
+    <Modal onhide={onHide}>
       <div className="flex w-max items-center justify-center border-[1px] border-blue-600 bg-gray-700 text-white font-bold shadow-xl m-auto mt-5 rounded-lg px-2 py-1">
         Course Schedule
       </div>

@@ -2,7 +2,15 @@ import React, { useEffect } from "react";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 
-function ViewData({ data, keys, page, isShow,editHandler,delHandler }) {
+function ViewData({
+  data,
+  keys,
+  page,
+  isShow,
+  editHandler,
+  delHandler,
+  message,
+}) {
   // useEffect(() => {
   //   console.log(Object.keys(data), keys && Object.keys(keys));
   //   console.log(Object.values(data), keys && Object.values(keys));
@@ -20,6 +28,7 @@ function ViewData({ data, keys, page, isShow,editHandler,delHandler }) {
                     ind === 0 ||
                     v === "description" ||
                     v === "prerequisites" ||
+                    v === "password" ||
                     ind === arr.length - 1
                   ) {
                   } else
@@ -47,11 +56,13 @@ function ViewData({ data, keys, page, isShow,editHandler,delHandler }) {
                       "even:bg-blue-300 even:text-gray-900 m-auto border-[1px] odd:font-semibold font-bold border-blue-950 bg-white text-black dark:text-black"
                     }
                   >
+                    {/* {console.log(Object.keys(value))} */}
                     {Object.values(value).map((v, ind, arr) => {
                       if (
                         ind === 0 ||
                         Object.keys(value)[ind] === "description" ||
                         Object.keys(value)[ind] === "prerequisites" ||
+                        Object.keys(value)[ind] === "password" ||
                         ind === arr.length - 1
                       ) {
                       } else if (ind === 5) {
@@ -96,8 +107,8 @@ function ViewData({ data, keys, page, isShow,editHandler,delHandler }) {
       </div>
     </div>
   ) : (
-    <div className=" w-max bg-slate-300 text-slate-800 border-[2px] shadow-md border-blue-950 px-8 py-5 rounded-md m-auto mt-10 mb-10">
-      Courses Schedule not found
+    <div className=" w-max bg-slate-200 text-slate-900 border-[2px] shadow-md border-blue-950 px-8 py-5  m-auto mt-10 mb-10">
+      {message} not found
     </div>
   );
 }

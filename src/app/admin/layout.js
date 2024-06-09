@@ -35,7 +35,7 @@ function Layout({ children }) {
 
   const goStudents = () => {
     router.refresh();
-    // router.push('/admin/student')
+    router.push('/admin/view_students')
   };
   const goCoursesSchedule=()=>{
     router.push('/admin/view_schedule')
@@ -51,11 +51,11 @@ function Layout({ children }) {
         ""
       )}
       <div className="flex gap-3">
-        <section className="flex flex-col gap-3 w-1/4 bg-blue-950 rounded-md p-3 h-max">
+        <section className="flex flex-col gap-3 w-1/4 bg-blue-950  p-3 h-max">
           <button
             onClick={goCourseHandler}
             className={
-              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500 rounded-lg w-[230px] hover:bg-blue-400"
+              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500  w-[230px] hover:bg-blue-400"
             }
           >
             Add Course
@@ -63,7 +63,7 @@ function Layout({ children }) {
           <button
             onClick={goCourseScheduleHandler}
             className={
-              " inline-flex items-center  justify-center py-1 px-3 font-sans font-semibold tracking-wide text-white bg-blue-500 rounded-lg w-[230px] hover:bg-blue-400"
+              " inline-flex items-center  justify-center py-1 px-3 font-sans font-semibold tracking-wide text-white bg-blue-500  w-[230px] hover:bg-blue-400"
             }
           >
             Add Course Schedule
@@ -72,7 +72,7 @@ function Layout({ children }) {
           <button
             onClick={goStudents}
             className={
-              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500 rounded-lg w-[230px] hover:bg-blue-400 "
+              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500  w-[230px] hover:bg-blue-400 "
             }
           >
             Students
@@ -80,7 +80,7 @@ function Layout({ children }) {
           <button
             onClick={goCourses}
             className={
-              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500 rounded-lg w-[230px] hover:bg-blue-400 "
+              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500  w-[230px] hover:bg-blue-400 "
             }
           >
             Courses
@@ -88,7 +88,7 @@ function Layout({ children }) {
           <button
             onClick={goCoursesSchedule}
             className={
-              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500 rounded-lg w-[230px] hover:bg-blue-400 "
+              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500  w-[230px] hover:bg-blue-400 "
             }
           >
             Courses Schedule
@@ -96,7 +96,7 @@ function Layout({ children }) {
         </section>
         <div
           className={
-            "   w-5/6 rounded-md min-h-[60vh] mb-5 text-white border-[1.5px] border-blue-600 bg-slate-600"
+            "   w-11/12  min-h-[60vh] mb-5 text-black border-[2px] border-blue-950 bg-slate-100"
           }
         >
           {children}

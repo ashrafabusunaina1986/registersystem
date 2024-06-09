@@ -7,14 +7,14 @@ connectDB();
 export const POST = async (req) => {
   try {
     const body = await req.json();
-    const { dayValue, courseValue, startTime, endTime, roomId } = await body;
+    const { day, course, startTime, endTime, roomId } = await body;
 
     const newScedule = await CourseSchedule({
-      day: dayValue,
+      day,
       startTime: startTime,
       endTime: endTime,
       roomId,
-      courseId: courseValue,
+      courseId: course,
     });
     const saveSchedule = newScedule.save();
     return NextResponse.json(

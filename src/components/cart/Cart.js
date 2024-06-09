@@ -48,8 +48,11 @@ function Cart({ course, setIsShow, setMessage }) {
     }
     setErrorss(errors);
   };
+  const onHide=()=>{
+    setIsShow(false)
+  }
   return (
-    <Modal>
+    <Modal onhide={onHide}>
       <form
         onSubmit={editCourseHandler}
         className="w-full m-auto mt-10 mb-10 text-black  p-5"

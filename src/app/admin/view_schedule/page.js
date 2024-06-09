@@ -76,7 +76,7 @@ function View_Schedule() {
   return (
     <>
       <SearchValue
-        name={"schedule"}
+        name={"DAY - COURSE - ROOM ID"}
         searchHandeler={searchCourseScheduleHandeler}
         searchRef={searchRef}
       />
@@ -93,6 +93,7 @@ function View_Schedule() {
         data={coursesSchedule}
         editHandler={editHandler}
         delHandler={delHandler}
+        message="Courses schedule"
       />
     </>
   );
