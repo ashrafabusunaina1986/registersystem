@@ -11,10 +11,14 @@ function ViewData({
   delHandler,
   message,
 }) {
-  // useEffect(() => {
-  //   console.log(Object.keys(data), keys && Object.keys(keys));
-  //   console.log(Object.values(data), keys && Object.values(keys));
-  // }, [data, keys]);
+  const goCoureDetials = (id) => {
+    console(keys && Object.keys(keys)[id]);
+  };
+  useEffect(() => {
+    // console.log(Object.keys(data), keys && Object.keys(keys)) ;
+    // console.log(keys && Object.keys(keys)[8]);
+    // console.log(Object.values(data), keys && Object.values(keys));
+  }, [data, keys]);
   return data && data.length > 0 ? (
     <div className="">
       {isShow && page}
@@ -29,6 +33,7 @@ function ViewData({
                     v === "description" ||
                     v === "prerequisites" ||
                     v === "password" ||
+                    v === "__v" ||
                     ind === arr.length - 1
                   ) {
                   } else
@@ -38,12 +43,18 @@ function ViewData({
                       </th>
                     );
                 })}
-              <th scope="col" class="px-3 py-5">
-                update
-              </th>
-              <th scope="col" class="px-3 py-5">
-                delete
-              </th>
+              {keys && Object.keys(keys)[8] === "cs" ? (
+                ""
+              ) : (
+                <>
+                  <th scope="col" class="px-3 py-5">
+                    update
+                  </th>
+                  <th scope="col" class="px-3 py-5">
+                    delete
+                  </th>
+                </>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -63,8 +74,10 @@ function ViewData({
                         Object.keys(value)[ind] === "description" ||
                         Object.keys(value)[ind] === "prerequisites" ||
                         Object.keys(value)[ind] === "password" ||
+                        Object.keys(value)[ind] === "__v" ||
                         ind === arr.length - 1
                       ) {
+                        if (Object.keys(value)[ind] === "cs")return console.log(ind,Object.values(value)[ind]);
                       } else if (ind === 5) {
                         return (
                           <th
@@ -76,29 +89,47 @@ function ViewData({
                           </th>
                         );
                       } else {
-                        return (
-                          <td key={ind} className="px-3 py-4">
-                            {v}
-                          </td>
-                        );
+                        console.log(Object.keys(value)[ind]);
+                        if (Object.keys(value)[ind] === "cs")
+                          return (
+                            <td
+                              key={ind}
+                              onClick={() => goCoureDetials(ind)}
+                              className="px-3 py-4 cursor-pointer"
+                            >
+                              {v}
+                            </td>
+                          );
+                        else
+                          return (
+                            <td key={ind} className="px-3 py-4">
+                              {v}
+                            </td>
+                          );
                       }
                     })}
-
-                    <td className="px-3 py-4">
-                      <CiEdit className="text-blue-600 cursor-pointer"
-                        onClick={() => {
-                          editHandler(value._id);
-                        }}
-                      />
-                    </td>
-                    <td className="px-3 py-4">
-                      <MdDelete
-                        className="text-blue-600 cursor-pointer"
-                        onClick={() => {
-                          delHandler(value._id);
-                        }}
-                      />
-                    </td>
+                    {keys && Object.keys(keys)[8] === "cs" ? (
+                      ""
+                    ) : (
+                      <>
+                        <td className="px-3 py-4">
+                          <CiEdit
+                            className="text-blue-600 cursor-pointer"
+                            onClick={() => {
+                              editHandler(value._id);
+                            }}
+                          />
+                        </td>
+                        <td className="px-3 py-4">
+                          <MdDelete
+                            className="text-blue-600 cursor-pointer"
+                            onClick={() => {
+                              delHandler(value._id);
+                            }}
+                          />
+                        </td>
+                      </>
+                    )}
                   </tr>
                 );
               })}
