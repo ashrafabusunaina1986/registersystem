@@ -22,10 +22,10 @@ function User_Page() {
       return;
     }
     const dataCourse = await res.json();
-    var courses_students=dataCourse.coursesstudents.filter((c) => c.cs.length > 0)
+    var courses_students=dataCourse.coursesstudents
     setCourses(courses_students);
 
-    console.log(courses_students);
+    // console.log(courses_students);
   };
   const searchCourseHandeler = async (e) => {
     // console.log(Object.keys(courses[0])[0]);

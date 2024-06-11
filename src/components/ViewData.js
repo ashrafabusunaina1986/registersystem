@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 
@@ -11,14 +11,20 @@ function ViewData({
   delHandler,
   message,
 }) {
-  const goCoureDetials = (id) => {
-    console(keys && Object.keys(keys)[id]);
+  const [newCs, setNewCs] = useState([]);
+  const goCoureDetials = (name) => {
+    console.log(name);
   };
-  useEffect(() => {
-    // console.log(Object.keys(data), keys && Object.keys(keys)) ;
-    // console.log(keys && Object.keys(keys)[8]);
-    // console.log(Object.values(data), keys && Object.values(keys));
-  }, [data, keys]);
+  const count = () => {
+    let c = 0;
+    keys &&
+      Object.keys(keys).map((v) => {
+        if (v === "cs") c += 1;
+      });
+
+    return c;
+  };
+  useEffect(() => {}, [data]);
   return data && data.length > 0 ? (
     <div className="">
       {isShow && page}
@@ -34,7 +40,7 @@ function ViewData({
                     v === "prerequisites" ||
                     v === "password" ||
                     v === "__v" ||
-                    ind === arr.length - 1
+                    v === "cs"
                   ) {
                   } else
                     return (
@@ -62,50 +68,29 @@ function ViewData({
               Object.values(data).map((value) => {
                 return (
                   <tr
-                    key={value._id}
+                    key={value._id} onClick={()=>goCoureDetials(value.name)}
                     className={
-                      "even:bg-blue-300 even:text-gray-900 m-auto border-[1px] odd:font-semibold font-bold border-blue-950 bg-white text-black dark:text-black"
+                      count() === 1
+                        ? "even:bg-blue-200 hover:even:bg-blue-400 even:text-gray-900 m-auto odd:bg-gray-200 hover:odd:bg-gray-400 border-[1px] odd:font-semibold font-bold border-blue-950 text-black dark:text-black cursor-pointer"
+                        : "even:bg-blue-200 hover:even:bg-blue-400 even:text-gray-900 m-auto odd:bg-gray-200 hover:odd:bg-gray-400 border-[1px] odd:font-semibold font-bold border-blue-950 text-black dark:text-black"
                     }
                   >
-                    {/* {console.log(Object.keys(value))} */}
+                    {/* {console.log(Object.values(value))} */}
                     {Object.values(value).map((v, ind, arr) => {
                       if (
-                        ind === 0 ||
+                        Object.keys(value)[ind] === "cs" ||
+                        Object.keys(value)[ind] === "_id" ||
                         Object.keys(value)[ind] === "description" ||
                         Object.keys(value)[ind] === "prerequisites" ||
                         Object.keys(value)[ind] === "password" ||
-                        Object.keys(value)[ind] === "__v" ||
-                        ind === arr.length - 1
+                        Object.keys(value)[ind] === "__v"
                       ) {
-                        if (Object.keys(value)[ind] === "cs")return console.log(ind,Object.values(value)[ind]);
-                      } else if (ind === 5) {
-                        return (
-                          <th
-                            key={ind}
-                            scope="row"
-                            className="px-3 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white"
-                          >
-                            {v}
-                          </th>
-                        );
                       } else {
-                        console.log(Object.keys(value)[ind]);
-                        if (Object.keys(value)[ind] === "cs")
-                          return (
-                            <td
-                              key={ind}
-                              onClick={() => goCoureDetials(ind)}
-                              className="px-3 py-4 cursor-pointer"
-                            >
-                              {v}
-                            </td>
-                          );
-                        else
-                          return (
-                            <td key={ind} className="px-3 py-4">
-                              {v}
-                            </td>
-                          );
+                        return (
+                          <td key={ind} className="px-3 py-4">
+                            {v}
+                          </td>
+                        );
                       }
                     })}
                     {keys && Object.keys(keys)[8] === "cs" ? (
