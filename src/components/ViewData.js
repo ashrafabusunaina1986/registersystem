@@ -24,7 +24,15 @@ function ViewData({
 
     return c;
   };
-  useEffect(() => {}, [data]);
+  useEffect(() => {
+    const newcs =
+      data &&
+      Object.values(data).filter((co) =>
+        co.cs === undefined ? co.cs === undefined : co.cs.length > 0
+      );
+    console.log(data, newcs);
+    setNewCs(newcs);
+  }, [data]);
   return data && data.length > 0 ? (
     <div className="">
       {isShow && page}
@@ -65,10 +73,11 @@ function ViewData({
           </thead>
           <tbody>
             {data &&
-              Object.values(data).map((value) => {
+              Object.values(newCs).map((value) => {
                 return (
                   <tr
-                    key={value._id} onClick={()=>goCoureDetials(value.name)}
+                    key={value._id}
+                    onClick={() => goCoureDetials(value.name)}
                     className={
                       count() === 1
                         ? "even:bg-blue-200 hover:even:bg-blue-400 even:text-gray-900 m-auto odd:bg-gray-200 hover:odd:bg-gray-400 border-[1px] odd:font-semibold font-bold border-blue-950 text-black dark:text-black cursor-pointer"
