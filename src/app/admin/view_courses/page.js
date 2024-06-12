@@ -84,6 +84,7 @@ function ViewCourse() {
         searchRef={searchRef}
         searchHandeler={searchCourseHandeler}
         name={"CODE-NAME-INSTRUCTOR"}
+        id={'course'}
       />
       <ViewData
         keys={courses[0]}

@@ -19,7 +19,18 @@ export const GET = async (req) => {
           },
         },
       ]);
-
+    else
+      coursesstudents = await Courses.aggregate([
+        { $match: { code: course } },
+        {
+          $lookup: {
+            from: "courseschedules",
+            localField: "name",
+            foreignField: "courseId",
+            as: "cs",
+          },
+        },
+      ]);
     if (coursesstudents)
       return NextResponse.json(
         {

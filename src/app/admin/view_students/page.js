@@ -76,6 +76,7 @@ export default function ViewStudents() {
     <Fragment>
       <SearchValue
         name={"NAME - EMAIL"}
+        id={'student'}
         searchHandeler={searchStudentHandeler}
         searchRef={searchRef}
       />

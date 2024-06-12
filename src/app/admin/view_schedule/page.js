@@ -49,14 +49,13 @@ function View_Schedule() {
       return;
     }
     const dataCourseSchedule = await res.json();
-    // console.log(dataCourseSchedule)
+    // console.log(dataCourseSchedule.courseSchedules);
     setCoursesSchedule(dataCourseSchedule.courseSchedules);
   };
   const searchCourseScheduleHandeler = async (e) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const search = Object.fromEntries(fd);
-
     const res = await fetch(`/api/courseschedule?schedule=${search.schedule}`);
     if (!res.ok) {
       const er = await res.json();
@@ -77,6 +76,7 @@ function View_Schedule() {
     <>
       <SearchValue
         name={"DAY - COURSE - ROOM ID"}
+        id={"schedule"}
         searchHandeler={searchCourseScheduleHandeler}
         searchRef={searchRef}
       />

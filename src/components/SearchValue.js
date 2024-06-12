@@ -1,13 +1,13 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
-function SearchValue({searchRef,searchHandeler,name}) {
+function SearchValue({searchRef,searchHandeler,name,id}) {
   return (
     <div className="flex w-max border-[1px] m-auto items-center justify-center mt-10  shadow-lg bg-white">
       <form className="  flex" onSubmit={searchHandeler}>
         <input
           type="search"
-          id={name}
-          name={name}
+          id={id}
+          name={id}
           ref={searchRef}
           placeholder={"Search "+name}
           className=" text-black w-[300px] border-[2px] border-blue-950 border-e-white  py-3 px-5 outline-none	bg-transparent font-bold"

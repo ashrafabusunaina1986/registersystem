@@ -17,7 +17,6 @@ export const POST = async (req) => {
       capacity,
       schedule,
     } = await reqbody;
-
     const codeCourse = await Courses.findOne({ code });
     const nameCourse = await Courses.findOne({ name });
     if (codeCourse || nameCourse) {
@@ -31,13 +30,13 @@ export const POST = async (req) => {
       );
     } else {
       const newCourse = await Courses({
-        code,
-        name,
-        description,
-        prerequisites,
-        instructor,
+        code: code && code.trim(),
+        name: name && name.trim(),
+        description: description && description.trim(),
+        prerequisites: prerequisites && prerequisites.trim(),
+        instructor: instructor && instructor.trim(),
         capacity,
-        schedule,
+        schedule: schedule && schedule.trim(),
       });
 
       const saveCourse = newCourse.save();
@@ -111,9 +110,9 @@ export const PUT = async (req) => {
     const uptateCourse = await Courses.findByIdAndUpdate(
       { _id: id },
       {
-        description: description,
+        description: description && description.trim(),
         capacity: capacity,
-        prerequisites: prerequisites,
+        prerequisites: prerequisites && prerequisites.trim(),
       }
     );
     if (uptateCourse) {

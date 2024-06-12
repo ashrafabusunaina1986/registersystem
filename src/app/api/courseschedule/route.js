@@ -13,7 +13,7 @@ export const POST = async (req) => {
       day,
       startTime: startTime,
       endTime: endTime,
-      roomId,
+      roomId: roomId && roomId.trim(),
       courseId: course,
     });
     const saveSchedule = newScedule.save();
@@ -87,7 +87,12 @@ export const PUT = async (req) => {
 
     const uptateCourse = await CourseSchedule.findByIdAndUpdate(
       { _id: id },
-      { endTime: endTime, startTime: startTime, roomId: roomId, day: day }
+      {
+        endTime: endTime,
+        startTime: startTime,
+        roomId: roomId && roomId.trim(),
+        day: day,
+      }
     );
     if (uptateCourse) {
       return NextResponse.json(

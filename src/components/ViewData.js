@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
@@ -11,9 +12,10 @@ function ViewData({
   delHandler,
   message,
 }) {
+  const route=useRouter()
   const [newCs, setNewCs] = useState([]);
   const goCoureDetials = (name) => {
-    console.log(name);
+    route.push(`/users/course_details?course=${name}`)
   };
   const count = () => {
     let c = 0;
@@ -30,12 +32,13 @@ function ViewData({
       Object.values(data).filter((co) =>
         co.cs === undefined ? co.cs === undefined : co.cs.length > 0
       );
-    console.log(data, newcs);
+    // console.log(data, newcs);
     setNewCs(newcs);
   }, [data]);
   return data && data.length > 0 ? (
     <div className="">
       {isShow && page}
+      <span className="block w-max m-auto mt-5 -mb-5 border-[1px] border-blue-950 font-semibold px-2 py-1 rounded-sm">{ message+ ":"+newCs.length}</span>
       <div className=" w-11/12 border border-purple-700 bg-slate-800 m-auto mb-10 mt-10">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-50 font-bold uppercase bg-blue-950 dark:bg-gray-700 dark:text-gray-400">
@@ -72,61 +75,60 @@ function ViewData({
             </tr>
           </thead>
           <tbody>
-            {data &&
-              Object.values(newCs).map((value) => {
-                return (
-                  <tr
-                    key={value._id}
-                    onClick={() => goCoureDetials(value.name)}
-                    className={
-                      count() === 1
-                        ? "even:bg-blue-200 hover:even:bg-blue-400 even:text-gray-900 m-auto odd:bg-gray-200 hover:odd:bg-gray-400 border-[1px] odd:font-semibold font-bold border-blue-950 text-black dark:text-black cursor-pointer"
-                        : "even:bg-blue-200 hover:even:bg-blue-400 even:text-gray-900 m-auto odd:bg-gray-200 hover:odd:bg-gray-400 border-[1px] odd:font-semibold font-bold border-blue-950 text-black dark:text-black"
+            {Object.values(newCs).map((value) => {
+              return (
+                <tr
+                  key={value._id}
+                  onClick={() => goCoureDetials(value.name)}
+                  className={
+                    count() === 1
+                      ? "even:bg-blue-200 hover:even:bg-blue-400 even:text-gray-900 m-auto odd:bg-gray-200 hover:odd:bg-gray-400 border-[1px] odd:font-semibold font-bold border-blue-950 text-black dark:text-black cursor-pointer"
+                      : "even:bg-blue-200 hover:even:bg-blue-400 even:text-gray-900 m-auto odd:bg-gray-200 hover:odd:bg-gray-400 border-[1px] odd:font-semibold font-bold border-blue-950 text-black dark:text-black"
+                  }
+                >
+                  {/* {console.log(Object.values(value))} */}
+                  {Object.values(value).map((v, ind, arr) => {
+                    if (
+                      Object.keys(value)[ind] === "cs" ||
+                      Object.keys(value)[ind] === "_id" ||
+                      Object.keys(value)[ind] === "description" ||
+                      Object.keys(value)[ind] === "prerequisites" ||
+                      Object.keys(value)[ind] === "password" ||
+                      Object.keys(value)[ind] === "__v"
+                    ) {
+                    } else {
+                      return (
+                        <td key={ind} className="px-3 py-4">
+                          {v}
+                        </td>
+                      );
                     }
-                  >
-                    {/* {console.log(Object.values(value))} */}
-                    {Object.values(value).map((v, ind, arr) => {
-                      if (
-                        Object.keys(value)[ind] === "cs" ||
-                        Object.keys(value)[ind] === "_id" ||
-                        Object.keys(value)[ind] === "description" ||
-                        Object.keys(value)[ind] === "prerequisites" ||
-                        Object.keys(value)[ind] === "password" ||
-                        Object.keys(value)[ind] === "__v"
-                      ) {
-                      } else {
-                        return (
-                          <td key={ind} className="px-3 py-4">
-                            {v}
-                          </td>
-                        );
-                      }
-                    })}
-                    {keys && Object.keys(keys)[8] === "cs" ? (
-                      ""
-                    ) : (
-                      <>
-                        <td className="px-3 py-4">
-                          <CiEdit
-                            className="text-blue-600 cursor-pointer"
-                            onClick={() => {
-                              editHandler(value._id);
-                            }}
-                          />
-                        </td>
-                        <td className="px-3 py-4">
-                          <MdDelete
-                            className="text-blue-600 cursor-pointer"
-                            onClick={() => {
-                              delHandler(value._id);
-                            }}
-                          />
-                        </td>
-                      </>
-                    )}
-                  </tr>
-                );
-              })}
+                  })}
+                  {keys && Object.keys(keys)[8] === "cs" ? (
+                    ""
+                  ) : (
+                    <>
+                      <td className="px-3 py-4">
+                        <CiEdit
+                          className="text-blue-600 cursor-pointer"
+                          onClick={() => {
+                            editHandler(value._id);
+                          }}
+                        />
+                      </td>
+                      <td className="px-3 py-4">
+                        <MdDelete
+                          className="text-blue-600 cursor-pointer"
+                          onClick={() => {
+                            delHandler(value._id);
+                          }}
+                        />
+                      </td>
+                    </>
+                  )}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

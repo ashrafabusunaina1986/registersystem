@@ -22,7 +22,7 @@ function User_Page() {
       return;
     }
     const dataCourse = await res.json();
-    var courses_students=dataCourse.coursesstudents
+    var courses_students = dataCourse.coursesstudents;
     setCourses(courses_students);
 
     // console.log(courses_students);
@@ -41,8 +41,9 @@ function User_Page() {
       return;
     }
     const result = await res.json();
-    // console.log(result);
-    setCourses(result.courses);
+
+    console.log(result.coursesstudents);
+    setCourses(result.coursesstudents);
     setMessage({ success: result.success });
   };
 
@@ -54,11 +55,12 @@ function User_Page() {
   return (
     <Fragment>
       <SearchValue
-        name={"name,instructor,day,code,roomid"}
-        searchHandeler={searchscheduleHandler}
+        name={"code,name,instructor,capacity"}
+        id="course"
+        searchHandeler={searchCourseHandeler}
         searchRef={searchRef}
       />
-      <ViewData keys={Courses[0]} data={Courses} message={"Courses"}/>
+      <ViewData keys={Courses[0]} data={Courses} message={"Courses"} />
     </Fragment>
   );
 }
