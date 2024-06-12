@@ -79,7 +79,7 @@ function ViewData({
               return (
                 <tr
                   key={value._id}
-                  onClick={() => goCoureDetials(value.name)}
+                  onClick={() =>count() === 1? goCoureDetials(value.name):''}
                   className={
                     count() === 1
                       ? "even:bg-blue-200 hover:even:bg-blue-400 even:text-gray-900 m-auto odd:bg-gray-200 hover:odd:bg-gray-400 border-[1px] odd:font-semibold font-bold border-blue-950 text-black dark:text-black cursor-pointer"
