@@ -4,7 +4,8 @@ import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 function Course_details() {
-  const course = useSearchParams().get("course");
+  const coursep = useSearchParams();
+  const course = coursep.get("course");
   const [Courses, setCourses] = useState([]);
   const [message, setMessage] = useState({});
 
@@ -24,9 +25,11 @@ function Course_details() {
     };
     getCourses();
   }, [course]);
-  return <div>
-    <ViewData keys={Courses[0]} data={Courses} message={'course student'}/>
-  </div>;
+  return (
+    <div>
+      <ViewData keys={Courses[0]} data={Courses} message={"course student"} />
+    </div>
+  );
 }
 
 export default Course_details;
