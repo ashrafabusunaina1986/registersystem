@@ -38,7 +38,7 @@ function ViewData({
   return data && data.length > 0 ? (
     <div className="">
       {isShow && page}
-      <span className="block w-max m-auto mt-5 -mb-5 border-[1px] border-blue-950 font-semibold px-2 py-1 rounded-sm">{ message+ ":"+newCs.length}</span>
+      {message?<span className="block w-max m-auto mt-5 -mb-5 border-[1px] border-blue-950 font-semibold px-2 py-1 rounded-sm">{ message+ ":"+newCs.length}</span>:''}
       <div className=" w-11/12 border border-purple-700 bg-slate-800 m-auto mb-10 mt-10">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-50 font-bold uppercase bg-blue-950 dark:bg-gray-700 dark:text-gray-400">
