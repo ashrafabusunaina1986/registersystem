@@ -39,6 +39,7 @@ function Course_details(params) {
             {Courses[0].description}
           </p>
         </div>
+        
         <div className="flex flex-col gap-3">
           <h2 className="">Prerequisites</h2>
           <p className=" indent-7 ms-7 text-justify text-wrap font-normal text-gray-900">

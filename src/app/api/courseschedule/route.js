@@ -9,6 +9,9 @@ export const POST = async (req) => {
     const body = await req.json();
     const { day, course, startTime, endTime, roomId } = await body;
 
+    const day_roomid = await CourseSchedule.find({ day: day, roomId: roomId })
+    if (day_roomid) return NextResponse.json({ success: true, day_roomid }, { status: 201 })
+
     const newScedule = await CourseSchedule({
       day,
       startTime: startTime,

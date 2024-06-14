@@ -7,6 +7,7 @@ import Schedule from "@/components/Schedule";
 import { usePathname, useRouter } from "next/navigation";
 import ChechCourses from "@/components/ChechCourses";
 import SelectValue from "@/components/SelectValue";
+import { ConvertTimeToNum } from "@/helper/convertTimeToNum";
 
 function CourseSchedule() {
   const url = usePathname();
@@ -42,8 +43,25 @@ function CourseSchedule() {
         dayValue: "",
         courseValue: "",
       };
-      if (values.startTime < values.endTime) {
+
+      const st = values.startTime,
+        et = values.endTime;
+      const start = ConvertTimeToNum(st),
+        end = ConvertTimeToNum(et);
+      console.log(
+        end <= 14 * 60 * 60 &&
+          end > 7 * 60 * 60 &&
+          end - start <= 75 * 60 &&
+          end - start >= 40 * 60
+      );
+      if (
+        end <= 14 * 60 * 60 &&
+        end > 7 * 60 * 60 &&
+        end - start <= 75 * 60 &&
+        end - start >= 40 * 60
+      ) {
         errors.time = "";
+
         const startTime = values.startTime.toString(),
           endTime = values.endTime.toString(),
           roomId = values.roomId,
@@ -75,9 +93,9 @@ function CourseSchedule() {
         m.message = result.message;
         // console.log(m, result);
         setMessage(m);
-        router.push("/admin/view_schedule");
+        // router.push("/admin/view_schedule");
       } else {
-        errors.time = "enter start time less than end time";
+        errors.time = `enter time between 8 - 14 time,enter start time less than end time,interval hour and a quarter hour`;
       }
     } else {
       if (!values.startTime) errors.startTime = "enter start time";
@@ -101,9 +119,11 @@ function CourseSchedule() {
     setCourses(dataCourse.courses);
     setNumCourses(dataCourse.courses.length);
   };
+  const t = 0;
   useEffect(() => {
     getCourses();
   }, [message.success]);
+
   const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "thursday"];
   return (
     <div>
@@ -114,7 +134,7 @@ function CourseSchedule() {
         />
       )}
 
-      <form
+      <form 
         onSubmit={addCourseScheduleHandler}
         className="w-4/6 m-auto mt-2 mb-10 bg-gray-100   p-10"
       >
@@ -122,7 +142,7 @@ function CourseSchedule() {
           Courses schedule
         </div>
         {errorss.time ? (
-          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
+          <div className="shadow-lg bg-red-200  text-wrap text-red-700  p-2 w-[200px] flex flex-wrap items-center justify-center ml-60 mb-2">
             {errorss.time}
           </div>
         ) : (

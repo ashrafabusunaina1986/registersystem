@@ -1,7 +1,8 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { CiEdit } from "react-icons/ci";
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdRadio } from "react-icons/md";
+
 
 function ViewData({
   data,
@@ -12,10 +13,10 @@ function ViewData({
   delHandler,
   message,
 }) {
-  const route=useRouter()
+  const route = useRouter();
   const [newCs, setNewCs] = useState([]);
   const goCoureDetials = (name) => {
-    route.push(`/users/course_details?course=${name}`)
+    route.push(`/users/course_details?course=${name}`);
   };
   const count = () => {
     let c = 0;
@@ -38,10 +39,16 @@ function ViewData({
   return data && data.length > 0 ? (
     <div className="">
       {isShow && page}
-      {message?<span className="block w-max m-auto mt-5 -mb-5 border-[1px] border-blue-950 font-semibold px-2 py-1 rounded-sm">{ message+ ":"+newCs.length}</span>:''}
-      <div className=" w-11/12 border border-purple-700 bg-slate-800 m-auto mb-10 mt-10">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-50 font-bold uppercase bg-blue-950 dark:bg-gray-700 dark:text-gray-400">
+      {message ? (
+        <span className="block w-max m-auto mt-5 -mb-5 border-[1px] border-blue-950 font-semibold px-2 py-1 rounded-sm">
+          {message + ":" + newCs.length}
+        </span>
+      ) : (
+        ""
+      )}
+      <div  className="w-11/12 m-auto mt-10 mb-10 border border-purple-700 bg-slate-800">
+        <table className="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
+          <thead className="text-xs font-bold uppercase text-gray-50 bg-blue-950 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               {keys &&
                 Object.keys(keys).map((v, ind, arr) => {
@@ -62,7 +69,7 @@ function ViewData({
                 })}
               {keys && Object.keys(keys)[8] === "cs" ? (
                 ""
-              ) : (
+              ) : message ? (
                 <>
                   <th scope="col" class="px-3 py-5">
                     update
@@ -71,6 +78,10 @@ function ViewData({
                     delete
                   </th>
                 </>
+              ) : (
+                <th scope="col" class="px-3 py-5">
+                  Choice
+                </th>
               )}
             </tr>
           </thead>
@@ -79,7 +90,9 @@ function ViewData({
               return (
                 <tr
                   key={value._id}
-                  onClick={() =>count() === 1? goCoureDetials(value.name):''}
+                  onClick={() =>
+                    count() === 1 ? goCoureDetials(value.name) : ""
+                  }
                   className={
                     count() === 1
                       ? "even:bg-blue-200 hover:even:bg-blue-400 even:text-gray-900 m-auto odd:bg-gray-200 hover:odd:bg-gray-400 border-[1px] odd:font-semibold font-bold border-blue-950 text-black dark:text-black cursor-pointer"
@@ -106,7 +119,7 @@ function ViewData({
                   })}
                   {keys && Object.keys(keys)[8] === "cs" ? (
                     ""
-                  ) : (
+                  ) : message ? (
                     <>
                       <td className="px-3 py-4">
                         <CiEdit
@@ -117,6 +130,7 @@ function ViewData({
                         />
                       </td>
                       <td className="px-3 py-4">
+                        <div />
                         <MdDelete
                           className="text-blue-600 cursor-pointer"
                           onClick={() => {
@@ -125,6 +139,15 @@ function ViewData({
                         />
                       </td>
                     </>
+                  ) : (
+                    <td className="px-3 py-4">
+                      <input
+                        type="checkbox"
+                        onClick={(e) =>
+                          console.log(e.target.checked ? value._id : "")
+                        }
+                      />
+                    </td>
                   )}
                 </tr>
               );
