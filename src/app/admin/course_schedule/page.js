@@ -48,12 +48,12 @@ function CourseSchedule() {
         et = values.endTime;
       const start = ConvertTimeToNum(st),
         end = ConvertTimeToNum(et);
-      console.log(
-        end <= 14 * 60 * 60 &&
-          end > 7 * 60 * 60 &&
-          end - start <= 75 * 60 &&
-          end - start >= 40 * 60
-      );
+      // console.log(
+      //   end <= 14 * 60 * 60 &&
+      //     end > 7 * 60 * 60 &&
+      //     end - start <= 75 * 60 &&
+      //     end - start >= 40 * 60
+      // );
       if (
         end <= 14 * 60 * 60 &&
         end > 7 * 60 * 60 &&
@@ -134,7 +134,7 @@ function CourseSchedule() {
         />
       )}
 
-      <form 
+      <form
         onSubmit={addCourseScheduleHandler}
         className="w-4/6 m-auto mt-2 mb-10 bg-gray-100   p-10"
       >
