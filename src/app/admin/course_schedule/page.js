@@ -48,12 +48,7 @@ function CourseSchedule() {
         et = values.endTime;
       const start = ConvertTimeToNum(st),
         end = ConvertTimeToNum(et);
-      // console.log(
-      //   end <= 14 * 60 * 60 &&
-      //     end > 7 * 60 * 60 &&
-      //     end - start <= 75 * 60 &&
-      //     end - start >= 40 * 60
-      // );
+      // enter time between 8 - 14 time,enter start time less than end time,interval hour and a quarter hour
       if (
         end <= 14 * 60 * 60 &&
         end > 7 * 60 * 60 &&
@@ -85,15 +80,16 @@ function CourseSchedule() {
           const er = await res.json();
           m.success = er.success;
           m.message = er.message;
+          alert(er.message)
           setMessage(m);
           return;
         }
         const result = await res.json();
         m.success = result.success;
         m.message = result.message;
-        // console.log(m, result);
+        // console.log( result);
         setMessage(m);
-        // router.push("/admin/view_schedule");
+        router.push("/admin/view_schedule");
       } else {
         errors.time = `enter time between 8 - 14 time,enter start time less than end time,interval hour and a quarter hour`;
       }

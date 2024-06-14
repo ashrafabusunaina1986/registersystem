@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "../../../../dbConfig/db";
 import CourseSchedule from "../../../../models/courseSchedule";
+import { ConvertTimeToNum } from "@/helper/convertTimeToNum";
 
 connectDB();
 
@@ -9,21 +10,58 @@ export const POST = async (req) => {
     const body = await req.json();
     const { day, course, startTime, endTime, roomId } = await body;
 
-    const day_roomid = await CourseSchedule.find({ day: day, roomId: roomId })
-    if (day_roomid) return NextResponse.json({ success: true, day_roomid }, { status: 201 })
+    var start = ConvertTimeToNum(startTime),
+      end = ConvertTimeToNum(endTime);
 
-    const newScedule = await CourseSchedule({
-      day,
-      startTime: startTime,
-      endTime: endTime,
-      roomId: roomId && roomId.trim(),
-      courseId: course,
-    });
-    const saveSchedule = newScedule.save();
-    return NextResponse.json(
-      { success: true, message: "course schedule is added" },
-      { status: 201 }
-    );
+    const day_roomid = await CourseSchedule.find({ day: day, roomId: roomId });
+    if (day_roomid) {
+      let count = 0;
+      if (day_roomid.length > 0) {
+        day_roomid.map((item) => {
+          let st = ConvertTimeToNum(item.startTime),
+            et = ConvertTimeToNum(item.endTime);
+          if ((start >= st && start <= et) || (end >= st && end <= et))
+            count += 1;
+
+          return count;
+        });
+        if (count > 0)
+          return NextResponse.json(
+            {
+              success: false,
+              message: "Error:course schedule like before courses schedule",
+            },
+            { status: 400 }
+          );
+        else {
+          const newScedule = await CourseSchedule({
+            day,
+            startTime: startTime,
+            endTime: endTime,
+            roomId: roomId && roomId.trim(),
+            courseId: course,
+          });
+          const saveSchedule = newScedule.save();
+          return NextResponse.json(
+            { success: true, message: "course schedule is added" },
+            { status: 201 }
+          );
+        }
+      } else {
+        const newScedule = await CourseSchedule({
+          day,
+          startTime: startTime,
+          endTime: endTime,
+          roomId: roomId && roomId.trim(),
+          courseId: course,
+        });
+        const saveSchedule = newScedule.save();
+        return NextResponse.json(
+          { success: true, message: "course schedule is added" },
+          { status: 201 }
+        );
+      }
+    }
   } catch (error) {
     return NextResponse.json(
       { success: false, message: error.message },
