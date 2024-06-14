@@ -4,6 +4,7 @@ import Image from "next/image";
 import downarrow from "../../public/img/downArrow.svg";
 import { useRouter } from "next/navigation";
 import SelectValue from "./SelectValue";
+import { ConvertTimeToNum } from "@/helper/convertTimeToNum";
 
 function Schedule({ courseSchedule, setIsShow, setMessage }) {
   const route = useRouter();
@@ -29,7 +30,17 @@ function Schedule({ courseSchedule, setIsShow, setMessage }) {
         roomId: "",
         dayValue: "",
       };
-      if (values.startTime < values.endTime) {
+      const st = values.startTime,
+        et = values.endTime;
+      const start = ConvertTimeToNum(st),
+        end = ConvertTimeToNum(et);
+      // enter time between 8 - 14 time,enter start time less than end time,interval hour and a quarter hour
+      if (
+        end <= 14 * 60 * 60 &&
+        end > 7 * 60 * 60 &&
+        end - start <= 75 * 60 &&
+        end - start >= 40 * 60
+      ) {
         errors.time = "";
         const startTime = values.startTime.toString(),
           endTime = values.endTime.toString(),
@@ -54,7 +65,7 @@ function Schedule({ courseSchedule, setIsShow, setMessage }) {
           const er = await res.json();
           m.success = er.success;
           m.message = er.message;
-          console.log(er);
+          alert(er.message);
           setMessage(m);
           return;
         }
@@ -67,7 +78,8 @@ function Schedule({ courseSchedule, setIsShow, setMessage }) {
         setIsShow(false);
         route.push("/admin/view_schedule");
       } else {
-        errors.time = "enter start time less than end time";
+        errors.time =
+          "enter time between 8 - 14 time,enter start time less than end time,interval hour and a quarter hour";
       }
     } else {
       if (!values.startTime) errors.startTime = "enter start time";
