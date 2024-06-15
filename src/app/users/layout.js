@@ -10,10 +10,10 @@ function Layout({ children }) {
   const [message, setMesssage] = useState("");
 
   const router = useRouter();
-    const goCourseHandler = () => {
-      // router.refresh();
-      router.push("/users/courses");
-    };
+  const goCourseHandler = () => {
+    // router.refresh();
+    router.push("/users/courses");
+  };
   //   const goCourseScheduleHandler = async () => {
   //     const res = await fetch("/api/courses");
   //     if (!res.ok) {
@@ -40,9 +40,9 @@ function Layout({ children }) {
   //   const goCoursesSchedule=()=>{
   //     router.push('/admin/view_schedule')
   //   }
-  //   const goCourses=()=>{
-  //     router.push('/admin/view_courses')
-  //   }
+  const goRegisteCourse = () => {
+    router.push("/users/register_course");
+  };
   return (
     <main className="w-11/12 m-auto mt-5">
       {/* {numCourses === 0 ? (
@@ -51,19 +51,27 @@ function Layout({ children }) {
         ""
       )} */}
       <div className="flex gap-3">
-        <section className="flex flex-col gap-3 w-[208px] bg-blue-950  p-3 h-max">
+        <section className="flex flex-col gap-3 w-[208px] bg-white rounded-xl  p-3 h-max">
           <button
             onClick={goCourseHandler}
             className={
-              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500  w-[200px] hover:bg-blue-400"
+              " inline-flex items-center  justify-center px-3 py-1 rounded-md font-sans font-semibold tracking-wide text-black bg-yellow-600  w-[200px] hover:bg-yellow-800 hover:text-gray-100 "
             }
           >
             Courses
           </button>
+          <button
+            onClick={goRegisteCourse}
+            className={
+              " inline-flex items-center  justify-center px-3 py-1 rounded-md font-sans font-semibold tracking-wide text-black bg-yellow-600  w-[200px] hover:bg-yellow-800 hover:text-gray-100 "
+            }
+          >
+            Register Courses
+          </button>
         </section>
         <div
           className={
-            "   w-11/12  min-h-[60vh] mb-5 text-black border-[2px] border-blue-950 bg-slate-100"
+            "   w-11/12  min-h-[60vh] mb-5 text-black rounded-xl bg-white"
           }
         >
           {children}

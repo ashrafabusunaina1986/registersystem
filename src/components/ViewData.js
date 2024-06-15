@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete, MdRadio } from "react-icons/md";
 
-
 function ViewData({
   data,
   keys,
@@ -27,7 +26,37 @@ function ViewData({
 
     return c;
   };
+
+  const [token, setToken] = useState("");
+  const [info, setInfo] = useState({});
+
+  const register_scheduleHandler = async (id) => {
+    if (id) {
+      const res = await fetch("/api/users/register", {
+        method: "POST",
+        body: JSON.stringify({ courseid: id, studentId: info }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if(!res.ok){
+          const er=await res.json()
+          alert(er.message)
+          return
+      }
+      const result=await res.json()
+      console.log(result)
+      // return route.push('/users/register_course')
+    }
+  };
+  const me = async () => {
+    const res = await fetch("/api/users/me");
+    const infologin = await res.json();
+    // console.log(infologin);
+    setInfo(infologin.data.email);
+  };
   useEffect(() => {
+    me();
     const newcs =
       data &&
       Object.values(data).filter((co) =>
@@ -46,9 +75,9 @@ function ViewData({
       ) : (
         ""
       )}
-      <div  className="w-11/12 m-auto mt-10 mb-10 border border-purple-700 bg-slate-800">
-        <table className="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
-          <thead className="text-xs font-bold uppercase text-gray-50 bg-blue-950 dark:bg-gray-700 dark:text-gray-400">
+      <div className="w-11/12 m-auto mt-10 mb-10 border border-purple-700 bg-slate-800">
+        <table className="w-full  text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
+          <thead className="text-xs  font-bold uppercase text-gray-50 bg-blue-950 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               {keys &&
                 Object.keys(keys).map((v, ind, arr) => {
@@ -144,7 +173,9 @@ function ViewData({
                       <input
                         type="checkbox"
                         onClick={(e) =>
-                          console.log(e.target.checked ? value._id : "")
+                          register_scheduleHandler(
+                            e.target.checked ? value._id : ""
+                          )
                         }
                       />
                     </td>
@@ -157,7 +188,7 @@ function ViewData({
       </div>
     </div>
   ) : (
-    <div className=" w-max bg-slate-200 text-slate-900 border-[2px] shadow-md border-blue-950 px-8 py-5  m-auto mt-10 mb-10">
+    <div className="rounded-lg w-max bg-slate-200 text-slate-900 border-[2px] shadow-md border-blue-950 px-8 py-5  m-auto mt-10 mb-10">
       {message} not found
     </div>
   );

@@ -8,11 +8,11 @@ export default function Home() {
   const [info, setInfo] = useState({});
   const path = useRouter();
   const goSignup = () => {
-    path.push("/users/signup");
+    path.push("/auth/signup");
     path.refresh();
   };
   const goLogin = () => {
-    path.push("/users/login");
+    path.push("/auth/login");
     path.refresh();
   };
   const logout = async () => {

@@ -26,7 +26,9 @@ function Course_details(params) {
   }, [course]);
   return Courses && Courses.length === 1 ? (
     <div className="w-full border-[1px] flex flex-col gap-5 font-bold px-5 py-3">
-      <span className=" w-max m-auto border-[2px] border-blue-950 bg-slate-200 text-blue-950 px-5 py-3 ">Course details</span>
+      <span className=" w-max m-auto border-[2px] border-blue-950 bg-slate-200 text-blue-950 px-5 py-3 ">
+        Course details
+      </span>
       <div className="flex justify-around">
         <h4 className="">Code:{Courses[0].code}</h4>
         <h4 className="">Instructor:{Courses[0].instructor}</h4>
@@ -39,7 +41,7 @@ function Course_details(params) {
             {Courses[0].description}
           </p>
         </div>
-        
+
         <div className="flex flex-col gap-3">
           <h2 className="">Prerequisites</h2>
           <p className=" indent-7 ms-7 text-justify text-wrap font-normal text-gray-900">
@@ -47,7 +49,7 @@ function Course_details(params) {
           </p>
         </div>
       </div>
-      <ViewData data={Courses[0].cs} keys={Courses[0].cs[0] }  />
+      <ViewData data={Courses[0].cs} keys={Courses[0].cs[0]} />
     </div>
   ) : (
     <div className=""></div>

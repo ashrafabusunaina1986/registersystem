@@ -51,11 +51,11 @@ function Layout({ children }) {
         ""
       )}
       <div className="flex gap-3">
-        <section className="flex flex-col gap-3 w-[208px] bg-blue-950  p-3 h-max">
+        <section className="flex flex-col gap-3 w-[208px] bg-white rounded-xl  p-3 h-max">
           <button
             onClick={goCourseHandler}
             className={
-              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500  w-[200px] hover:bg-blue-400"
+              " inline-flex items-center  justify-center px-3 py-1 rounded-md font-sans font-semibold tracking-wide text-black bg-yellow-600  w-[200px] hover:bg-yellow-800 hover:text-gray-100" 
             }
           >
             Add Course
@@ -63,7 +63,7 @@ function Layout({ children }) {
           <button
             onClick={goCourseScheduleHandler}
             className={
-              " inline-flex items-center  justify-center py-1 px-3 font-sans font-semibold tracking-wide text-white bg-blue-500  w-[200px] hover:bg-blue-400"
+              " inline-flex items-center  justify-center py-1 px-3 rounded-md font-sans font-semibold tracking-wide text-black bg-yellow-600  w-[200px] hover:bg-yellow-800 hover:text-gray-100"
             }
           >
             Add Course Schedule
@@ -72,7 +72,7 @@ function Layout({ children }) {
           <button
             onClick={goStudents}
             className={
-              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500  w-[200px] hover:bg-blue-400 "
+              " inline-flex items-center  justify-center px-3 py-1 rounded-md font-sans font-semibold tracking-wide text-black bg-yellow-600  w-[200px] hover:bg-yellow-800 hover:text-gray-100 "
             }
           >
             Students
@@ -80,7 +80,7 @@ function Layout({ children }) {
           <button
             onClick={goCourses}
             className={
-              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500  w-[200px] hover:bg-blue-400 "
+              " inline-flex items-center  justify-center px-3 py-1 rounded-md font-sans font-semibold tracking-wide text-black bg-yellow-600  w-[200px] hover:bg-yellow-800 hover:text-gray-100 "
             }
           >
             Courses
@@ -88,7 +88,7 @@ function Layout({ children }) {
           <button
             onClick={goCoursesSchedule}
             className={
-              " inline-flex items-center  justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500  w-[200px] hover:bg-blue-400 "
+              " inline-flex items-center  justify-center px-3 py-1 rounded-md font-sans font-semibold tracking-wide text-black bg-yellow-600  w-[200px] hover:bg-yellow-800 hover:text-gray-100 "
             }
           >
             Courses Schedule
@@ -96,7 +96,7 @@ function Layout({ children }) {
         </section>
         <div
           className={
-            "   w-11/12  min-h-[60vh] mb-5 text-black border-[2px] border-blue-950 bg-slate-100"
+            "   w-11/12  min-h-[60vh] mb-5 text-black rounded-xl bg-white"
           }
         >
           {children}
