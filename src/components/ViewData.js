@@ -11,6 +11,7 @@ function ViewData({
   editHandler,
   delHandler,
   message,
+  complete,
 }) {
   const route = useRouter();
   const [newCs, setNewCs] = useState([]);
@@ -101,12 +102,28 @@ function ViewData({
                 ""
               ) : message ? (
                 <>
-                  <th scope="col" class="px-3 py-5">
-                    update
-                  </th>
-                  <th scope="col" class="px-3 py-5">
-                    delete
-                  </th>
+                  {complete === undefined && (
+                    <>
+                      <th scope="col" class="px-3 py-5">
+                        update
+                      </th>
+                      <th scope="col" class="px-3 py-5">
+                        delete
+                      </th>
+                    </>
+                  )}
+                  {complete === true && (
+                    <th scope="col" class="px-3 py-5">
+                      case
+                    </th>
+                  )}
+                  {complete === false && (
+                    <>
+                      <th scope="col" class="px-3 py-5">
+                        case
+                      </th>
+                    </>
+                  )}
                 </>
               ) : (
                 <th scope="col" class="px-3 py-5">
@@ -151,23 +168,35 @@ function ViewData({
                     ""
                   ) : message ? (
                     <>
-                      <td className="px-3 py-4">
-                        <CiEdit
-                          className="text-blue-600 cursor-pointer"
-                          onClick={() => {
-                            editHandler(value._id);
-                          }}
-                        />
-                      </td>
-                      <td className="px-3 py-4">
-                        <div />
-                        <MdDelete
-                          className="text-blue-600 cursor-pointer"
-                          onClick={() => {
-                            delHandler(value._id);
-                          }}
-                        />
-                      </td>
+                      {complete === undefined && (
+                        <>
+                          <td className="px-3 py-4">
+                            <CiEdit
+                              className="text-blue-600 cursor-pointer"
+                              onClick={() => {
+                                editHandler(value._id);
+                              }}
+                            />
+                          </td>
+                          <td className="px-3 py-4">
+                            <div />
+                            <MdDelete
+                              className="text-blue-600 cursor-pointer"
+                              onClick={() => {
+                                delHandler(value._id);
+                              }}
+                            />
+                          </td>
+                        </>
+                      )}
+                      {complete === true && (
+                        <td className="px-3 py-4">Final</td>
+                      )}
+                      {complete === false && (
+                        <>
+                          <td className="px-3 py-4">primitively</td>
+                        </>
+                      )}
                     </>
                   ) : (
                     <td className="px-3 py-4">
