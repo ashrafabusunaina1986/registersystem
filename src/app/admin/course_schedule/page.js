@@ -51,7 +51,7 @@ function CourseSchedule() {
       // enter time between 8 - 14 time,enter start time less than end time,interval hour and a quarter hour
       if (
         end <= 14 * 60 * 60 &&
-        end > 7 * 60 * 60 &&
+        end >= 7 * 60 * 60 &&
         end - start <= 75 * 60 &&
         end - start >= 40 * 60
       ) {
@@ -91,7 +91,7 @@ function CourseSchedule() {
         setMessage(m);
         router.push("/admin/view_schedule");
       } else {
-        errors.time = `enter time between 8 - 14 time,enter start time less than end time,interval hour and a quarter hour`;
+        errors.time = `enter time between 7 - 14 time,enter start time less than end time,interval hour and a quarter hour`;
       }
     } else {
       if (!values.startTime) errors.startTime = "enter start time";

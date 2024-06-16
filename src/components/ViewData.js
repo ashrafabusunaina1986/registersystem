@@ -42,10 +42,11 @@ function ViewData({
       if(!res.ok){
           const er=await res.json()
           alert(er.message)
+          console.error(er)
           return
       }
       const result=await res.json()
-      console.log(result)
+      console.log(result,id)
       // return route.push('/users/register_course')
     }
   };
@@ -174,7 +175,7 @@ function ViewData({
                         type="checkbox"
                         onClick={(e) =>
                           register_scheduleHandler(
-                            e.target.checked ? value._id : ""
+                            e.target.checked ? value._id: ""
                           )
                         }
                       />

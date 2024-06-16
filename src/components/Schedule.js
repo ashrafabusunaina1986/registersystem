@@ -34,10 +34,10 @@ function Schedule({ courseSchedule, setIsShow, setMessage }) {
         et = values.endTime;
       const start = ConvertTimeToNum(st),
         end = ConvertTimeToNum(et);
-      // enter time between 8 - 14 time,enter start time less than end time,interval hour and a quarter hour
+      // enter time between 7 - 14 time,enter start time less than end time,interval hour and a quarter hour
       if (
         end <= 14 * 60 * 60 &&
-        end > 7 * 60 * 60 &&
+        end >= 7 * 60 * 60 &&
         end - start <= 75 * 60 &&
         end - start >= 40 * 60
       ) {
@@ -79,7 +79,7 @@ function Schedule({ courseSchedule, setIsShow, setMessage }) {
         route.push("/admin/view_schedule");
       } else {
         errors.time =
-          "enter time between 8 - 14 time,enter start time less than end time,interval hour and a quarter hour";
+          "enter time between 7 - 14 time,enter start time less than end time,interval hour and a quarter hour";
       }
     } else {
       if (!values.startTime) errors.startTime = "enter start time";

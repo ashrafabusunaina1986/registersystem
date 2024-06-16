@@ -14,13 +14,13 @@ function Course_details(params) {
       if (!res.ok) {
         const er = await res.json();
         setMessage({ success: er.success });
-        console.log(er);
+        // console.log(er);
         return;
       }
       const dataCourse = await res.json();
       setCourses(dataCourse.coursesstudents);
       setMessage({ success: dataCourse.success });
-      console.log(dataCourse);
+      // console.log(dataCourse);
     };
     getCourses();
   }, [course]);
