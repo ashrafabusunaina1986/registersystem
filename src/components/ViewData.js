@@ -39,14 +39,14 @@ function ViewData({
           "Content-Type": "application/json",
         },
       });
-      if(!res.ok){
-          const er=await res.json()
-          alert(er.message)
-          console.error(er)
-          return
+      if (!res.ok) {
+        const er = await res.json();
+        alert(er.message);
+        console.error(er);
+        return;
       }
-      const result=await res.json()
-      console.log(result,id)
+      const result = await res.json();
+      console.log(result, id);
       // return route.push('/users/register_course')
     }
   };
@@ -54,7 +54,7 @@ function ViewData({
     const res = await fetch("/api/users/me");
     const infologin = await res.json();
     // console.log(infologin);
-    setInfo(infologin.data.email);
+    setInfo(infologin && infologin.data && infologin.data.email);
   };
   useEffect(() => {
     me();
@@ -175,7 +175,7 @@ function ViewData({
                         type="checkbox"
                         onClick={(e) =>
                           register_scheduleHandler(
-                            e.target.checked ? value._id: ""
+                            e.target.checked ? value._id : ""
                           )
                         }
                       />

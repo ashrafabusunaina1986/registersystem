@@ -4,6 +4,8 @@ import { NextResponse } from "next/server";
 import CourseSchedule from "../../../../../models/courseSchedule";
 import Courses from "../../../../../models/course";
 import { ConvertTimeToNum } from "@/helper/convertTimeToNum";
+import { getToken } from "@/helper/getuser";
+import jwt from "jsonwebtoken";
 
 connectDB();
 export const POST = async (req) => {
@@ -19,7 +21,8 @@ export const POST = async (req) => {
           {
             success: false,
             courseIdr,
-            message: "new course schedule is not saved,it is forbidden to repeat",
+            message:
+              "new course schedule is not saved,it is forbidden to repeat",
           },
           { status: 400 }
         );
@@ -116,83 +119,42 @@ export const POST = async (req) => {
             );
         }
       }
-
-      // const new_schr = await Register({
-      //   courseId: JSON.stringify(schedule[0]),
-      //   studentId: studentId,
-      // });
-
-      // const save_schr = new_schr.save();
-      // if (save_schr)
-      //   return NextResponse.json(
-      //     {
-      //       success: true,
-      //       new_schr: JSON.parse(new_schr.courseId),
-      //       message: "new course schedule is saved",
-      //     },
-      //     { status: 201 }
-      //   );
-      // else
-      //   return NextResponse.json(
-      //     { success: false, message: "new course schedule is not saved" },
-      //     { status: 400 }
-      //   );
-
-      // return NextResponse.json({ success: true, schedule }, { status: 201 });
     }
-    // const schedule_rs = await Register.find({ courseId: courseid });
-    // if (schedule_rs && schedule_rs.length > 0)
-    //   return NextResponse.json(
-    //     {
-    //       success: false,
-    //       message: `Error:course schedule register student is already`,
-    //       schedule_rs,
-    //     },
-    //     { status: 400 }
-    //   );
-    // else {
-    //   var schedule = await CourseSchedule.find({ _id: courseid });
-    //   if (schedule && schedule.length > 0) {
-    //     const schedules_rs = await Register.aggregate([
-    //       {
-    //         $lookup: {
-    //           from: "courseschedules",
-    //           localField: "courseId",
-    //           foreignField: "_id",
-    //           as: "cr",
-    //         },
-    //       },
-    //     ]);
-    //     if (schedules_rs && schedules_rs.length > 0) {
-    //       return NextResponse.json(
-    //         { success: true, schedules_rs },
-    //         { status: 201 }
-    //       );
-    //     } else {
-    //     }
-    //   }
-    const new_schr = await Register({
-      courseId: courseid,
-      studentId: studentId,
-    });
-
-    const save_schr = new_schr.save();
-    if (save_schr)
-      return NextResponse.json(
-        { success: true, message: "new course schedule is saved" },
-        { status: 201 }
-      );
-    else
-      return NextResponse.json(
-        { success: false, message: "new course schedule is not saved" },
-        { status: 400 }
-      );
-    // }
   } catch (error) {
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
     );
   }
-  //   return NextResponse.json({ success: true }, { status: 201 });
+};
+
+export const GET = async (req) => {
+  try {
+    const token = await getToken(req);
+    const data = jwt.verify(token, process.env.DATA_TOKEN);
+
+    if (data && Object.values(data)) {
+      const studentId = data.email;
+      const student_csr = await Register.find({ studentId: studentId });
+      if (student_csr && student_csr.length > 0)
+        return NextResponse.json(
+          { csr: student_csr, success: true },
+          { status: 201 }
+        );
+      else
+        return NextResponse.json(
+          { message: "Not found courses schedules", success: false },
+          { status: 400 }
+        );
+    } else
+      return NextResponse.json(
+        { message: "Not found student", success: false },
+        { status: 400 }
+      );
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 }
+    );
+  }
 };
