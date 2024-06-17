@@ -30,8 +30,9 @@ function ViewData({
 
   const [token, setToken] = useState("");
   const [info, setInfo] = useState({});
+  const [id, setId] = useState("");
 
-  const register_scheduleHandler = async (id) => {
+  const register_scheduleHandler = async ( id) => {
     if (id) {
       const res = await fetch("/api/users/register", {
         method: "POST",
@@ -43,10 +44,12 @@ function ViewData({
       if (!res.ok) {
         const er = await res.json();
         alert(er.message);
+        setId('')
         console.error(er);
         return;
       }
       const result = await res.json();
+      setId(id);
       console.log(result, id);
       // return route.push('/users/register_course')
     }
@@ -201,10 +204,11 @@ function ViewData({
                   ) : (
                     <td className="px-3 py-4">
                       <input
+                        checked={value._id === id ? true:false}
                         type="checkbox"
                         onClick={(e) =>
                           register_scheduleHandler(
-                            e.target.checked ? value._id : ""
+                            e.currentTarget.checked ? value._id : ""
                           )
                         }
                       />
@@ -216,6 +220,11 @@ function ViewData({
           </tbody>
         </table>
       </div>
+      {complete === false && (
+        <span className="flex items-center justify-center w-max m-auto text-red-800">
+          See administration
+        </span>
+      )}
     </div>
   ) : (
     <div className="rounded-lg w-max bg-slate-200 text-slate-900 border-[2px] shadow-md border-blue-950 px-8 py-5  m-auto mt-10 mb-10">

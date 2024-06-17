@@ -38,20 +38,13 @@ export const POST = async (req) => {
             return count;
           });
           if (count === 0) {
-            let tcount = 0,
-              start = ConvertTimeToNum(schedule[0].startTime),
-              end = ConvertTimeToNum(schedule[0].endTime);
-            console.log(start, end);
+            let countd = 0;
             daycourse.map((course) => {
               const cdr = JSON.parse(course.courseId);
-              const st = ConvertTimeToNum(cdr.startTime),
-                et = ConvertTimeToNum(cdr.endTime);
-              console.log(st, et);
-              if ((start >= st && start <= et) || (end >= st && end <= et))
-                tcount += 1;
-              return tcount;
+              if (cdr.day === day) count += 1;
+              return countd;
             });
-            if (tcount === 0) {
+            if (countd === 0) {
               const new_schr = await Register({
                 courseId: JSON.stringify(schedule[0]),
                 studentId: studentId,
@@ -75,15 +68,100 @@ export const POST = async (req) => {
                   },
                   { status: 400 }
                 );
-            } else
-              return NextResponse.json(
-                {
-                  success: false,
-                  message:
-                    "new course schedule is not saved, not found different in time",
-                },
-                { status: 400 }
-              );
+            } else {
+              let tcount = 0,
+                start = ConvertTimeToNum(schedule[0].startTime),
+                end = ConvertTimeToNum(schedule[0].endTime);
+              console.log(start, end);
+              daycourse.map((course) => {
+                const cdr = JSON.parse(course.courseId);
+                const st = ConvertTimeToNum(cdr.startTime),
+                  et = ConvertTimeToNum(cdr.endTime);
+                console.log(st, et);
+                if ((start >= st && start <= et) || (end >= st && end <= et))
+                  tcount += 1;
+                return tcount;
+              });
+              if (tcount === 0) {
+                const new_schr = await Register({
+                  courseId: JSON.stringify(schedule[0]),
+                  studentId: studentId,
+                });
+
+                const save_schr = new_schr.save();
+                if (save_schr)
+                  return NextResponse.json(
+                    {
+                      success: true,
+                      new_schr: JSON.parse(new_schr.courseId),
+                      message: "new course schedule is saved",
+                    },
+                    { status: 201 }
+                  );
+                else
+                  return NextResponse.json(
+                    {
+                      success: false,
+                      message: "new course schedule is not saved",
+                    },
+                    { status: 400 }
+                  );
+              } else
+                return NextResponse.json(
+                  {
+                    success: false,
+                    message:
+                      "new course schedule is not saved, not found different in time",
+                  },
+                  { status: 400 }
+                );
+            }
+            // let tcount = 0,
+            //   start = ConvertTimeToNum(schedule[0].startTime),
+            //   end = ConvertTimeToNum(schedule[0].endTime);
+            // console.log(start, end);
+            // daycourse.map((course) => {
+            //   const cdr = JSON.parse(course.courseId);
+            //   const st = ConvertTimeToNum(cdr.startTime),
+            //     et = ConvertTimeToNum(cdr.endTime);
+            //   console.log(st, et);
+            //   if ((start >= st && start <= et) || (end >= st && end <= et))
+            //     tcount += 1;
+            //   return tcount;
+            // });
+            // if (tcount === 0) {
+            //   const new_schr = await Register({
+            //     courseId: JSON.stringify(schedule[0]),
+            //     studentId: studentId,
+            //   });
+
+            //   const save_schr = new_schr.save();
+            //   if (save_schr)
+            //     return NextResponse.json(
+            //       {
+            //         success: true,
+            //         new_schr: JSON.parse(new_schr.courseId),
+            //         message: "new course schedule is saved",
+            //       },
+            //       { status: 201 }
+            //     );
+            //   else
+            //     return NextResponse.json(
+            //       {
+            //         success: false,
+            //         message: "new course schedule is not saved",
+            //       },
+            //       { status: 400 }
+            //     );
+            // } else
+            //   return NextResponse.json(
+            //     {
+            //       success: false,
+            //       message:
+            //         "new course schedule is not saved, not found different in time",
+            //     },
+            //     { status: 400 }
+            //   );
           } else {
             return NextResponse.json(
               {
