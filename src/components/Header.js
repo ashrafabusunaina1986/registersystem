@@ -1,16 +1,29 @@
 import React from "react";
-import logo from "../../public/img/teschlogo.jpeg";
 import Image from "next/image";
+import Link from "next/link";
 
 function Header() {
   return (
-    <header className="flex items-center justify-between bg-slate-200 mt-5 w-11/12 m-auto border-[2px] border-blue-950">
-      <Image src={logo} alt="teaching logo" className=" object-fill h-[150px] w-[150]"/>
-      <div className="mr-5">
-        <button className="inline-flex items-center justify-center px-2 py-1  font-sans font-semibold tracking-wide text-white bg-blue-500  ">
-          logout
-        </button>
-      </div>
+    <header className="flex flex-row-reverse items-center justify-between w-full px-8 py-5 bg-gray-200">
+      <ul className="flex items-center gap-5 w-max list-none">
+        <li1>
+          <Link
+            href={"/signup"}
+            className="inline-flex items-center justify-center bg-yellow-400 px-5 py-3 rounded-full font-semibold hover:bg-yellow-300"
+          >
+            Sign up
+          </Link>
+        </li1>
+        <li2>
+          <Link
+            href={"/login"}
+            className="inline-flex items-center justify-center bg-yellow-400 px-5 py-3 rounded-full font-semibold hover:bg-yellow-300"
+          >
+            Log in
+          </Link>
+        </li2>
+      </ul>
+      <Image src={'/img/teschlogo.jpeg'} alt="teach" width={200} height={100} />
     </header>
   );
 }

@@ -1,48 +1,50 @@
 "use client";
+import Header from "@/components/Header";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [token, setToken] = useState("");
-  const [info, setInfo] = useState({});
-  const path = useRouter();
-  const goSignup = () => {
-    path.push("/auth/signup");
-    path.refresh();
-  };
-  const goLogin = () => {
-    path.push("/auth/login");
-    path.refresh();
-  };
-  const logout = async () => {
-    const res = await fetch("api/users/logout", {
-      method: "POST",
-    });
-    if (!res) return;
-    const data = await res.json();
-    // console.log(data);
-    setToken(data.token);
-  };
-  const getToken = async () => {
-    const res = await fetch("api");
-    const token = await res.json();
-    // console.log(token);
-    setToken(token.token);
-  };
-  const me = async () => {
-    const res = await fetch("api/users/me");
-    const infologin = await res.json();
-    // console.log(infologin);
-    setInfo(infologin)
-  };
-  useEffect(() => {
-    getToken();
-    me();
-  }, [token]);
+  // const [token, setToken] = useState("");
+  // const [info, setInfo] = useState({});
+  // const path = useRouter();
+  // const goSignup = () => {
+  //   path.push("/auth/signup");
+  //   path.refresh();
+  // };
+  // const goLogin = () => {
+  //   path.push("/auth/login");
+  //   path.refresh();
+  // };
+  // const logout = async () => {
+  //   const res = await fetch("api/users/logout", {
+  //     method: "POST",
+  //   });
+  //   if (!res) return;
+  //   const data = await res.json();
+  //   // console.log(data);
+  //   setToken(data.token);
+  // };
+  // const getToken = async () => {
+  //   const res = await fetch("api");
+  //   const token = await res.json();
+  //   // console.log(token);
+  //   setToken(token.token);
+  // };
+  // const me = async () => {
+  //   const res = await fetch("api/users/me");
+  //   const infologin = await res.json();
+  //   // console.log(infologin);
+  //   setInfo(infologin)
+  // };
+  // useEffect(() => {
+  //   getToken();
+  //   me();
+  // }, [token]);
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div>
+    <main className="flex min-h-screen flex-col items-center justify-between">
+      <Header/>
+      {/* <div>
         {!token ? (
           <div className="flex gap-5">
             <button
@@ -68,11 +70,11 @@ export default function Home() {
             </button>
           </div>
         )}
-      </div>
-      {info && info.success ?<div className="flex gap-8">
+      </div> */}
+      {/* {info && info.success ?<div className="flex gap-8">
         <span className="">Name:{info.data.name}</span>
         <span className="">Email:{info.data.email}</span>
-      </div>:''}
+      </div>:''} */}
     </main>
   );
 }
