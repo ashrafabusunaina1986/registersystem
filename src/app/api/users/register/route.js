@@ -11,6 +11,7 @@ connectDB();
 export const POST = async (req) => {
   try {
     const { courseid, studentId } = await req.json();
+
     var schedule = await CourseSchedule.find({ _id: courseid });
     if (schedule && schedule.length > 0) {
       const courseIdr = await Register.find({
@@ -29,7 +30,7 @@ export const POST = async (req) => {
       } else {
         const day = schedule[0].day,
           courseday = schedule[0].courseId;
-        const daycourse = await Register.find();
+        const daycourse = await Register.find({ studentId: studentId });
         if (daycourse && daycourse.length > 0) {
           let count = 0;
           daycourse.map((course) => {
@@ -116,52 +117,6 @@ export const POST = async (req) => {
                   { status: 400 }
                 );
             }
-            // let tcount = 0,
-            //   start = ConvertTimeToNum(schedule[0].startTime),
-            //   end = ConvertTimeToNum(schedule[0].endTime);
-            // console.log(start, end);
-            // daycourse.map((course) => {
-            //   const cdr = JSON.parse(course.courseId);
-            //   const st = ConvertTimeToNum(cdr.startTime),
-            //     et = ConvertTimeToNum(cdr.endTime);
-            //   console.log(st, et);
-            //   if ((start >= st && start <= et) || (end >= st && end <= et))
-            //     tcount += 1;
-            //   return tcount;
-            // });
-            // if (tcount === 0) {
-            //   const new_schr = await Register({
-            //     courseId: JSON.stringify(schedule[0]),
-            //     studentId: studentId,
-            //   });
-
-            //   const save_schr = new_schr.save();
-            //   if (save_schr)
-            //     return NextResponse.json(
-            //       {
-            //         success: true,
-            //         new_schr: JSON.parse(new_schr.courseId),
-            //         message: "new course schedule is saved",
-            //       },
-            //       { status: 201 }
-            //     );
-            //   else
-            //     return NextResponse.json(
-            //       {
-            //         success: false,
-            //         message: "new course schedule is not saved",
-            //       },
-            //       { status: 400 }
-            //     );
-            // } else
-            //   return NextResponse.json(
-            //     {
-            //       success: false,
-            //       message:
-            //         "new course schedule is not saved, not found different in time",
-            //     },
-            //     { status: 400 }
-            //   );
           } else {
             return NextResponse.json(
               {
