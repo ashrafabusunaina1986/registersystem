@@ -15,6 +15,7 @@ export const POST = async (req) => {
     var schedule = await CourseSchedule.find({ _id: courseid });
     if (schedule && schedule.length > 0) {
       const courseIdr = await Register.find({
+        studentId: studentId,
         courseId: JSON.stringify(schedule[0]),
       });
       if (courseIdr && courseIdr.length > 0) {
