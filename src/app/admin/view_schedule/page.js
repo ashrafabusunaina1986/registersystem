@@ -24,15 +24,31 @@ function View_Schedule() {
           "Content-Type": "application/json",
         },
       });
-      if (!res.ok) return console.log(await res.json());
+      if (!res.ok) {
+        const er = await res.json();
+        alert(er.message);
+        return;
+      }
       const dels = await res.json();
       // console.log(dels);
       getCoursesSchedules();
     }
   };
 
-  const editHandler = (id) => {
+  const editHandler = async (id) => {
     const schedule = coursesSchedule.find((schedule) => schedule._id === id);
+    const res = await fetch("/api/check", {
+      method: "POST",
+      body: JSON.stringify({ id: id }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if(!res.ok){
+      const er=await res.json()
+      alert(er.message)
+      return
+    }
     setCourseSchedule(schedule);
     // console.log(schedule)
     setIsShow(true);

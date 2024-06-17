@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import connectDB from "../../../../dbConfig/db";
 import CourseSchedule from "../../../../models/courseSchedule";
 import { ConvertTimeToNum } from "@/helper/convertTimeToNum";
+import Register from "../../../../models/registe";
 
 connectDB();
 
@@ -99,20 +100,45 @@ export const GET = async (req) => {
   }
 };
 
+
+
 export const DELETE = async (req) => {
   try {
     const { id } = await req.json();
-    const delSechedule = await CourseSchedule.findByIdAndDelete({ _id: id });
-    if (delSechedule)
-      return NextResponse.json(
-        { success: true, message: "course schedule is deleted" },
-        { status: 201 }
-      );
-    else
-      return NextResponse.json(
-        { success: false, message: "course schedule is not deleted" },
-        { status: 201 }
-      );
+    const scheduls_r_id = await Register.find();
+    if (scheduls_r_id && scheduls_r_id.length > 0) {
+      let countid = 0;
+      scheduls_r_id.map((r, ind) => {
+        const c = JSON.parse(r.courseId);
+        if (c._id === id) countid += 1;
+        return countid;
+      });
+      if (countid === 0) {
+        const delSechedule = await CourseSchedule.findByIdAndDelete({
+          _id: id,
+        });
+        if (delSechedule)
+          return NextResponse.json(
+            { success: true, message: "course schedule is deleted" },
+            { status: 201 }
+          );
+        else
+          return NextResponse.json(
+            { success: false, message: "course schedule is not deleted" },
+            { status: 400 }
+          );
+      } else
+        return NextResponse.json(
+          {
+            success: false,
+            message:
+              "course schedule is not deleted, Used by " +
+              countid +
+              " students",
+          },
+          { status: 400 }
+        );
+    }
   } catch (error) {
     return NextResponse.json(
       { success: false, message: error.message },
@@ -125,79 +151,102 @@ export const PUT = async (req) => {
   try {
     const body = await req.json();
     const { startTime, endTime, roomId, day, id } = await body;
+    const scheduls_r_id = await Register.find();
+    if (scheduls_r_id && scheduls_r_id.length > 0) {
+      let countid = 0;
+      scheduls_r_id.map((r, ind) => {
+        const c = JSON.parse(r.courseId);
+        if (c._id === id) countid += 1;
+        return countid;
+      });
+      if (countid === 0) {
+        var start = ConvertTimeToNum(startTime),
+          end = ConvertTimeToNum(endTime);
 
-    var start = ConvertTimeToNum(startTime),
-      end = ConvertTimeToNum(endTime);
-
-    const day_roomid = await CourseSchedule.find({ day: day, roomId: roomId });
-    if (day_roomid) {
-      let count = 0;
-      if (day_roomid.length > 0) {
-        day_roomid.map((item) => {
-          let st = ConvertTimeToNum(item.startTime),
-            et = ConvertTimeToNum(item.endTime);
-          if ((start >= st && start <= et) || (end >= st && end <= et))
-            count += 1;
-
-          return count;
+        const day_roomid = await CourseSchedule.find({
+          day: day,
+          roomId: roomId,
         });
+        if (day_roomid) {
+          let count = 0;
+          if (day_roomid.length > 0) {
+            day_roomid.map((item) => {
+              let st = ConvertTimeToNum(item.startTime),
+                et = ConvertTimeToNum(item.endTime);
+              if ((start >= st && start <= et) || (end >= st && end <= et))
+                count += 1;
 
-        if (count > 0)
-          return NextResponse.json(
-            {
-              success: false,
-              message: "Error:course schedule like before courses schedule",
-            },
-            { status: 400 }
-          );
-        else {
-          const uptateCourse = await CourseSchedule.findByIdAndUpdate(
-            { _id: id },
-            {
-              endTime: endTime,
-              startTime: startTime,
-              roomId: roomId && roomId.trim(),
-              day: day,
+              return count;
+            });
+
+            if (count > 0)
+              return NextResponse.json(
+                {
+                  success: false,
+                  message: "Error:course schedule like before courses schedule",
+                },
+                { status: 400 }
+              );
+            else {
+              const uptateCourse = await CourseSchedule.findByIdAndUpdate(
+                { _id: id },
+                {
+                  endTime: endTime,
+                  startTime: startTime,
+                  roomId: roomId && roomId.trim(),
+                  day: day,
+                }
+              );
+              if (uptateCourse) {
+                return NextResponse.json(
+                  {
+                    message: "course schedule is updated",
+                    success: true,
+                  },
+                  { status: 201 }
+                );
+              } else
+                return NextResponse.json(
+                  { message: "Not update course schedule", success: false },
+                  { status: 400 }
+                );
             }
-          );
-          if (uptateCourse) {
-            return NextResponse.json(
+          } else {
+            const uptateCourse = await CourseSchedule.findByIdAndUpdate(
+              { _id: id },
               {
-                message: "course schedule is updated",
-                success: true,
-              },
-              { status: 201 }
+                endTime: endTime,
+                startTime: startTime,
+                roomId: roomId && roomId.trim(),
+                day: day,
+              }
             );
-          } else
-            return NextResponse.json(
-              { message: "Not update course schedule", success: false },
-              { status: 400 }
-            );
-        }
-      } else {
-        const uptateCourse = await CourseSchedule.findByIdAndUpdate(
-          { _id: id },
-          {
-            endTime: endTime,
-            startTime: startTime,
-            roomId: roomId && roomId.trim(),
-            day: day,
+            if (uptateCourse) {
+              return NextResponse.json(
+                {
+                  message: "course schedule is updated",
+                  success: true,
+                },
+                { status: 201 }
+              );
+            } else
+              return NextResponse.json(
+                { message: "Not update course schedule", success: false },
+                { status: 400 }
+              );
           }
+        }
+      } else
+        return NextResponse.json(
+          {
+            success: false,
+            message:
+              "course schedule is not deleted, Used by " +
+              countid +
+              " students",
+          },
+          { status: 400 }
         );
-        if (uptateCourse) {
-          return NextResponse.json(
-            {
-              message: "course schedule is updated",
-              success: true,
-            },
-            { status: 201 }
-          );
-        } else
-          return NextResponse.json(
-            { message: "Not update course schedule", success: false },
-            { status: 400 }
-          );
-      }
     }
   } catch (error) {
     return NextResponse.json(
