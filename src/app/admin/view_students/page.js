@@ -31,9 +31,7 @@ export default function ViewStudents() {
   };
 
   const getStudents = async () => {
-    const res = await fetch(
-      `/api/users/students?student=${searchRef.current.value}`
-    );
+    const res = await fetch(`/api/students?student=${searchRef.current.value}`);
     if (!res.ok) {
       const er = await res.json();
       setMessage({ success: er.success, message: er.message });
@@ -76,7 +74,7 @@ export default function ViewStudents() {
     <Fragment>
       <SearchValue
         name={"NAME - EMAIL"}
-        id={'student'}
+        id={"student"}
         searchHandeler={searchStudentHandeler}
         searchRef={searchRef}
       />

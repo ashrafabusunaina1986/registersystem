@@ -4,14 +4,14 @@ import jwt from "jsonwebtoken";
 
 export const GET = async (req) => {
   try {
-    const token = await getToken(req);
-    if (token) {
-      const data = jwt.verify(token, process.env.DATA_TOKEN);
+    const token_admin = await getToken(req);
+    if (token_admin) {
+      const data = jwt.verify(token_admin, process.env.DATA_TOKEN);
 
       return NextResponse.json({ data, success: true }, { status: 201 });
     } else
       return NextResponse.json(
-        { message: "not found user", success: false },
+        { message: "not found admin", success: false },
         { status: 401 }
       );
   } catch (error) {

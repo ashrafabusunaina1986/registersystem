@@ -10,7 +10,10 @@ export const POST = async (req) => {
   try {
     const reqbody = await req.json();
 
-    const { name, password, email } = await reqbody;
+    let { name, password, email } = await reqbody;
+    name = name && name.trim();
+    email = email && email.trim();
+    password = password && password.trim();
 
     const user = await Students.findOne({ email });
     if (user)
@@ -48,13 +51,22 @@ export const POST = async (req) => {
         email: newStudent.email,
         name: newStudent.name,
       };
+      if (email === "admin@admin.com" && password === "12345") {
+        const token = jwt.sign(dataToken, process.env.DATA_ADMIN);
 
-      const token = jwt.sign(dataToken, process.env.DATA_TOKEN);
+        response.cookies.set("token_admin", token, {
+          httpOnly: true,
+          expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        });
+      } else {
+        const token = jwt.sign(dataToken, process.env.DATA_TOKEN);
 
-      response.cookies.set("token", token, {
-        httpOnly: true,
-        expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-      });
+        response.cookies.set("token", token, {
+          httpOnly: true,
+          expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        });
+      }
+
       return response;
     }
   } catch (error) {

@@ -9,8 +9,8 @@ connectDB();
 export const POST = async (req) => {
   try {
     const reqbody = await req.json();
-    const { email, password } = await reqbody;
-
+    let { email, password } = await reqbody;
+    email = email && email.trim();
     const user = await Students.findOne({ email });
     if (!user)
       return NextResponse.json(
@@ -46,13 +46,21 @@ export const POST = async (req) => {
       id: user._id,
     };
 
-    const token = jwt.sign(DATA_TOKEN, process.env.DATA_TOKEN);
+    if (email === "admin@admin.com" && password === "12345") {
+      const token = jwt.sign(DATA_TOKEN, process.env.DATA_ADMIN);
 
-    response.cookies.set("token", token, {
-      httpOnly: true,
-      expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-    });
+      response.cookies.set("token_admin", token, {
+        httpOnly: true,
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      });
+    } else {
+      const token = jwt.sign(DATA_TOKEN, process.env.DATA_TOKEN);
 
+      response.cookies.set("token", token, {
+        httpOnly: true,
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      });
+    }
     return response;
   } catch (error) {
     return NextResponse.json(
