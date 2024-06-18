@@ -132,42 +132,42 @@ function CourseSchedule() {
 
       <form
         onSubmit={addCourseScheduleHandler}
-        className="w-4/6 m-auto mt-2 mb-10 bg-gray-100   p-10"
+        className="w-3/5 m-auto mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 "
       >
         <div className="px-5 py-3 m-auto w-max font-bold shadow-lg mb-10 text-black border-[2px] border-blue-950">
           Courses schedule
         </div>
         {errorss.time ? (
-          <div className="shadow-lg bg-red-200  text-wrap text-red-700  p-2 w-[200px] flex flex-wrap items-center justify-center ml-60 mb-2">
+          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
             {errorss.time}
           </div>
         ) : (
           ""
         )}
         {errorss.dayValue ? (
-          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
+          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
             {errorss.dayValue}
           </div>
         ) : (
           ""
         )}
-        <div className="flex gap-36  font-bold items-center mb-5">
+        <div className="flex gap-24 font-bold items-center mb-5">
           <label for="day">Day</label>
           <SelectValue data={days} name="day" />
         </div>
         {errorss.courseValue ? (
-          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
+          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
             {errorss.courseValue}
           </div>
         ) : (
           ""
         )}
-        <div className="flex gap-32 font-bold items-center mb-5">
+        <div className="flex gap-20 font-bold items-center mb-5">
           <label for="course">Course</label>
           <SelectValue data={courses} name="course" />
         </div>
         {errorss.startTime ? (
-          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
+          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
             {errorss.startTime}
           </div>
         ) : (
@@ -184,7 +184,7 @@ function CourseSchedule() {
           />
         </div>
         {errorss.endTime ? (
-          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
+          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
             {errorss.endTime}
           </div>
         ) : (
@@ -201,7 +201,7 @@ function CourseSchedule() {
           />
         </div>
         {errorss.roomId ? (
-          <div className="shadow-lg bg-red-200 text-red-700  p-2 w-max flex items-center justify-center ml-60 mb-2">
+          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
             {errorss.roomId}
           </div>
         ) : (
@@ -218,7 +218,7 @@ function CourseSchedule() {
           />
         </div>
         <div className="flex gap-10 font-bold items-center justify-center mb-5">
-          <button className="inline-flex items-center justify-center px-3 py-1 font-sans font-semibold tracking-wide text-white bg-blue-500 hover:bg-blue-700 -ml-32 ">
+          <button className="w-[300px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50">
             Add course schedule
           </button>
           {message.success === undefined ? (

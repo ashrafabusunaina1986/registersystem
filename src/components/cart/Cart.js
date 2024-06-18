@@ -53,17 +53,18 @@ function Cart({ course, setIsShow, setMessage }) {
   }
   return (
     <Modal onhide={onHide}>
-      <form
-        onSubmit={editCourseHandler}
-        className="w-full m-auto mt-10 mb-10 text-black  p-5"
-      >
-        <div className="font-bold flex justify-center m-auto py-2 px-4 -mt-10 mb-5 border border-slate-950 bg-gray-500 text-white w-max">
+        <div className="font-bold flex justify-center m-auto py-2 px-4 mt-3 mb-5  border-black bg-blue-950 text-white rounded-md w-max">
           Edit Course
         </div>
+      <form
+        onSubmit={editCourseHandler}
+        className="w-full m-auto mt-10 mb-10 text-black bg-white flex flex-col items-center justify-center  px-8 py-5"
+      >
+      
 
         <input type="hidden" name="id" id="id" value={course._id} />
         {errorss.description ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
             {errorss.description}
           </div>
         ) : (
@@ -81,7 +82,7 @@ function Cart({ course, setIsShow, setMessage }) {
         </div>
 
         {errorss.capacity ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
             {errorss.capacity}
           </div>
         ) : (
@@ -98,7 +99,7 @@ function Cart({ course, setIsShow, setMessage }) {
           />
         </div>
         {errorss.prerequisites ? (
-          <div className="shadow-lg bg-red-300 rounded-lg p-2 w-[250px] flex items-center justify-center ml-28 mb-2">
+          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
             {errorss.prerequisites}
           </div>
         ) : (
@@ -115,7 +116,7 @@ function Cart({ course, setIsShow, setMessage }) {
           ></textarea>
         </div>
         <div className="flex gap-10 font-bold items-center justify-center mb-5">
-          <button className="inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-blue-500 hover:bg-blue-700 rounded-lg h-[60px]">
+          <button className="w-[300px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50">
             Edit Course
           </button>
 

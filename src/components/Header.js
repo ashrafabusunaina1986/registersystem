@@ -9,7 +9,7 @@ function Header() {
         <li1>
           <Link
             href={"/signup"}
-            className="inline-flex items-center justify-center bg-yellow-400 px-5 py-3 rounded-full font-semibold hover:bg-yellow-300"
+            className="inline-flex items-center justify-center  px-5 py-3  font-semibold text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50"
           >
             Sign up
           </Link>
@@ -17,7 +17,7 @@ function Header() {
         <li2>
           <Link
             href={"/login"}
-            className="inline-flex items-center justify-center bg-yellow-400 px-5 py-3 rounded-full font-semibold hover:bg-yellow-300"
+            className="inline-flex items-center justify-center px-5 py-3 font-semibold text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50"
           >
             Log in
           </Link>

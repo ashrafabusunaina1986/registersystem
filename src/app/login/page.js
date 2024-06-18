@@ -38,7 +38,7 @@ function Login() {
   };
   return (
     <div>
-      <form onSubmit={loginHandler} className="w-2/4 m-auto mt-10 mb-10 bg-purple-300 flex flex-col items-center justify-center  px-8 py-5 rounded-e-full border-[1px] border-white">
+      <form onSubmit={loginHandler} className="w-2/5 m-auto mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 rounded-md border-[1px] border-black">
         {errorss.message ? (
           <div className="  shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
             {errorss.message}
@@ -60,7 +60,7 @@ function Login() {
             id="email"
             name="email"
             placeholder="enter email"
-            className="w-[300px] border-b border-b-white py-3 px-5 outline-none bg-transparent"
+            className="w-[300px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
           />
         </div>
         {errorss.password ? (
@@ -76,11 +76,11 @@ function Login() {
             id="password"
             name="password"
             placeholder="enter password"
-            className="w-[300px] border-b border-b-white  py-3 px-5 outline-none bg-transparent"
+            className="w-[300px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
           />
         </div>
-        <div className="">
-          <button className="inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-black bg-white rounded-full hover:bg-gray-100 hover:text-purple-500 ">
+        <div className="mt-5">
+          <button className="w-[300px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50 ">
             Login
           </button>
         </div>
