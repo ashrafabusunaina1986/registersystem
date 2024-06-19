@@ -3,8 +3,9 @@ import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
 export const GET = async (req) => {
+  const token_admin = await getToken(req, "token_admin");
   try {
-    const token_admin = await getToken(req);
+    const token_admin = await getToken(req,'token_admin');
     if (token_admin) {
       const data = jwt.verify(token_admin, process.env.DATA_ADMIN);
 
@@ -18,7 +19,8 @@ export const GET = async (req) => {
     return NextResponse.json(
       {
         success: false,
-        error: error.message,
+        token_admin,
+        message: error.message,
       },
       { status: 500 }
     );

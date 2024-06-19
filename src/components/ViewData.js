@@ -33,7 +33,7 @@ function ViewData({
   const [id, setId] = useState("");
   const [m, setM] = useState({});
   const register_scheduleHandler = async (id) => {
-    console.log(info)
+    console.log(info);
     if (id) {
       const res = await fetch("/api/users/register", {
         method: "POST",
@@ -65,45 +65,48 @@ function ViewData({
     }
     const token = await res.json();
     // console.log(token);
-    token.token && setTokens({ token: token.token });
-    token.token_admin && setTokens({ token: token.token_admin });
+  setTokens({ token: token.token ,token_admin:token.token_admin});
   };
   const me_admin = async () => {
-    let res 
-    // if (tokens.token) 
+    let res;
+    if (tokens.token_admin) {
       res = await fetch("/api/me_admin");
-    // if (tokens.token_admin) res = await fetch("/api/me_admin");
-    if (!res.ok) {
-      const er = await res.json();
-      setM({ message: er.message, success: er.success });
-      return;
+      // if (tokens.token_admin) res = await fetch("/api/me_admin");
+      if (!res.ok) {
+        const er = await res.json();
+        console.log(er);
+        setM({ message: er.message, success: er.success });
+        return;
+      }
+      const infologin = await res.json();
+      // console.log(infologin);
+      setM({ success: infologin.success });
+      setInfo(infologin && infologin.data && infologin.data.email);
     }
-    const infologin = await res.json();
-    console.log(infologin);
-    setM({ success: infologin.success });
-    setInfo(infologin && infologin.data && infologin.data.email);
   };
   const me = async () => {
-    let res 
-    // if (tokens.token) 
+       let res;
+    if (tokens.token) {
       res = await fetch("/api/users/me");
-    // if (tokens.token_admin) res = await fetch("/api/me_admin");
-    if (!res.ok) {
-      const er = await res.json();
-      setM({ message: er.message, success: er.success });
-      return;
+      // if (tokens.token_admin) res = await fetch("/api/me_admin");
+      if (!res.ok) {
+        const er = await res.json();
+        console.log(er);
+        setM({ message: er.message, success: er.success });
+        return;
+      }
+      const infologin = await res.json();
+      // console.log(infologin);
+      setM({ success: infologin.success });
+      setInfo(infologin && infologin.data && infologin.data.email);
     }
-    const infologin = await res.json();
-    console.log(infologin);
-    setM({ success: infologin.success });
-    setInfo(infologin && infologin.data && infologin.data.email);
   };
 
   useEffect(() => {
     getToken();
 
     me();
-    me_admin()
+    me_admin();
     const newcs =
       data &&
       Object.values(data).filter((co) =>

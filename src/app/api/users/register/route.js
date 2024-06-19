@@ -164,7 +164,7 @@ export const POST = async (req) => {
 
 export const GET = async (req) => {
   try {
-    const token = await getToken(req);
+    const token = await getToken(req, "token");
     const data = jwt.verify(token, process.env.DATA_TOKEN);
 
     if (data && Object.values(data)) {

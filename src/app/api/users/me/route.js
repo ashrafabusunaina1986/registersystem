@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 export const GET = async (req) => {
   try {
-    const token = await getToken(req);
+    const token = await getToken(req, "token");
     if (token) {
       const data = jwt.verify(token, process.env.DATA_TOKEN);
 
@@ -18,7 +18,7 @@ export const GET = async (req) => {
     return NextResponse.json(
       {
         success: false,
-        error: error.message,
+        message: error.message,
       },
       { status: 500 }
     );
