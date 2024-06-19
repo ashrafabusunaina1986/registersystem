@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 function Error_Page() {
