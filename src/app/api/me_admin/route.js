@@ -6,7 +6,7 @@ export const GET = async (req) => {
   try {
     const token_admin = await getToken(req);
     if (token_admin) {
-      const data = jwt.verify(token_admin, process.env.DATA_TOKEN);
+      const data = jwt.verify(token_admin, process.env.DATA_ADMIN);
 
       return NextResponse.json({ data, success: true }, { status: 201 });
     } else

@@ -1,8 +1,9 @@
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import connectDB from "../../../../../dbConfig/db";
-import Students from "../../../../../models/students";
+import connectDB from "../../../../dbConfig/db";
+import Students from "../../../../models/students";
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 connectDB();
 
@@ -29,7 +30,7 @@ export const POST = async (req) => {
         { status: 401 }
       );
 
-    const response = NextResponse.json(
+    let response = NextResponse.json(
       {
         success: true,
         user: {

@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete, MdRadio } from "react-icons/md";
 
@@ -28,11 +28,12 @@ function ViewData({
     return c;
   };
 
-  const [token, setToken] = useState("");
+  const [tokens, setTokens] = useState({ token: "", token_admin: "" });
   const [info, setInfo] = useState({});
   const [id, setId] = useState("");
-
-  const register_scheduleHandler = async ( id) => {
+  const [m, setM] = useState({});
+  const register_scheduleHandler = async (id) => {
+    console.log(info)
     if (id) {
       const res = await fetch("/api/users/register", {
         method: "POST",
@@ -44,24 +45,65 @@ function ViewData({
       if (!res.ok) {
         const er = await res.json();
         alert(er.message);
-        setId('')
+        setId("");
         console.error(er);
         return;
       }
       const result = await res.json();
       setId(id);
-      console.log(result, id);
+      // console.log(result, id);
       // return route.push('/users/register_course')
     }
   };
-  const me = async () => {
-    const res = await fetch("/api/users/me");
+
+  const getToken = async () => {
+    const res = await fetch("/api");
+    if (!res.ok) {
+      const er = await res.json();
+      console.log(er);
+      return;
+    }
+    const token = await res.json();
+    // console.log(token);
+    token.token && setTokens({ token: token.token });
+    token.token_admin && setTokens({ token: token.token_admin });
+  };
+  const me_admin = async () => {
+    let res 
+    // if (tokens.token) 
+      res = await fetch("/api/me_admin");
+    // if (tokens.token_admin) res = await fetch("/api/me_admin");
+    if (!res.ok) {
+      const er = await res.json();
+      setM({ message: er.message, success: er.success });
+      return;
+    }
     const infologin = await res.json();
-    // console.log(infologin);
+    console.log(infologin);
+    setM({ success: infologin.success });
     setInfo(infologin && infologin.data && infologin.data.email);
   };
+  const me = async () => {
+    let res 
+    // if (tokens.token) 
+      res = await fetch("/api/users/me");
+    // if (tokens.token_admin) res = await fetch("/api/me_admin");
+    if (!res.ok) {
+      const er = await res.json();
+      setM({ message: er.message, success: er.success });
+      return;
+    }
+    const infologin = await res.json();
+    console.log(infologin);
+    setM({ success: infologin.success });
+    setInfo(infologin && infologin.data && infologin.data.email);
+  };
+
   useEffect(() => {
+    getToken();
+
     me();
+    me_admin()
     const newcs =
       data &&
       Object.values(data).filter((co) =>
@@ -204,7 +246,7 @@ function ViewData({
                   ) : (
                     <td className="px-3 py-4">
                       <input
-                        checked={value._id === id ? true:false}
+                        checked={value._id === id ? true : false}
                         type="checkbox"
                         onClick={(e) =>
                           register_scheduleHandler(

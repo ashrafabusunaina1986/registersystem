@@ -5,7 +5,22 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  // const [token, setToken] = useState("");
+  const [token, setToken] = useState();
+  const getToken = async () => {
+    const res = await fetch("/api");
+    if (!res.ok) {
+      const er = await res.json();
+      console.log(er.message);
+      return;
+    }
+    const token = await res.json();
+    console.log(token);
+    token.token && setToken(token.token);
+    token.token_admin && setToken(token.token_admin);
+  };
+  useEffect(() => {
+    getToken();
+  }, []);
   // const [info, setInfo] = useState({});
   // const path = useRouter();
   // const goSignup = () => {
@@ -16,15 +31,7 @@ export default function Home() {
   //   path.push("/auth/login");
   //   path.refresh();
   // };
-  // const logout = async () => {
-  //   const res = await fetch("api/users/logout", {
-  //     method: "POST",
-  //   });
-  //   if (!res) return;
-  //   const data = await res.json();
-  //   // console.log(data);
-  //   setToken(data.token);
-  // };
+
   // const getToken = async () => {
   //   const res = await fetch("api");
   //   const token = await res.json();
@@ -43,7 +50,7 @@ export default function Home() {
   // }, [token]);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <Header/>
+      <Header token={token} />
       {/* <div>
         {!token ? (
           <div className="flex gap-5">

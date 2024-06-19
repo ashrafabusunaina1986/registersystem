@@ -11,7 +11,7 @@ export default function Signup() {
     const fd = new FormData(e.currentTarget);
     const data = Object.fromEntries(fd);
     if (data.name && data.email && data.password) {
-      const res = await fetch("/api/users/signup", {
+      const res = await fetch("/api/signup", {
         body: JSON.stringify(data),
         method: "POST",
         headers: {

@@ -1,7 +1,7 @@
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import connectDB from "../../../../../dbConfig/db";
-import Students from "../../../../../models/students";
+import connectDB from "../../../../dbConfig/db";
+import Students from "../../../../models/students";
 import { NextResponse } from "next/server";
 
 connectDB();

@@ -11,7 +11,7 @@ function Login() {
     const fd = new FormData(e.currentTarget);
     const data = Object.fromEntries(fd);
     if (data.email && data.password) {
-      const res = await fetch("/api/users/login", {
+      const res = await fetch("/api/login", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {

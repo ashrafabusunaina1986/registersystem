@@ -3,12 +3,13 @@ import { NextResponse } from "next/server";
 
 export const POST = async (req) => {
   try {
-    const del = cookies().delete("token");
+    //req.cookies.delete("token");
+    const del = cookies().delete("token_admin") || cookies().delete("token");
+
     return NextResponse.json(
       {
         success: true,
         del,
-        token:''
       },
       { status: 201 }
     );
@@ -16,7 +17,7 @@ export const POST = async (req) => {
     return NextResponse.json(
       {
         success: false,
-        error: error.message,
+        message: error.message,
       },
       { status: 500 }
     );
