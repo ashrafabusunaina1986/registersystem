@@ -33,11 +33,14 @@ function ViewData({
   const [id, setId] = useState("");
   const [m, setM] = useState({});
   const register_scheduleHandler = async (id) => {
-    console.log(info.data.email);
+    // console.log( info.data.email);
     if (id) {
       const res = await fetch("/api/users/register", {
         method: "POST",
-        body: JSON.stringify({ courseid: id, studentId: info .data.email}),
+        body: JSON.stringify({
+          courseid: id,
+          studentId: info.data && info.data.email,
+        }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -81,7 +84,7 @@ function ViewData({
       const infologin = await res.json();
       // console.log(infologin);
       setM({ success: infologin.success });
-      setInfo(infologin );
+      setInfo(infologin);
     }
   };
   const me = async () => {
@@ -98,7 +101,7 @@ function ViewData({
       const infologin = await res.json();
       // console.log(infologin);
       setM({ success: infologin.success });
-      setInfo(infologin );
+      setInfo(infologin);
     }
   };
 
