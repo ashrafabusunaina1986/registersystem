@@ -32,6 +32,7 @@ function ViewData({
   const [info, setInfo] = useState({});
   const [id, setId] = useState("");
   const [m, setM] = useState({});
+  const [countt, setCountt] = useState(0);
   const register_scheduleHandler = async (id) => {
     const email = info && info.data && info.data.email;
     alert(email);
@@ -69,58 +70,63 @@ function ViewData({
     }
     const token = await res.json();
     // console.log(token);
+
+    setCountt((prev) => prev + 1);
     setTokens({ token: token.token, token_admin: token.token_admin });
-  };
-  const me_admin = async () => {
-    let res;
-    alert("token admin:" + tokens.token_admin);
-    if (tokens.token_admin) {
-      res = await fetch("/api/me_admin");
-      // if (tokens.token_admin) res = await fetch("/api/me_admin");
-      if (!res.ok) {
-        const er = await res.json();
-        console.log(er);
-        setM({ message: er.message, success: er.success });
-        return;
-      }
-      const infologin = await res.json();
-      // console.log(infologin);
-      setM({ success: infologin.success });
-      setInfo(infologin);
-    }
-  };
-  const me = async () => {
-    let res;
-    alert("token user:" + tokens.token);
-    if (tokens.token) {
-      res = await fetch("/api/users/me");
-      // if (tokens.token_admin) res = await fetch("/api/me_admin");
-      if (!res.ok) {
-        const er = await res.json();
-        console.log(er);
-        setM({ message: er.message, success: er.success });
-        return;
-      }
-      const infologin = await res.json();
-      // console.log(infologin);
-      setM({ success: infologin.success });
-      setInfo(infologin);
-    }
   };
 
   useEffect(() => {
-    getToken();
+    console.log(countt);
+    if (countt === 0) getToken();
+    if (countt === 1) {
+      const me_admin = async () => {
+        let res;
 
-    me();
-    me_admin();
-    const newcs =
-      data &&
-      Object.values(data).filter((co) =>
-        co.cs === undefined ? co.cs === undefined : co.cs.length > 0
-      );
-    // console.log(data, newcs);
-    setNewCs(newcs);
-  }, [data]);
+        alert("token admin:" + tokens.token_admin);
+
+        res = await fetch("/api/me_admin");
+        // if (tokens.token_admin) res = await fetch("/api/me_admin");
+        if (!res.ok) {
+          const er = await res.json();
+          console.log(er);
+          setM({ message: er.message, success: er.success });
+          return;
+        }
+        const infologin = await res.json();
+        // console.log(infologin);
+        return infologin;
+      };
+      const me = async () => {
+        let res;
+
+        alert("token user:" + tokens.token);
+
+        res = await fetch("/api/users/me");
+        // if (tokens.token_admin) res = await fetch("/api/me_admin");
+        if (!res.ok) {
+          const er = await res.json();
+          console.log(er);
+          setM({ message: er.message, success: er.success });
+          return;
+        }
+        const infologin = await res.json();
+        // console.log(infologin);
+        return infologin;
+      };
+      me().then((r) => setInfo(r));
+      me_admin().then((r) => setInfo(r));
+      const newcs =
+        data &&
+        Object.values(data).filter((co) =>
+          co.cs === undefined ? co.cs === undefined : co.cs.length > 0
+        );
+      // console.log(data, newcs);
+      // setCountt(0)
+      setNewCs(newcs);
+      setCountt(-1);
+      return;
+    }
+  }, [data, tokens, countt]);
   return data && data.length > 0 ? (
     <div className="">
       {isShow && page}
