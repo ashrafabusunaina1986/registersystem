@@ -6,13 +6,14 @@ import { getToken } from "../page";
 function Login() {
   const [errorss, setErrorss] = useState({});
   const router = useRouter();
-
+const [loading,setLoading]=useState('')
   const loginHandler = async (e) => {
     const errors = {};
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const data = Object.fromEntries(fd);
     if (data.email && data.password) {
+      setLoading(<span className=" animate-ping ms-10  text-red-600">{'Loading'.toUpperCase()}</span>)
       const res = await fetch("/api/login", {
         method: "POST",
         body: JSON.stringify(data),
@@ -23,8 +24,10 @@ function Login() {
       if (!res) throw new Error("wrong went something");
       const result = await res.json();
       if (res.status == 401) {
+        setLoading('')
         errors.message = result.message;
       } else {
+        setLoading('')
         const t = await getToken();
         // console.log(t)
         t.token && router.push("/users");
@@ -32,6 +35,7 @@ function Login() {
         router.refresh();
       }
     } else {
+      setLoading('')
       if (!data.email) {
         errors.email = "enter email";
       }
@@ -94,7 +98,7 @@ function Login() {
         <div className="mt-5">
           <button className="w-[300px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50 ">
             Login
-          </button>
+          </button>{loading?loading:''}
         </div>
       </form>
     </div>

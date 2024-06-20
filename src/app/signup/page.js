@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { getToken } from "../page";
 
 export default function Signup() {
+  const [loading,setLoading]=useState('')
   const [errorss, setErrorss] = useState({});
   const router = useRouter();
   const signupHandler = async (e) => {
@@ -12,6 +13,7 @@ export default function Signup() {
     const fd = new FormData(e.currentTarget);
     const data = Object.fromEntries(fd);
     if (data.name && data.email && data.password) {
+    setLoading(<span className=" animate-ping ms-10  text-red-600">{'Loading'.toUpperCase()}</span>)
       const res = await fetch("/api/signup", {
         body: JSON.stringify(data),
         method: "POST",
@@ -19,18 +21,22 @@ export default function Signup() {
           "Content-Type": "application/json",
         },
       });
-      if (!res) {
-        throw new Error("wrong went something");
-      }
+      if (!res)return
+
+      
       const info = await res.json();
-      if (info.message && !info.success) errors.message = info.message;
+      if (info.message && !info.success){
+        setLoading('')
+      errors.message = info.message;}
       else {
+        setLoading('')
         const t = await getToken();
         t.token && router.push("/users");
         t.token_admin && router.push("/admin");
         router.refresh();
       }
     } else {
+      setLoading('')
       if (!data.name) errors.name = "please enter name.";
       if (!data.password) errors.password = "please enter password.";
       if (!data.email) errors.email = "please enter email.";
@@ -53,6 +59,7 @@ export default function Signup() {
         ) : (
           ""
         )}
+        
         {errorss.name ? (
           <div className=" shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
             {errorss.name}
@@ -104,7 +111,7 @@ export default function Signup() {
         <div className="mt-5">
           <button className="w-[300px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50">
             Sign up
-          </button>
+          </button>{loading?loading:''}
         </div>
       </form>
     </div>
