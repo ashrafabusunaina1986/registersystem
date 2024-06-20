@@ -33,7 +33,7 @@ function ViewData({
   const [id, setId] = useState("");
   const [m, setM] = useState({});
   const register_scheduleHandler = async (id) => {
-    console.log(info);
+    alert(info);
     if (id) {
       const res = await fetch("/api/users/register", {
         method: "POST",
