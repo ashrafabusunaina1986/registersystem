@@ -51,9 +51,6 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <Header token={token} />
-      <a href="/users">Users</a>
-      {"   "}
-      <a href="/admin">Admin</a>
       {/* <div>
         {!token ? (
           <div className="flex gap-5">

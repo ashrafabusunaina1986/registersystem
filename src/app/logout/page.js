@@ -17,6 +17,7 @@ function Logout() {
       const data = await res.json();
       // console.log(data)
       route.push("/");
+      route.refresh();
     };
     logout();
   }, [route]);
