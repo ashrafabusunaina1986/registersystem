@@ -34,7 +34,7 @@ function ViewData({
   const [m, setM] = useState({});
   const register_scheduleHandler = async (id) => {
     const email = info && info.data && info.data.email;
-    // alert(email);
+    alert(email);
     if (id && email) {
       const res = await fetch("/api/users/register", {
         method: "POST",

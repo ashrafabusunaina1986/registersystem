@@ -32,7 +32,7 @@ function Registe_Course() {
         return f;
       });
       setComplete(f);
-      console.log(arr, ac,csr, f);
+      // console.log(arr, ac,csr, f);
     };
     getCsr();
   }, []);
