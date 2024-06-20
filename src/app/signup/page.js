@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { getToken } from "../page";
 
 export default function Signup() {
   const [errorss, setErrorss] = useState({});
@@ -24,7 +25,9 @@ export default function Signup() {
       const info = await res.json();
       if (info.message && !info.success) errors.message = info.message;
       else {
-        router.push("/");
+        const t = await getToken();
+        t.token && router.push("/users");
+        t.token_admin && router.push("/admin");
         router.refresh();
       }
     } else {
@@ -36,7 +39,13 @@ export default function Signup() {
   };
   return (
     <div>
-      <form onSubmit={signupHandler} className="w-2/5 m-auto mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 rounded-md border-[1px] border-black">
+      <form
+        onSubmit={signupHandler}
+        className="w-2/5 m-auto mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 rounded-md border-[1px] border-black"
+      >
+               <span className=" w-max m-auto bg-transparent text-blue-950 font-bold px-5 py-3 mb-5 text-3xl ">
+              {'sign up'.toUpperCase()}
+            </span>
         {errorss.message ? (
           <div className=" shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
             {errorss.message}
@@ -52,7 +61,6 @@ export default function Signup() {
           ""
         )}
         <div className="flex gap-20 font-bold items-center mb-5 ">
-          
           <input
             type="text"
             id="name"
@@ -69,7 +77,6 @@ export default function Signup() {
           ""
         )}
         <div className="flex gap-20 font-bold items-center mb-5">
-          
           <input
             type="email"
             id="email"
@@ -86,7 +93,6 @@ export default function Signup() {
           ""
         )}
         <div className="flex gap-11 font-bold items-center mb-5 ">
-          
           <input
             type="password"
             id="password"

@@ -1,10 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getToken } from "../page";
 
 function Login() {
   const [errorss, setErrorss] = useState({});
   const router = useRouter();
+
   const loginHandler = async (e) => {
     const errors = {};
     e.preventDefault();
@@ -23,7 +25,10 @@ function Login() {
       if (res.status == 401) {
         errors.message = result.message;
       } else {
-        router.push("/");
+        const t = await getToken();
+        // console.log(t)
+        t.token && router.push("/users");
+        t.token_admin && router.push("/admin");
         router.refresh();
       }
     } else {
@@ -36,12 +41,17 @@ function Login() {
     }
     setErrorss(errors);
   };
+
   return (
     <div>
+      
       <form
         onSubmit={loginHandler}
         className="w-2/5 m-auto mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 rounded-md border-[1px] border-black"
       >
+        <span className=" w-max m-auto bg-transparent text-blue-950 font-bold px-5 py-3 mb-5 text-3xl ">
+              LOGIN
+            </span>
         {errorss.message ? (
           <div className="  shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
             {errorss.message}

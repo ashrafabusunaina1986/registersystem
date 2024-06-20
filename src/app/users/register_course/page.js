@@ -1,6 +1,8 @@
 "use client";
+import Menu from "@/components/Menu";
 import ViewData from "@/components/ViewData";
 import React, { useEffect, useState } from "react";
+import { info_user } from "../page";
 
 function Registe_Course() {
   const [csr, setCsr] = useState([]);
@@ -37,15 +39,16 @@ function Registe_Course() {
     getCsr();
   }, []);
   return (
-    <div>
-      <ViewData
-        data={csr}
-        keys={csr[0]}
-        message={
-          "course schedules "+(complete ? "Final" : "primitively")
-        }
-        complete={complete}
-      />
+    <div className="w-11/12 flex gap-3">
+      <Menu info={info_user} d={"h"} />
+      <section className=" w-full -mt-5 ">
+        <ViewData
+          data={csr}
+          keys={csr[0]}
+          message={"course schedules " + (complete ? "Final" : "primitively")}
+          complete={complete}
+        />
+      </section>
     </div>
   );
 }

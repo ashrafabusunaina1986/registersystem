@@ -1,7 +1,7 @@
 "use client";
 import Menu from "@/components/Menu";
 import { useRouter } from "next/navigation";
-import React, { Fragment, useLayoutEffect } from "react";
+import React, { div, useLayoutEffect } from "react";
 
 export const info = [
   {
@@ -28,14 +28,18 @@ export const info = [
     id: 5,
     name: "Courses Schedules",
     href: "/admin/view_schedule",
+  },{
+    id: 6,
+    name: "Logout",
+    href: "/logout",
   },
 ];
 
 function Admin() {
   return (
-    <Fragment>
+    <div className="w-11/12 m-auto">
       <Menu info={info} d="v" />
-    </Fragment>
+    </div>
   );
 }
 

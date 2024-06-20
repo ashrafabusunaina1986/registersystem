@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 
 function Menu({ info, d }) {
   return (
-    <Fragment>
       <div
         className={
           (d === "v" &&
-            "flex ms-5 gap-5 w-1/5 h-max px-5 py-4 border-[1px] shadow-lg mt-5 rounded-t-md") ||
+            "w-11/12 m-auto px-5 py-4 border-[1px] shadow-lg mt-20 rounded-full") ||
           (d === "h" &&
-            "flex flex-col ms-5 gap-5 h-max w-1/5 px-5 py-4 border-[1px] shadow-lg mt-5 rounded-t-md")
+            "flex flex-col ms-5 gap-5 h-max w-1/5 px-5 py-4 border-[1px] shadow-lg mt-5 rounded-lg")
         }
       >
         <ul
@@ -36,7 +35,6 @@ function Menu({ info, d }) {
             })}
         </ul>
       </div>
-    </Fragment>
   );
 }
 

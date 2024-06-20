@@ -1,7 +1,9 @@
 "use client";
+import Menu from "@/components/Menu";
 import SearchValue from "@/components/SearchValue";
 import ViewData from "@/components/ViewData";
 import React, { Fragment, useEffect, useRef, useState } from "react";
+import { info_user } from "../page";
 
 function User_Page() {
   var searchRef = useRef(null);
@@ -53,15 +55,18 @@ function User_Page() {
     setMessage({ success: undefined });
   }, [message.success]);
   return (
-    <Fragment>
-      <SearchValue
-        name={"code,name,instructor,capacity"}
-        id="course"
-        searchHandeler={searchCourseHandeler}
-        searchRef={searchRef}
-      />
-      <ViewData keys={Courses[0]} data={Courses} message={"Courses"} />
-    </Fragment>
+    <div className="w-11/12 flex gap-3">
+      <Menu info={info_user} d={"h"} />
+      <section className=" w-full -mt-5 ">
+        <SearchValue
+          name={"code,name,instructor,capacity"}
+          id="course"
+          searchHandeler={searchCourseHandeler}
+          searchRef={searchRef}
+        />
+        <ViewData keys={Courses[0]} data={Courses} message={"Courses"} />
+      </section>
+    </div>
   );
 }
 

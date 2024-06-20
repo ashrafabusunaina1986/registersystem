@@ -4,8 +4,21 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+export const getToken = async () => {
+  const res = await fetch("/api");
+  if (!res.ok) {
+    const er = await res.json();
+    console.log(er.message);
+    return;
+  }
+  const token = await res.json();
+  // console.log(token);
+  return token;
+};
+
 export default function Home() {
-  const [token, setToken] = useState();
+  const [token, setToken] = useState({});
+  const [t, setT] = useState("");
   const getToken = async () => {
     const res = await fetch("/api");
     if (!res.ok) {
@@ -14,9 +27,10 @@ export default function Home() {
       return;
     }
     const token = await res.json();
-    console.log(token);
-    token.token && setToken(token.token);
-    token.token_admin && setToken(token.token_admin);
+    // console.log(token);
+    setToken({ token: token.token, token_admin: token.token_admin });
+    token.token && setT(token.token);
+    token.token_admin && setT(token.token_admin);
   };
   useEffect(() => {
     getToken();
@@ -50,7 +64,10 @@ export default function Home() {
   // }, [token]);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <Header token={token} />
+      <Header token={t} />
+      {token.token && <a href="/users">Users</a>}
+      {"   "}
+      {token.token_admin && <a href="/admin">Admin</a>}
       {/* <div>
         {!token ? (
           <div className="flex gap-5">
