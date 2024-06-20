@@ -33,11 +33,11 @@ function ViewData({
   const [id, setId] = useState("");
   const [m, setM] = useState({});
   const register_scheduleHandler = async (id) => {
-    alert(info);
+    console.log(info.data.email);
     if (id) {
       const res = await fetch("/api/users/register", {
         method: "POST",
-        body: JSON.stringify({ courseid: id, studentId: info }),
+        body: JSON.stringify({ courseid: id, studentId: info .data.email}),
         headers: {
           "Content-Type": "application/json",
         },
@@ -65,7 +65,7 @@ function ViewData({
     }
     const token = await res.json();
     // console.log(token);
-  setTokens({ token: token.token ,token_admin:token.token_admin});
+    setTokens({ token: token.token, token_admin: token.token_admin });
   };
   const me_admin = async () => {
     let res;
@@ -81,11 +81,11 @@ function ViewData({
       const infologin = await res.json();
       // console.log(infologin);
       setM({ success: infologin.success });
-      setInfo(infologin && infologin.data && infologin.data.email);
+      setInfo(infologin );
     }
   };
   const me = async () => {
-       let res;
+    let res;
     if (tokens.token) {
       res = await fetch("/api/users/me");
       // if (tokens.token_admin) res = await fetch("/api/me_admin");
@@ -98,7 +98,7 @@ function ViewData({
       const infologin = await res.json();
       // console.log(infologin);
       setM({ success: infologin.success });
-      setInfo(infologin && infologin.data && infologin.data.email);
+      setInfo(infologin );
     }
   };
 
