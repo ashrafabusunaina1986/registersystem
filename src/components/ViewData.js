@@ -70,11 +70,12 @@ function ViewData({
     }
     const token = await res.json();
     // console.log(token);
-    setCountt((prev) => prev + 1);
+    setCountt(1);
     setTokens({ token: token.token, token_admin: token.token_admin });
   };
 
   useEffect(() => {
+    console.log(data, countt, info);
     if (countt === 0) getToken();
     if (countt === 1) {
       const me_admin = async () => {
@@ -107,20 +108,22 @@ function ViewData({
         setM({ success: infologin.success });
         setInfo(infologin);
       };
-      me();
-      me_admin();
-      const newcs =
-        data &&
-        Object.values(data).filter((co) =>
-          co.cs === undefined ? co.cs === undefined : co.cs.length > 0
-        );
-      // console.log(data, newcs);
+      tokens.token && me();
+      tokens.token_admin && me_admin();
 
-      setNewCs(newcs);
-      setCountt(-1);
-      return;
+      if (countt === 1) {
+        setCountt(-1);
+        return;
+      }
     }
-  }, [data, countt, tokens]);
+    const newcs =
+      data &&
+      Object.values(data).filter((co) =>
+        co.cs === undefined ? co.cs === undefined : co.cs.length > 0
+      );
+
+    setNewCs(newcs);
+  }, [data, countt, tokens, info]);
   return data && data.length > 0 ? (
     <div className="">
       {isShow && page}
