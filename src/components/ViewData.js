@@ -33,13 +33,14 @@ function ViewData({
   const [id, setId] = useState("");
   const [m, setM] = useState({});
   const register_scheduleHandler = async (id) => {
-    console.log(info && info.data && info.data.email);
-    if (id) {
+    const email = info && info.data && info.data.email;
+    // alert(email);
+    if (id && email) {
       const res = await fetch("/api/users/register", {
         method: "POST",
         body: JSON.stringify({
           courseid: id,
-          studentId: info && info.data && info.data.email,
+          studentId: email,
         }),
         headers: {
           "Content-Type": "application/json",
