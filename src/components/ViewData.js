@@ -70,20 +70,15 @@ function ViewData({
     }
     const token = await res.json();
     // console.log(token);
-
     setCountt((prev) => prev + 1);
     setTokens({ token: token.token, token_admin: token.token_admin });
   };
 
   useEffect(() => {
-    console.log(countt);
     if (countt === 0) getToken();
     if (countt === 1) {
       const me_admin = async () => {
         let res;
-
-        alert("token admin:" + tokens.token_admin);
-
         res = await fetch("/api/me_admin");
         // if (tokens.token_admin) res = await fetch("/api/me_admin");
         if (!res.ok) {
@@ -94,13 +89,11 @@ function ViewData({
         }
         const infologin = await res.json();
         // console.log(infologin);
-        return infologin;
+        setM({ success: infologin.success });
+        setInfo(infologin);
       };
       const me = async () => {
         let res;
-
-        alert("token user:" + tokens.token);
-
         res = await fetch("/api/users/me");
         // if (tokens.token_admin) res = await fetch("/api/me_admin");
         if (!res.ok) {
@@ -111,22 +104,23 @@ function ViewData({
         }
         const infologin = await res.json();
         // console.log(infologin);
-        return infologin;
+        setM({ success: infologin.success });
+        setInfo(infologin);
       };
-      me().then((r) => setInfo(r));
-      me_admin().then((r) => setInfo(r));
+      me();
+      me_admin();
       const newcs =
         data &&
         Object.values(data).filter((co) =>
           co.cs === undefined ? co.cs === undefined : co.cs.length > 0
         );
       // console.log(data, newcs);
-      // setCountt(0)
+
       setNewCs(newcs);
       setCountt(-1);
       return;
     }
-  }, [data, tokens, countt]);
+  }, [data, countt, tokens]);
   return data && data.length > 0 ? (
     <div className="">
       {isShow && page}
