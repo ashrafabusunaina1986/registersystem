@@ -8,6 +8,8 @@ import { usePathname, useRouter } from "next/navigation";
 import ChechCourses from "@/components/ChechCourses";
 import SelectValue from "@/components/SelectValue";
 import { ConvertTimeToNum } from "@/helper/convertTimeToNum";
+import Menu from "@/components/Menu";
+import { info } from "../page";
 
 function CourseSchedule() {
   const url = usePathname();
@@ -80,7 +82,7 @@ function CourseSchedule() {
           const er = await res.json();
           m.success = er.success;
           m.message = er.message;
-          alert(er.message)
+          alert(er.message);
           setMessage(m);
           return;
         }
@@ -122,123 +124,126 @@ function CourseSchedule() {
 
   const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "thursday"];
   return (
-    <div>
-      {url === "/admin/course_schedule" && numCourses === 0 && (
-        <ChechCourses
-          message={"not found courses"}
-          setNumCourses={setNumCourses}
-        />
-      )}
+    <div className="w-11/12 flex gap-3">
+      <Menu info={info} d={"h"} />
+      <section className=" w-full -mt-5 ">
+        {url === "/admin/course_schedule" && numCourses === 0 && (
+          <ChechCourses
+            message={"not found courses"}
+            setNumCourses={setNumCourses}
+          />
+        )}
 
-      <form
-        onSubmit={addCourseScheduleHandler}
-        className="w-3/5 m-auto mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 "
-      >
-        <div className="px-5 py-3 m-auto w-max font-bold shadow-lg mb-10 text-black border-[2px] border-blue-950">
-          Courses schedule
-        </div>
-        {errorss.time ? (
-          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
-            {errorss.time}
+        <form
+          onSubmit={addCourseScheduleHandler}
+          className="w-full m-auto mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 "
+        >
+          <div className="px-5 py-3 m-auto w-max font-bold shadow-lg mb-10 text-black border-[2px] border-blue-950">
+            Courses schedule
           </div>
-        ) : (
-          ""
-        )}
-        {errorss.dayValue ? (
-          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
-            {errorss.dayValue}
-          </div>
-        ) : (
-          ""
-        )}
-        <div className="flex gap-24 font-bold items-center mb-5">
-          <label for="day">Day</label>
-          <SelectValue data={days} name="day" />
-        </div>
-        {errorss.courseValue ? (
-          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
-            {errorss.courseValue}
-          </div>
-        ) : (
-          ""
-        )}
-        <div className="flex gap-20 font-bold items-center mb-5">
-          <label for="course">Course</label>
-          <SelectValue data={courses} name="course" />
-        </div>
-        {errorss.startTime ? (
-          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
-            {errorss.startTime}
-          </div>
-        ) : (
-          ""
-        )}
-        <div className="flex gap-12 font-bold items-center mb-5">
-          <label for="startTime">start Time</label>
-          <input
-            type="time"
-            id="startTime"
-            name="startTime"
-            placeholder="enter startTime"
-            className="w-[300px] border border-slate-400  py-3 px-5 outline-none 	bg-transparent"
-          />
-        </div>
-        {errorss.endTime ? (
-          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
-            {errorss.endTime}
-          </div>
-        ) : (
-          ""
-        )}
-        <div className="flex gap-14 font-bold items-center mb-5">
-          <label for="endTime">end Time</label>
-          <input
-            type="time"
-            id="endTime"
-            name="endTime"
-            placeholder="enter endTime"
-            className="w-[300px] border border-slate-400  py-3 px-5 outline-none 	bg-transparent"
-          />
-        </div>
-        {errorss.roomId ? (
-          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
-            {errorss.roomId}
-          </div>
-        ) : (
-          ""
-        )}
-        <div className="flex gap-16 font-bold items-center mb-5">
-          <label for="roomId">Room Id</label>
-          <input
-            type="text"
-            id="roomId"
-            name="roomId"
-            placeholder="enter roomId"
-            className="w-[300px] border border-slate-400  py-3 px-5 outline-none 	bg-transparent"
-          />
-        </div>
-        <div className="flex gap-10 font-bold items-center justify-center mb-5">
-          <button className="w-[300px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50">
-            Add course schedule
-          </button>
-          {message.success === undefined ? (
-            ""
-          ) : message.success ? (
-            <span className=" border border-slate-700 px-2 py-1 bg-gray-400  text-white">
-              {message.message}
-            </span>
+          {errorss.time ? (
+            <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
+              {errorss.time}
+            </div>
           ) : (
-            <span className=" border border-red-700 p-1 bg-red-400  text-red-950 font-normal">
-              {message.message}
-            </span>
+            ""
           )}
-        </div>
-      </form>
-      {/* <Get
+          {errorss.dayValue ? (
+            <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
+              {errorss.dayValue}
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="flex gap-24 font-bold items-center mb-5">
+            <label for="day">Day</label>
+            <SelectValue data={days} name="day" />
+          </div>
+          {errorss.courseValue ? (
+            <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
+              {errorss.courseValue}
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="flex gap-20 font-bold items-center mb-5">
+            <label for="course">Course</label>
+            <SelectValue data={courses} name="course" />
+          </div>
+          {errorss.startTime ? (
+            <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
+              {errorss.startTime}
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="flex gap-12 font-bold items-center mb-5">
+            <label for="startTime">start Time</label>
+            <input
+              type="time"
+              id="startTime"
+              name="startTime"
+              placeholder="enter startTime"
+              className="w-[300px] border border-slate-400  py-3 px-5 outline-none 	bg-transparent"
+            />
+          </div>
+          {errorss.endTime ? (
+            <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
+              {errorss.endTime}
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="flex gap-14 font-bold items-center mb-5">
+            <label for="endTime">end Time</label>
+            <input
+              type="time"
+              id="endTime"
+              name="endTime"
+              placeholder="enter endTime"
+              className="w-[300px] border border-slate-400  py-3 px-5 outline-none 	bg-transparent"
+            />
+          </div>
+          {errorss.roomId ? (
+            <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
+              {errorss.roomId}
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="flex gap-16 font-bold items-center mb-5">
+            <label for="roomId">Room Id</label>
+            <input
+              type="text"
+              id="roomId"
+              name="roomId"
+              placeholder="enter roomId"
+              className="w-[300px] border border-slate-400  py-3 px-5 outline-none 	bg-transparent"
+            />
+          </div>
+          <div className="flex gap-10 font-bold items-center justify-center mb-5">
+            <button className="w-[300px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50">
+              Add course schedule
+            </button>
+            {message.success === undefined ? (
+              ""
+            ) : message.success ? (
+              <span className=" border border-slate-700 px-2 py-1 bg-gray-400  text-white">
+                {message.message}
+              </span>
+            ) : (
+              <span className=" border border-red-700 p-1 bg-red-400  text-red-950 font-normal">
+                {message.message}
+              </span>
+            )}
+          </div>
+        </form>
+        {/* <Get
         data={coursesSchedule}
         delHandler={delHandler}
         editHandler={editHandler}
       /> */}
+      </section>
     </div>
   );
 }

@@ -6,6 +6,8 @@ import { CiEdit } from "react-icons/ci";
 import Schedule from "@/components/Schedule";
 import SearchValue from "@/components/SearchValue";
 import ViewData from "@/components/ViewData";
+import Menu from "@/components/Menu";
+import { info } from "../page";
 function View_Schedule() {
   const searchRef = useRef(null);
   const [coursesSchedule, setCoursesSchedule] = useState([]);
@@ -44,10 +46,10 @@ function View_Schedule() {
         "Content-Type": "application/json",
       },
     });
-    if(!res.ok){
-      const er=await res.json()
-      alert(er.message)
-      return
+    if (!res.ok) {
+      const er = await res.json();
+      alert(er.message);
+      return;
     }
     setCourseSchedule(schedule);
     // console.log(schedule)
@@ -89,29 +91,32 @@ function View_Schedule() {
     setMessage({ success: undefined });
   }, [message.success]);
   return (
-    <>
-      <SearchValue
-        name={"DAY - COURSE - ROOM ID"}
-        id={"schedule"}
-        searchHandeler={searchCourseScheduleHandeler}
-        searchRef={searchRef}
-      />
-      <ViewData
-        keys={coursesSchedule[0]}
-        page={
-          <Schedule
-            courseSchedule={courseSchedule}
-            setIsShow={setIsShow}
-            setMessage={setMessage}
-          />
-        }
-        isShow={isShow}
-        data={coursesSchedule}
-        editHandler={editHandler}
-        delHandler={delHandler}
-        message="Courses schedule"
-      />
-    </>
+    <div className="w-11/12 flex gap-3">
+      <Menu info={info} d={"h"} />
+      <section className=" w-full -mt-5 ">
+        <SearchValue
+          name={"DAY - COURSE - ROOM ID"}
+          id={"schedule"}
+          searchHandeler={searchCourseScheduleHandeler}
+          searchRef={searchRef}
+        />
+        <ViewData
+          keys={coursesSchedule[0]}
+          page={
+            <Schedule
+              courseSchedule={courseSchedule}
+              setIsShow={setIsShow}
+              setMessage={setMessage}
+            />
+          }
+          isShow={isShow}
+          data={coursesSchedule}
+          editHandler={editHandler}
+          delHandler={delHandler}
+          message="Courses schedule"
+        />
+      </section>
+    </div>
   );
 }
 

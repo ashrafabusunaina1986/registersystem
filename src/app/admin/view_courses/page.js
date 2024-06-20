@@ -6,6 +6,8 @@ import { FaSearch } from "react-icons/fa";
 import Cart from "@/components/cart/Cart";
 import SearchValue from "@/components/SearchValue";
 import ViewData from "@/components/ViewData";
+import Menu from "@/components/Menu";
+import { info } from "../page";
 
 function ViewCourse() {
   const searchRef = useRef(null);
@@ -79,25 +81,32 @@ function ViewCourse() {
     setMessage({ success: undefined });
   }, [message.success]);
   return (
-    <>
-      <SearchValue
-        searchRef={searchRef}
-        searchHandeler={searchCourseHandeler}
-        name={"CODE-NAME-INSTRUCTOR"}
-        id={'course'}
-      />
-      <ViewData
-        keys={courses[0]}
-        page={
-          <Cart course={course} setIsShow={setIsShow} setMessage={setMessage} />
-        }
-        isShow={isShow}
-        data={courses}
-        editHandler={editCourseHandler}
-        delHandler={delCourseHandler}
-        message="Courses"
-      />
-    </>
+    <div className="w-11/12 flex gap-3">
+      <Menu info={info} d={"h"} />
+      <section className=" w-full -mt-5 ">
+        <SearchValue
+          searchRef={searchRef}
+          searchHandeler={searchCourseHandeler}
+          name={"CODE-NAME-INSTRUCTOR"}
+          id={"course"}
+        />
+        <ViewData
+          keys={courses[0]}
+          page={
+            <Cart
+              course={course}
+              setIsShow={setIsShow}
+              setMessage={setMessage}
+            />
+          }
+          isShow={isShow}
+          data={courses}
+          editHandler={editCourseHandler}
+          delHandler={delCourseHandler}
+          message="Courses"
+        />
+      </section>
+    </div>
   );
 }
 

@@ -1,8 +1,10 @@
 "use client";
+import Menu from "@/components/Menu";
 import SearchValue from "@/components/SearchValue";
 import Student from "@/components/Student";
 import ViewData from "@/components/ViewData";
 import React, { Fragment, useEffect, useRef, useState } from "react";
+import { info } from "../page";
 
 export default function ViewStudents() {
   const searchRef = useRef();
@@ -71,28 +73,31 @@ export default function ViewStudents() {
     setMessage({ success: undefined });
   }, [message.success]);
   return (
-    <Fragment>
-      <SearchValue
-        name={"NAME - EMAIL"}
-        id={"student"}
-        searchHandeler={searchStudentHandeler}
-        searchRef={searchRef}
-      />
-      <ViewData
-        data={students}
-        keys={students[0]}
-        message="Students"
-        editHandler={editStudentHandler}
-        delHandler={delStudentHandler}
-        isShow={isShow}
-        page={
-          <Student
-            student={student}
-            setIsShow={setIsShow}
-            setMessage={setMessage}
-          />
-        }
-      />
-    </Fragment>
+    <div className="w-11/12 flex gap-3">
+      <Menu info={info} d={"h"} />
+      <section className=" w-full -mt-5 ">
+        <SearchValue
+          name={"NAME - EMAIL"}
+          id={"student"}
+          searchHandeler={searchStudentHandeler}
+          searchRef={searchRef}
+        />
+        <ViewData
+          data={students}
+          keys={students[0]}
+          message="Students"
+          editHandler={editStudentHandler}
+          delHandler={delStudentHandler}
+          isShow={isShow}
+          page={
+            <Student
+              student={student}
+              setIsShow={setIsShow}
+              setMessage={setMessage}
+            />
+          }
+        />
+      </section>
+    </div>
   );
 }

@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import Menu from "@/components/Menu";
+import { info } from "../page";
 
 function Courses() {
   const formRef = useRef(null);
@@ -86,169 +88,172 @@ function Courses() {
   // after page view course
 
   return (
-    <div>
-      <form
-        ref={formRef}
-        onSubmit={addCoursehandler}
-        className="w-3/5 m-auto mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 rounded-md "
-      >
-        <div className="px-5 py-3 m-auto w-max font-bold shadow-lg mb-10 text-black border-[2px] border-blue-950">
-          Courses
-        </div>
-        {message.code ? (
-          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
-            {message.code}
+    <div className="w-11/12 flex gap-3">
+      <Menu info={info} d={"h"} />
+      <section className=" w-full -mt-5 ">
+        <form
+          ref={formRef}
+          onSubmit={addCoursehandler}
+          className="w-full m-auto mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 rounded-md "
+        >
+          <div className="px-5 py-3 m-auto w-max font-bold shadow-lg mb-10 text-black border-[2px] border-blue-950">
+            Courses
           </div>
-        ) : (
-          ""
-        )}
-        {errorss.code ? (
-          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
-            {errorss.code}
-          </div>
-        ) : (
-          ""
-        )}
-        <div className="flex gap-32 font-bold items-center mb-5">
-          <label for="code">Code</label>
           {message.code ? (
-            <input
-              type="text"
-              id="code"
-              name="code"
-              placeholder="enter code"
-              className="w-[300px] border border-red-400  py-3 px-5 outline-none	bg-transparent "
-            />
+            <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
+              {message.code}
+            </div>
           ) : (
-            <input
-              type="text"
-              id="code"
-              name="code"
-              placeholder="enter code"
-              className="w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
-            />
-          )}
-        </div>
-        {message.name ? (
-          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
-            {message.name}
-          </div>
-        ) : (
-          ""
-        )}
-        {errorss.name ? (
-          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
-            {errorss.name}
-          </div>
-        ) : (
-          ""
-        )}
-        <div className="flex gap-32 font-bold items-center mb-5">
-          <label for="name">Name</label>
-          {message.name ? (
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="enter name"
-              className="w-[300px] border border-red-400  py-3 px-5 outline-none	bg-transparent "
-            />
-          ) : (
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="enter name"
-              className="w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
-            />
-          )}
-        </div>
-        {errorss.description ? (
-          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
-            {errorss.description}
-          </div>
-        ) : (
-          ""
-        )}
-        <div className="flex gap-20 font-bold  mb-5">
-          <label for="description">Description</label>
-          <textarea
-            type="text"
-            id="description"
-            name="description"
-            placeholder="enter description"
-            className=" resize-none h-32 w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
-          ></textarea>
-        </div>
-        {errorss.instructor ? (
-          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
-            {errorss.instructor}
-          </div>
-        ) : (
-          ""
-        )}
-        <div className="flex gap-24 font-bold items-center mb-5">
-          <label for="instructor">Instructor</label>
-          <input
-            type="text"
-            id="instructor"
-            name="instructor"
-            placeholder="enter instructor"
-            className="w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
-          />
-        </div>
-        {errorss.capacity ? (
-          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
-            {errorss.capacity}
-          </div>
-        ) : (
-          ""
-        )}
-        <div className="flex gap-24 font-bold items-center mb-5">
-          <label for="capacity">Capacity</label>
-          <input
-            type="number"
-            id="capacity"
-            name="capacity"
-            placeholder="enter capacity"
-            className="w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
-          />
-        </div>
-        {errorss.prerequisites ? (
-          <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
-            {errorss.prerequisites}
-          </div>
-        ) : (
-          ""
-        )}
-        <div className="flex  gap-16 font-bold mb-5">
-          <label for="prerequisites">Prerequisites</label>
-          <textarea
-            type="text"
-            id="prerequisites"
-            name="prerequisites"
-            placeholder="enter prerequisites"
-            className=" resize-none h-32 w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
-          ></textarea>
-        </div>
-        <div className="flex gap-10 font-bold items-center justify-center mb-5">
-          <button className="w-[300px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50">
-            Add course
-          </button>
-
-          {message.success === undefined ? (
             ""
-          ) : message.success ? (
-            <span className=" border border-slate-700 px-2 py-1 bg-gray-400  text-white">
-              {message.message}
-            </span>
-          ) : (
-            <span className=" border border-red-700 p-1 bg-red-400  text-red-950 font-normal">
-              {message.message}
-            </span>
           )}
-        </div>
-      </form>
+          {errorss.code ? (
+            <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
+              {errorss.code}
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="flex gap-32 font-bold items-center mb-5">
+            <label for="code">Code</label>
+            {message.code ? (
+              <input
+                type="text"
+                id="code"
+                name="code"
+                placeholder="enter code"
+                className="w-[300px] border border-red-400  py-3 px-5 outline-none	bg-transparent "
+              />
+            ) : (
+              <input
+                type="text"
+                id="code"
+                name="code"
+                placeholder="enter code"
+                className="w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
+              />
+            )}
+          </div>
+          {message.name ? (
+            <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
+              {message.name}
+            </div>
+          ) : (
+            ""
+          )}
+          {errorss.name ? (
+            <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
+              {errorss.name}
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="flex gap-32 font-bold items-center mb-5">
+            <label for="name">Name</label>
+            {message.name ? (
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="enter name"
+                className="w-[300px] border border-red-400  py-3 px-5 outline-none	bg-transparent "
+              />
+            ) : (
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="enter name"
+                className="w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
+              />
+            )}
+          </div>
+          {errorss.description ? (
+            <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
+              {errorss.description}
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="flex gap-20 font-bold  mb-5">
+            <label for="description">Description</label>
+            <textarea
+              type="text"
+              id="description"
+              name="description"
+              placeholder="enter description"
+              className=" resize-none h-32 w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
+            ></textarea>
+          </div>
+          {errorss.instructor ? (
+            <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
+              {errorss.instructor}
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="flex gap-24 font-bold items-center mb-5">
+            <label for="instructor">Instructor</label>
+            <input
+              type="text"
+              id="instructor"
+              name="instructor"
+              placeholder="enter instructor"
+              className="w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
+            />
+          </div>
+          {errorss.capacity ? (
+            <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
+              {errorss.capacity}
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="flex gap-24 font-bold items-center mb-5">
+            <label for="capacity">Capacity</label>
+            <input
+              type="number"
+              id="capacity"
+              name="capacity"
+              placeholder="enter capacity"
+              className="w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
+            />
+          </div>
+          {errorss.prerequisites ? (
+            <div className="shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
+              {errorss.prerequisites}
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="flex  gap-16 font-bold mb-5">
+            <label for="prerequisites">Prerequisites</label>
+            <textarea
+              type="text"
+              id="prerequisites"
+              name="prerequisites"
+              placeholder="enter prerequisites"
+              className=" resize-none h-32 w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
+            ></textarea>
+          </div>
+          <div className="flex gap-10 font-bold items-center justify-center mb-5">
+            <button className="w-[300px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50">
+              Add course
+            </button>
+
+            {message.success === undefined ? (
+              ""
+            ) : message.success ? (
+              <span className=" border border-slate-700 px-2 py-1 bg-gray-400  text-white">
+                {message.message}
+              </span>
+            ) : (
+              <span className=" border border-red-700 p-1 bg-red-400  text-red-950 font-normal">
+                {message.message}
+              </span>
+            )}
+          </div>
+        </form>
+      </section>
     </div>
   );
 }
