@@ -73,6 +73,7 @@ function ViewData({
   };
   const me_admin = async () => {
     let res;
+    alert("token admin:" + tokens.token_admin);
     if (tokens.token_admin) {
       res = await fetch("/api/me_admin");
       // if (tokens.token_admin) res = await fetch("/api/me_admin");
@@ -90,6 +91,7 @@ function ViewData({
   };
   const me = async () => {
     let res;
+    alert("token user:" + tokens.token);
     if (tokens.token) {
       res = await fetch("/api/users/me");
       // if (tokens.token_admin) res = await fetch("/api/me_admin");
