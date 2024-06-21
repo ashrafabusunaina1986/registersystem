@@ -1,4 +1,3 @@
-import Register from "../../../../models/registe";
 import connectDB from "../../../../dbConfig/db";
 import { NextResponse } from "next/server";
 import CourseSchedule from "../../../../models/courseSchedule";
@@ -6,6 +5,7 @@ import Courses from "../../../../models/course";
 import { ConvertTimeToNum } from "@/helper/convertTimeToNum";
 import { getToken } from "@/helper/getuser";
 import jwt from "jsonwebtoken";
+import Register from "../../../../models/registe";
 
 connectDB();
 export const POST = async (req) => {

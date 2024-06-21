@@ -9,7 +9,7 @@ function Registe_Course() {
   const [complete, setComplete] = useState(false);
   useEffect(() => {
     const getCsr = async () => {
-      const res = await fetch("/api/users/register");
+      const res = await fetch("/api/register");
       if (!res.ok) {
         const er = await res.json();
         alert(er.message);
@@ -34,7 +34,7 @@ function Registe_Course() {
         return f;
       });
       setComplete(f);
-      // console.log(arr, ac,csr, f);
+      console.log(csr);
     };
     getCsr();
   }, []);

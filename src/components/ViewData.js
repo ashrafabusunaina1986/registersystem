@@ -12,6 +12,7 @@ function ViewData({
   delHandler,
   message,
   complete,
+  student,
 }) {
   const route = useRouter();
   const [newCs, setNewCs] = useState([]);
@@ -37,7 +38,7 @@ function ViewData({
     const email = info && info.data && info.data.email;
     alert(email);
     if (id && email) {
-      const res = await fetch("/api/users/register", {
+      const res = await fetch("/api/register", {
         method: "POST",
         body: JSON.stringify({
           courseid: id,
@@ -199,7 +200,7 @@ function ViewData({
                   }
                   className={
                     count() === 1
-                      ? "even:bg-blue-200 hover:even:bg-gray-100 even:text-slate-900  m-auto odd:bg-purple-300 hover:odd:bg-purple-100 border-[1px] odd:font-semibold font-bold border-slate-950 text-black cursor-pointer"
+                      ? "even:bg-gray-200 hover:even:bg-gray-100 even:text-slate-900  m-auto odd:bg-purple-300 hover:odd:bg-purple-100 border-[1px] odd:font-semibold font-bold border-slate-950 text-black cursor-pointer"
                       : "even:bg-blue-200 hover:even:bg-gray-100 even:text-slate-900  m-auto odd:bg-purple-300 hover:odd:bg-purple-100 border-[1px] odd:font-semibold font-bold border-slate-950 text-black"
                   }
                 >
@@ -274,9 +275,14 @@ function ViewData({
           </tbody>
         </table>
       </div>
-      {complete === false && (
+      {complete === false && !student && (
         <span className="flex items-center justify-center w-max m-auto text-red-800">
           See administration
+        </span>
+      )}
+      {((complete === true && !student) || (complete === true && student)) && (
+        <span className="flex items-center font-semibold justify-center w-max m-auto text-green-900">
+          Congratulations!
         </span>
       )}
     </div>
