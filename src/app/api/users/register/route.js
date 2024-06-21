@@ -1,8 +1,7 @@
-import Register from "../../../../models/registe";
-import connectDB from "../../../../dbConfig/db";
+import Register from "../../../../../models/registe";
+import connectDB from "../../../../../dbConfig/db";
 import { NextResponse } from "next/server";
-import CourseSchedule from "../../../../models/courseSchedule";
-import Courses from "../../../../models/course";
+import CourseSchedule from "../../../../../models/courseSchedule";
 import { ConvertTimeToNum } from "@/helper/convertTimeToNum";
 import { getToken } from "@/helper/getuser";
 import jwt from "jsonwebtoken";
