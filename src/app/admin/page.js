@@ -28,8 +28,14 @@ export const info = [
     id: 5,
     name: "Courses Schedules",
     href: "/admin/view_schedule",
-  },{
+  },
+  {
     id: 6,
+    name: "Main Page",
+    href: "/",
+  },
+  {
+    id: 7,
     name: "Logout",
     href: "/logout",
   },

@@ -57,7 +57,7 @@ function User_Page() {
   return (
     <div className="w-11/12 flex gap-3">
       <Menu info={info_user} d={"h"} />
-      <section className=" w-full -mt-5 ">
+      <section className=" w-full">
         <SearchValue
           name={"code,name,instructor,capacity"}
           id="course"

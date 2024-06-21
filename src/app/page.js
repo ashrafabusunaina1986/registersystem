@@ -63,11 +63,20 @@ export default function Home() {
   //   me();
   // }, [token]);
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className="flex min-h-screen flex-col items-center gap-10">
       <Header token={t} />
-      {token.token && <a href="/users">Users</a>}
-      {"   "}
-      {token.token_admin && <a href="/admin">Admin</a>}
+
+      {(token.token_admin || token.token) && (
+        <div className="w-max m-auto px-5 py-4 border-[1px] shadow-lg mt-20 rounded-full">
+          <a
+            className="hover:text-gray-600 hover:underline font-semibold"
+            href={(token.token && "/users") || (token.token_admin && "/admin")}
+          >
+            {(token.token && "Users") || (token.token_admin && "Admin")}
+          </a>
+        </div>
+      )}
+
       {/* <div>
         {!token ? (
           <div className="flex gap-5">

@@ -14,6 +14,11 @@ export const info_user = [
   },
   {
     id: 3,
+    name: "Main Page",
+    href: "/",
+  },
+  {
+    id: 4,
     name: "Logout",
     href: "/logout",
   },

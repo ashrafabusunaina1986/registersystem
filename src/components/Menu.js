@@ -8,7 +8,7 @@ function Menu({ info, d }) {
           (d === "v" &&
             "w-11/12 m-auto px-5 py-4 border-[1px] shadow-lg mt-20 rounded-full") ||
           (d === "h" &&
-            "flex flex-col ms-5 gap-5 h-max w-1/5 px-5 py-4 border-[1px] shadow-lg mt-5 rounded-lg")
+            "flex flex-col ms-5  gap-5 h-max w-2/6 px-5 py-4 border-[1px] shadow-lg mt-5 rounded-lg")
         }
       >
         <ul
@@ -25,7 +25,7 @@ function Menu({ info, d }) {
                 <li
                   className={
                     (d === "v" && "hover:text-gray-600 hover:underline font-semibold") ||
-                    (d === "h" && "hover:text-gray-600 hover:border-gray-400  border-[2px] border-blue-950 w-[220px] mb-2 px-5 py-1 font-semibold text-sm rounded-md")
+                    (d === "h" &&"text-gray-50 bg-slate-800 hover:shadow-lg hover:bg-slate-400 hover:text-slate-900 w-full mb-2 px-5 py-1 font-semibold text-sm rounded-md")
                   }
                   key={item.id}
                 >

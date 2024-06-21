@@ -29,10 +29,10 @@ function Course_details(params) {
   return (
     <div className="w-11/12 flex gap-3">
       <Menu info={info_user} d={"h"} />
-      <section className=" w-full mt-5 ">
+      <section className=" w-full">
         {Courses && Courses.length === 1 ? (
-          <div className="w-full border-[1px] flex flex-col gap-5 font-bold px-5 py-3">
-            <span className=" w-max m-auto border-[2px] border-blue-950 bg-slate-200 text-blue-950 px-5 py-3 ">
+          <div className="w-full flex flex-col mt-16 gap-5 font-bold px-5 py-3">
+            <span className=" w-max m-auto  border-[2px] border-blue-950 bg-slate-200 text-blue-950 px-5 py-3 ">
               Course details
             </span>
             <div className="flex justify-around">

@@ -134,9 +134,9 @@ function ViewData({
       ) : (
         ""
       )}
-      <div className="w-11/12 m-auto mt-10 mb-10 border border-purple-700 bg-slate-800">
-        <table className="w-full  text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
-          <thead className="text-xs  font-bold uppercase text-gray-50 bg-blue-950 dark:bg-gray-700 dark:text-gray-400">
+      <div className="w-full m-auto mt-10 mb-10 ">
+        <table className="w-full text-sm text-left text-gray-500 rtl:text-right">
+          <thead className="text-xs font-bold uppercase text-gray-50 bg-slate-800">
             <tr>
               {keys &&
                 Object.keys(keys).map((v, ind, arr) => {
@@ -199,8 +199,8 @@ function ViewData({
                   }
                   className={
                     count() === 1
-                      ? "even:bg-blue-200 hover:even:bg-blue-400 even:text-gray-900 m-auto odd:bg-gray-200 hover:odd:bg-gray-400 border-[1px] odd:font-semibold font-bold border-blue-950 text-black dark:text-black cursor-pointer"
-                      : "even:bg-blue-200 hover:even:bg-blue-400 even:text-gray-900 m-auto odd:bg-gray-200 hover:odd:bg-gray-400 border-[1px] odd:font-semibold font-bold border-blue-950 text-black dark:text-black"
+                      ? "even:bg-blue-200 hover:even:bg-gray-100 even:text-slate-900  m-auto odd:bg-purple-300 hover:odd:bg-purple-100 border-[1px] odd:font-semibold font-bold border-slate-950 text-black cursor-pointer"
+                      : "even:bg-blue-200 hover:even:bg-gray-100 even:text-slate-900  m-auto odd:bg-purple-300 hover:odd:bg-purple-100 border-[1px] odd:font-semibold font-bold border-slate-950 text-black"
                   }
                 >
                   {/* {console.log(Object.values(value))} */}
