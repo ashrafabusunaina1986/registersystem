@@ -41,7 +41,7 @@ function Registe_Course() {
   return (
     <div className="w-11/12 flex gap-3">
       <Menu info={info_user} d={"h"} />
-      <section className=" w-full -mt-5 ">
+      <section className=" w-full mt-20">
         <ViewData
           data={csr}
           keys={csr[0]}
