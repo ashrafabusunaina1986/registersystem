@@ -47,16 +47,22 @@ export default function ViewStudents() {
   };
 
   const delStudentHandler = async (id) => {
-    const del = confirm("Are you sure");
+    
+    const del = confirm("Are you sure student delete");
     if (del) {
-      const res = await fetch("/api/users/students", {
+      const res = await fetch("/api/students", {
         method: "DELETE",
         body: JSON.stringify({ id: id }),
         headers: {
           "Content-Type": "application/json",
         },
       });
-      if (!res.ok) return console.log(await res.json());
+      if (!res.ok) {
+        const er=await res.json()
+        // console.log(er)
+        alert(er.message)
+        return
+      }
       const dels = await res.json();
       // console.log(dels);
       getStudents();

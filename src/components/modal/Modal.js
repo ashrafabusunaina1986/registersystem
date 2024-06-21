@@ -7,20 +7,28 @@ const BackDrop = () => {
   );
 };
 
-const ModalOverlay = ({ children ,onhide}) => {
+const ModalOverlay = ({ children, onhide, className }) => {
   return (
-    <div className="fixed top-10 left-1/4 w-2/4 p-5 h-[500px]  rounded-lg overflow-y-auto bg-gray-100 z-50 shadow-xl backdrop:bg-blue-700">
+    <div
+      className={
+        className
+          ? className
+          : "fixed top-10 left-1/4 w-2/4 p-5 h-[500px]  rounded-lg overflow-y-auto bg-gray-100 z-50 shadow-xl backdrop:bg-blue-700"
+      }
+    >
       <MdClose className="cursor-pointer" onClick={onhide} />
       <div className="">{children}</div>
     </div>
   );
 };
 
-function Modal({ children,onhide }) {
+function Modal({ children, onhide, className }) {
   return (
     <Fragment>
       <BackDrop />
-      <ModalOverlay onhide={onhide}>{children}</ModalOverlay>
+      <ModalOverlay onhide={onhide} className={className}>
+        {children}
+      </ModalOverlay>
     </Fragment>
   );
 }
