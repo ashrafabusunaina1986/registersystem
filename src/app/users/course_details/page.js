@@ -29,7 +29,7 @@ function Course_details(params) {
   return (
     <div className="w-11/12 flex gap-3">
       <Menu info={info_user} d={"h"} />
-      <section className=" w-full">
+      <section className=" w-full mb-5">
         {Courses && Courses.length === 1 ? (
           <div className="w-full flex flex-col mt-16 gap-5 font-bold px-5 py-3">
             <span className=" w-max m-auto  border-[2px] border-blue-950 bg-slate-200 text-blue-950 px-5 py-3 ">
@@ -56,6 +56,12 @@ function Course_details(params) {
               </div>
             </div>
             <ViewData data={Courses[0].cs} keys={Courses[0].cs[0]} />
+            <a
+              href="/users/register_course"
+              className=" text-sm hover:underline font-semibold -mt-14"
+            >
+              Registered courses
+            </a>
           </div>
         ) : (
           <div className=""></div>

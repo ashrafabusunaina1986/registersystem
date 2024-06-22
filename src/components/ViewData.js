@@ -36,7 +36,7 @@ function ViewData({
   const [countt, setCountt] = useState(0);
   const register_scheduleHandler = async (id) => {
     const email = info && info.data && info.data.email;
-    alert(email);
+
     if (id && email) {
       const res = await fetch("/api/register", {
         method: "POST",
@@ -52,13 +52,10 @@ function ViewData({
         const er = await res.json();
         alert(er.message);
         setId("");
-        console.error(er);
         return;
       }
       const result = await res.json();
       setId(id);
-      // console.log(result, id);
-      // return route.push('/users/register_course')
     }
   };
 
@@ -76,7 +73,7 @@ function ViewData({
   };
 
   useEffect(() => {
-    console.log(data, countt, info);
+    // console.log(data, countt, info);
     if (countt === 0) getToken();
     if (countt === 1) {
       const me_admin = async () => {

@@ -34,7 +34,7 @@ function Registe_Course() {
         return f;
       });
       setComplete(f);
-      console.log(csr);
+      // console.log(csr);
     };
     getCsr();
   }, []);

@@ -9,7 +9,7 @@ export const info_user = [
   },
   {
     id: 2,
-    name: "Register Courses Schedules",
+    name: "Registered Courses Schedules",
     href: "/users/register_course",
   },
   {
