@@ -43,7 +43,7 @@ export const info = [
 
 function Admin() {
   return (
-    <div className="w-11/12 m-auto">
+    <div className="w-11/12  m-auto">
       <Menu info={info} d="v" />
     </div>
   );
