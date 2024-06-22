@@ -68,6 +68,7 @@ function Courses() {
       // m.success = result.success;
       // m.message = result.message;
       route.push("/admin/view_courses");
+      route.refresh();
       formRef.current.reset();
     } else {
       if (!data.code) errors.code = "enter code";

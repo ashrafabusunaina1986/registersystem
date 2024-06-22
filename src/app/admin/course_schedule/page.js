@@ -92,6 +92,7 @@ function CourseSchedule() {
         // console.log( result);
         setMessage(m);
         router.push("/admin/view_schedule");
+        router.refresh()
       } else {
         errors.time = `enter time between 7 - 14 time,enter start time less than end time,interval hour and a quarter hour`;
       }
