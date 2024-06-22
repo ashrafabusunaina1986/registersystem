@@ -77,7 +77,7 @@ export default function Home() {
           </a>
         </div>
       )}
-      <div className="sm:block hidden mb-10">
+      <div className="sm:block hidden sm:mb-10">
         <Box />
       </div>
 
