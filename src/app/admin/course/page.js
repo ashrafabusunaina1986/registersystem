@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Menu from "@/components/Menu";
 import { info } from "../page";
+import Box from "@/components/Box";
 
 function Courses() {
   const formRef = useRef(null);
@@ -89,9 +90,14 @@ function Courses() {
   // after page view course
 
   return (
-    <div className="w-11/12 flex gap-3">
-      <Menu info={info} d={"h"} />
-      <section className=" w-full -mt-5 ">
+    <div className="w-11/12 flex gap-20">
+      <div className="w-3/12 relative block sm:relative sm:hidden">
+        <Menu info={info} d={"h"} />
+      </div>
+      <div className=" sm:w-3/12 sm:relative sm:block relative hidden sm:mx-10 sm:my-5 ">
+        <Box menu={<Menu info={info} d={"h"} />} />
+      </div>
+      <section className=" w-full -mt-5 sm:relative sm:left-5 sm:top-10  ">
         <form
           ref={formRef}
           onSubmit={addCoursehandler}
@@ -254,7 +260,6 @@ function Courses() {
             )}
           </div>
         </form>
-        
       </section>
     </div>
   );

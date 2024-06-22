@@ -77,10 +77,7 @@ export default function Home() {
           </a>
         </div>
       )}
-      <div className="sm:block hidden sm:mb-10">
-        <Box />
-      </div>
-
+      
       {/* <div>
         {!token ? (
           <div className="flex gap-5">
