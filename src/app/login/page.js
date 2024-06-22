@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { getToken } from "../page";
+import { screenH, screenW } from "@/helper/screen";
 
 function Login() {
   const [errorss, setErrorss] = useState({});
@@ -49,7 +50,10 @@ function Login() {
     }
     setErrorss(errors);
   };
-
+  useEffect(()=>{
+    console.log(screenH,screenW)
+    alert(screenH,screenW)
+  },[])
   return (
     <div>
       <form
