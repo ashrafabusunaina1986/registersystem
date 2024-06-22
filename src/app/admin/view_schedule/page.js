@@ -8,6 +8,7 @@ import SearchValue from "@/components/SearchValue";
 import ViewData from "@/components/ViewData";
 import Menu from "@/components/Menu";
 import { info } from "../page";
+import Box from "@/components/Box";
 function View_Schedule() {
   const searchRef = useRef(null);
   const [coursesSchedule, setCoursesSchedule] = useState([]);
@@ -91,9 +92,14 @@ function View_Schedule() {
     setMessage({ success: undefined });
   }, [message.success]);
   return (
-    <div className="w-11/12 flex gap-3">
-      <Menu info={info} d={"h"} />
-      <section className=" w-full -mt-5 ">
+    <div className="w-11/12 flex gap-20 sm:gap-0 md:gap-0">
+     <div className="w-3/12 relative block sm:relative sm:hidden md:relative md:hidden ">
+        <Menu info={info} d={"h"} />
+      </div>
+      <div className=" sm:relative sm:block md:relative md:block relative hidden sm:my-5 md:my-5">
+        <Box menu={<Menu info={info} d={"h"} />} />
+      </div>
+      <section className="w-full sm:w-full md:w-full -mt-5 sm:relative sm:left-0 sm:top-10 md:relative md:left-0 md:top-10">
         <SearchValue
           name={"DAY - COURSE - ROOM ID"}
           id={"schedule"}

@@ -5,6 +5,7 @@ import Student from "@/components/Student";
 import ViewData from "@/components/ViewData";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { info } from "../page";
+import Box from "@/components/Box";
 
 export default function ViewStudents() {
   const searchRef = useRef();
@@ -18,8 +19,7 @@ export default function ViewStudents() {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const search = Object.fromEntries(fd);
-
-    const res = await fetch(`/api/users/students?student=${search.student}`);
+    const res = await fetch(`/api/students?student=${search.student}`);
     if (!res.ok) {
       const er = await res.json();
       // console.log(er);
@@ -47,7 +47,6 @@ export default function ViewStudents() {
   };
 
   const delStudentHandler = async (id) => {
-    
     const del = confirm("Are you sure student delete");
     if (del) {
       const res = await fetch("/api/students", {
@@ -58,10 +57,10 @@ export default function ViewStudents() {
         },
       });
       if (!res.ok) {
-        const er=await res.json()
+        const er = await res.json();
         // console.log(er)
-        alert(er.message)
-        return
+        alert(er.message);
+        return;
       }
       const dels = await res.json();
       // console.log(dels);
@@ -79,9 +78,14 @@ export default function ViewStudents() {
     setMessage({ success: undefined });
   }, [message.success]);
   return (
-    <div className="w-11/12 flex gap-3">
-      <Menu info={info} d={"h"} />
-      <section className=" w-full -mt-5 ">
+    <div className="w-11/12 flex gap-20 sm:gap-0 md:gap-0">
+      <div className="w-3/12 relative block sm:relative sm:hidden md:relative md:hidden ">
+        <Menu info={info} d={"h"} />
+      </div>
+      <div className=" sm:relative sm:block md:relative md:block relative hidden sm:my-5 md:my-5">
+        <Box menu={<Menu info={info} d={"h"} />} />
+      </div>
+      <section className="w-full sm:w-full md:w-full -mt-5 sm:relative sm:left-0 sm:top-10 md:relative md:left-0 md:top-10">
         <SearchValue
           name={"NAME - EMAIL"}
           id={"student"}
