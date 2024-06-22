@@ -2,7 +2,6 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { getToken } from "../page";
-import { screenH, screenW } from "@/helper/screen";
 
 function Login() {
   const [errorss, setErrorss] = useState({});
@@ -50,15 +49,13 @@ function Login() {
     }
     setErrorss(errors);
   };
-  useEffect(()=>{
-    console.log(screenH,screenW)
-    alert(screenH,screenW)
-  },[])
   return (
     <div>
       <form
         onSubmit={loginHandler}
-        className="w-2/5 m-auto mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 rounded-md border-[1px] border-black"
+        className={
+          "m-auto w-2/5 sm:w-4/5 md:w-3/5 mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 rounded-md border-[1px] border-black"
+        }
       >
         <span className=" w-max m-auto bg-transparent text-blue-950 font-bold px-5 py-3 mb-5 text-3xl ">
           LOGIN
@@ -83,7 +80,7 @@ function Login() {
             id="email"
             name="email"
             placeholder="enter email"
-            className="w-[300px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
+            className="w-[300px] sm:w-[200px] md:w-[250px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
           />
         </div>
         {errorss.password ? (
@@ -99,19 +96,22 @@ function Login() {
             id="password"
             name="password"
             placeholder="enter password"
-            className="w-[300px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
+            className="w-[300px] sm:w-[200px] md:w-[250px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
           />
         </div>
         <div className="mt-5">
-          <button className="w-[300px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50 ">
+          <button className="w-[300px] sm:w-[200px] md:w-[250px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50 ">
             Login
           </button>
           {loading ? loading : ""}
         </div>
       </form>
-      <p className="w-2/5 m-auto -mt-10 text-justify font-sm">
+      <p className="w-2/5 sm:w-4/5 md:w-3/5 m-auto -mt-10 text-justify font-sm">
         to create account{" "}
-        <a href="/signup" className=" hover:underline hover:text-slate-600 w-max">
+        <a
+          href="/signup"
+          className=" hover:underline hover:text-slate-600 w-max"
+        >
           Sign up
         </a>
       </p>
