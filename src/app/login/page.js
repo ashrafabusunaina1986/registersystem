@@ -6,14 +6,18 @@ import { getToken } from "../page";
 function Login() {
   const [errorss, setErrorss] = useState({});
   const router = useRouter();
-const [loading,setLoading]=useState('')
+  const [loading, setLoading] = useState("");
   const loginHandler = async (e) => {
     const errors = {};
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const data = Object.fromEntries(fd);
     if (data.email && data.password) {
-      setLoading(<span className=" animate-ping ms-10  text-red-600">{'Loading'.toUpperCase()}</span>)
+      setLoading(
+        <span className=" animate-ping ms-10  text-red-600">
+          {"Loading".toUpperCase()}
+        </span>
+      );
       const res = await fetch("/api/login", {
         method: "POST",
         body: JSON.stringify(data),
@@ -24,10 +28,10 @@ const [loading,setLoading]=useState('')
       if (!res) throw new Error("wrong went something");
       const result = await res.json();
       if (res.status == 401) {
-        setLoading('')
+        setLoading("");
         errors.message = result.message;
       } else {
-        setLoading('')
+        setLoading("");
         const t = await getToken();
         // console.log(t)
         t.token && router.push("/users");
@@ -35,7 +39,7 @@ const [loading,setLoading]=useState('')
         router.refresh();
       }
     } else {
-      setLoading('')
+      setLoading("");
       if (!data.email) {
         errors.email = "enter email";
       }
@@ -48,14 +52,13 @@ const [loading,setLoading]=useState('')
 
   return (
     <div>
-      
       <form
         onSubmit={loginHandler}
         className="w-2/5 m-auto mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 rounded-md border-[1px] border-black"
       >
         <span className=" w-max m-auto bg-transparent text-blue-950 font-bold px-5 py-3 mb-5 text-3xl ">
-              LOGIN
-            </span>
+          LOGIN
+        </span>
         {errorss.message ? (
           <div className="  shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
             {errorss.message}
@@ -98,9 +101,16 @@ const [loading,setLoading]=useState('')
         <div className="mt-5">
           <button className="w-[300px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50 ">
             Login
-          </button>{loading?loading:''}
+          </button>
+          {loading ? loading : ""}
         </div>
       </form>
+      <p className="w-2/5 m-auto -mt-10 text-justify font-sm">
+        to create account{" "}
+        <a href="/signup" className=" hover:underline hover:text-slate-600 w-max">
+          Sign up
+        </a>
+      </p>
     </div>
   );
 }

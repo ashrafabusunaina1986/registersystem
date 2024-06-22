@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { getToken } from "../page";
 
 export default function Signup() {
-  const [loading,setLoading]=useState('')
+  const [loading, setLoading] = useState("");
   const [errorss, setErrorss] = useState({});
   const router = useRouter();
   const signupHandler = async (e) => {
@@ -13,7 +13,11 @@ export default function Signup() {
     const fd = new FormData(e.currentTarget);
     const data = Object.fromEntries(fd);
     if (data.name && data.email && data.password) {
-    setLoading(<span className=" animate-ping ms-10  text-red-600">{'Loading'.toUpperCase()}</span>)
+      setLoading(
+        <span className=" animate-ping ms-10  text-red-600">
+          {"Loading".toUpperCase()}
+        </span>
+      );
       const res = await fetch("/api/signup", {
         body: JSON.stringify(data),
         method: "POST",
@@ -21,22 +25,21 @@ export default function Signup() {
           "Content-Type": "application/json",
         },
       });
-      if (!res)return
+      if (!res) return;
 
-      
       const info = await res.json();
-      if (info.message && !info.success){
-        setLoading('')
-      errors.message = info.message;}
-      else {
-        setLoading('')
+      if (info.message && !info.success) {
+        setLoading("");
+        errors.message = info.message;
+      } else {
+        setLoading("");
         const t = await getToken();
         t.token && router.push("/users");
         t.token_admin && router.push("/admin");
         router.refresh();
       }
     } else {
-      setLoading('')
+      setLoading("");
       if (!data.name) errors.name = "please enter name.";
       if (!data.password) errors.password = "please enter password.";
       if (!data.email) errors.email = "please enter email.";
@@ -49,9 +52,9 @@ export default function Signup() {
         onSubmit={signupHandler}
         className="w-2/5 m-auto mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 rounded-md border-[1px] border-black"
       >
-               <span className=" w-max m-auto bg-transparent text-blue-950 font-bold px-5 py-3 mb-5 text-3xl ">
-              {'sign up'.toUpperCase()}
-            </span>
+        <span className=" w-max m-auto bg-transparent text-blue-950 font-bold px-5 py-3 mb-5 text-3xl ">
+          {"sign up".toUpperCase()}
+        </span>
         {errorss.message ? (
           <div className=" shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
             {errorss.message}
@@ -59,7 +62,7 @@ export default function Signup() {
         ) : (
           ""
         )}
-        
+
         {errorss.name ? (
           <div className=" shadow-lg bg-red-200 rounded-md px-1 py-0 w-max flex items-center justify-center ml-10 mb-2">
             {errorss.name}
@@ -111,9 +114,19 @@ export default function Signup() {
         <div className="mt-5">
           <button className="w-[300px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50">
             Sign up
-          </button>{loading?loading:''}
+          </button>
+          {loading ? loading : ""}
         </div>
       </form>
+      <p className="w-2/5 m-auto -mt-10 text-justify font-sm">
+        Your account is ready{" "}
+        <a
+          href="/login"
+          className=" hover:underline hover:text-slate-600 w-max"
+        >
+          login
+        </a>
+      </p>
     </div>
   );
 }
