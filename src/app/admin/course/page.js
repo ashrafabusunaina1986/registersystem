@@ -254,6 +254,7 @@ function Courses() {
             )}
           </div>
         </form>
+        
       </section>
     </div>
   );

@@ -105,6 +105,14 @@ function ViewCourse() {
           delHandler={delCourseHandler}
           message="Courses"
         />
+        {courses.length > 0 && (
+          <a
+            href="/admin/course_schedule"
+            className="block ms-2 -mt-10 hover:underline w-max"
+          >
+            Add course schedule
+          </a>
+        )}
       </section>
     </div>
   );

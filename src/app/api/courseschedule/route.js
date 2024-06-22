@@ -106,7 +106,7 @@ export const DELETE = async (req) => {
   try {
     const { id } = await req.json();
     const scheduls_r_id = await Register.find();
-    if (scheduls_r_id && scheduls_r_id.length > 0) {
+    if (scheduls_r_id ) {
       let countid = 0;
       scheduls_r_id.map((r, ind) => {
         const c = JSON.parse(r.courseId);
