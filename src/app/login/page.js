@@ -74,7 +74,7 @@ function Login() {
         ) : (
           ""
         )}
-        <div className=" w-full flex justify-center font-bold items-center  mb-5">
+        <div className="w-full flex justify-center font-bold items-center  mb-5">
           <input
             type="email"
             id="email"

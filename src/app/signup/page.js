@@ -50,7 +50,7 @@ export default function Signup() {
     <div>
       <form
         onSubmit={signupHandler}
-        className="w-2/5 m-auto mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 rounded-md border-[1px] border-black"
+        className="m-auto w-2/5 sm:w-4/5 md:w-3/5 mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 rounded-md border-[1px] border-black"
       >
         <span className=" w-max m-auto bg-transparent text-blue-950 font-bold px-5 py-3 mb-5 text-3xl ">
           {"sign up".toUpperCase()}
@@ -70,13 +70,13 @@ export default function Signup() {
         ) : (
           ""
         )}
-        <div className="flex gap-20 font-bold items-center mb-5 ">
+        <div className="w-full flex justify-center font-bold items-center  mb-5">
           <input
             type="text"
             id="name"
             name="name"
             placeholder="enter name"
-            className="w-[300px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
+            className="w-[300px] sm:w-4/5 md:w-[250px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
           />
         </div>
         {errorss.email ? (
@@ -86,13 +86,13 @@ export default function Signup() {
         ) : (
           ""
         )}
-        <div className="flex gap-20 font-bold items-center mb-5">
+        <div className="w-full flex justify-center font-bold items-center  mb-5">
           <input
             type="email"
             id="email"
             name="email"
             placeholder="enter email"
-            className="w-[300px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
+            className="w-[300px] sm:w-4/5 md:w-[250px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
           />
         </div>
         {errorss.password ? (
@@ -102,23 +102,23 @@ export default function Signup() {
         ) : (
           ""
         )}
-        <div className="flex gap-11 font-bold items-center mb-5 ">
+        <div className="w-full flex justify-center font-bold items-center  mb-5">
           <input
             type="password"
             id="password"
             name="password"
             placeholder="enter password"
-            className="w-[300px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
+            className="w-[300px] sm:w-4/5 md:w-[250px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
           />
         </div>
-        <div className="mt-5">
+        <div className="mt-5 w-full flex justify-center">
           <button className="w-[300px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50">
             Sign up
           </button>
           {loading ? loading : ""}
         </div>
       </form>
-      <p className="w-2/5 m-auto -mt-10 text-justify font-sm">
+      <p className="w-2/5 sm:w-4/5 md:w-3/5 m-auto -mt-10 text-justify font-sm">
         Your account is ready{" "}
         <a
           href="/login"
