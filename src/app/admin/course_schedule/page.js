@@ -10,6 +10,7 @@ import SelectValue from "@/components/SelectValue";
 import { ConvertTimeToNum } from "@/helper/convertTimeToNum";
 import Menu from "@/components/Menu";
 import { info } from "../page";
+import Box from "@/components/Box";
 
 function CourseSchedule() {
   const url = usePathname();
@@ -125,9 +126,14 @@ function CourseSchedule() {
 
   const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "thursday"];
   return (
-    <div className="w-11/12 flex gap-3">
-      <Menu info={info} d={"h"} />
-      <section className=" w-full -mt-5 ">
+    <div className="w-11/12 flex gap-20 sm:gap-0 md:gap-0">
+      <div className="w-3/12 relative block sm:relative sm:hidden md:relative md:hidden ">
+        <Menu info={info} d={"h"} />
+      </div>
+      <div className=" sm:relative sm:block md:relative md:block relative hidden sm:my-5 md:my-5">
+        <Box menu={<Menu info={info} d={"h"} />} />
+      </div>
+      <section className=" w-full sm:w-full md:w-full -mt-5 sm:relative sm:left-0 sm:top-10 md:relative md:left-0 md:top-10">
         {url === "/admin/course_schedule" && numCourses === 0 && (
           <ChechCourses
             message={"not found courses"}
@@ -137,7 +143,7 @@ function CourseSchedule() {
 
         <form
           onSubmit={addCourseScheduleHandler}
-          className="w-full m-auto mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 "
+          className="w-full sm:w-full md:w-full sm:border-[2px] sm:border-slate-900 md:border-[2px] md:border-slate-900  mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 rounded-md "
         >
           <div className="px-5 py-3 m-auto w-max font-bold shadow-lg mb-10 text-black border-[2px] border-blue-950">
             Courses schedule
@@ -156,7 +162,7 @@ function CourseSchedule() {
           ) : (
             ""
           )}
-          <div className="flex gap-24 font-bold items-center mb-5">
+          <div className="flex sm:w-full md:w-full w-full sm:flex md:flex font-bold sm:font-semibold md:font-semibold items-center sm:justify-between md:justify-between justify-around mb-5">
             <label for="day">Day</label>
             <SelectValue data={days} name="day" />
           </div>
@@ -167,7 +173,7 @@ function CourseSchedule() {
           ) : (
             ""
           )}
-          <div className="flex gap-20 font-bold items-center mb-5">
+          <div className="flex sm:w-full md:w-full w-full sm:flex md:flex font-bold sm:font-semibold md:font-semibold items-center sm:justify-between md:justify-between justify-around mb-5">
             <label for="course">Course</label>
             <SelectValue data={courses} name="course" />
           </div>
@@ -178,7 +184,7 @@ function CourseSchedule() {
           ) : (
             ""
           )}
-          <div className="flex gap-12 font-bold items-center mb-5">
+          <div className="flex sm:w-full md:w-full w-full sm:flex md:flex font-bold sm:font-semibold md:font-semibold items-center sm:justify-between md:justify-between justify-around mb-5">
             <label for="startTime">start Time</label>
             <input
               type="time"
@@ -195,7 +201,7 @@ function CourseSchedule() {
           ) : (
             ""
           )}
-          <div className="flex gap-14 font-bold items-center mb-5">
+          <div className="flex sm:w-full md:w-full w-full sm:flex md:flex font-bold sm:font-semibold md:font-semibold items-center sm:justify-between md:justify-between justify-around mb-5">
             <label for="endTime">end Time</label>
             <input
               type="time"
@@ -212,7 +218,7 @@ function CourseSchedule() {
           ) : (
             ""
           )}
-          <div className="flex gap-16 font-bold items-center mb-5">
+          <div className="flex sm:w-full md:w-full w-full sm:flex md:flex font-bold sm:font-semibold md:font-semibold items-center sm:justify-between md:justify-between justify-around mb-5">
             <label for="roomId">Room Id</label>
             <input
               type="text"
