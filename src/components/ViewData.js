@@ -119,7 +119,6 @@ function ViewData({
       Object.values(data).filter((co) =>
         co.cs === undefined ? co.cs === undefined : co.cs.length > 0
       );
-
     setNewCs(newcs);
   }, [data, countt, tokens, info]);
   return data && data.length > 0 ? (
@@ -136,7 +135,8 @@ function ViewData({
         <table className="w-full text-sm text-left text-gray-500 rtl:text-right">
           <thead className="text-xs font-bold uppercase text-gray-50 bg-slate-800">
             <tr>
-              {keys &&
+              {newCs.length > 0 &&
+                keys &&
                 Object.keys(keys).map((v, ind, arr) => {
                   if (
                     ind === 0 ||

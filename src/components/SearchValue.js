@@ -2,7 +2,7 @@ import React from "react";
 import { FaSearch } from "react-icons/fa";
 function SearchValue({searchRef,searchHandeler,name,id}) {
   return (
-    <div className="flex w-max bg-none  m-auto items-center justify-center mt-16 ">
+    <div className="flex w-max  m-auto items-center justify-center mt-16 ">
       <form className="  flex shadow-lg bg-inherit bg-none" onSubmit={searchHandeler}>
         <input
           type="search"
