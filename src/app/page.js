@@ -1,4 +1,5 @@
 "use client";
+import Box from "@/components/Box";
 import Header from "@/components/Header";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -76,6 +77,9 @@ export default function Home() {
           </a>
         </div>
       )}
+      <div className="sm:block hidden">
+        <Box />
+      </div>
 
       {/* <div>
         {!token ? (
