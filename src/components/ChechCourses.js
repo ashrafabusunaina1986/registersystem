@@ -19,7 +19,7 @@ function ChechCourses({ message, setNumCourses }) {
               setNumCourses(-1);
               router.push("/admin/course");
             }}
-            className="inline-flex bg-blue-400 px-2 py-1 rounded-md shadow-md text-white"
+            className="inline-flex bg-slate-900 hover:bg-slate-700 px-2 py-1 rounded-full shadow-md text-white"
           >
             Add course
           </button>{" "}
@@ -29,7 +29,7 @@ function ChechCourses({ message, setNumCourses }) {
               setNumCourses(-1);
               router.push("/admin");
             }}
-            className="inline-flex bg-blue-400 px-2 py-1 rounded-md shadow-md text-white"
+            className="inline-flex bg-slate-900  hover:bg-slate-700 px-2 py-1 rounded-full shadow-md text-white"
           >
             Back
           </button>
