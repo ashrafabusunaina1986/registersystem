@@ -59,17 +59,27 @@ export const DELETE = async (req) => {
         { status: 401 }
       );
     else {
-      const delStudent = await Students.findByIdAndDelete({ _id: id });
-      if (delStudent)
+      if (student.email === "admin@admin.com")
         return NextResponse.json(
-          { success: true, message: "Student is deleted" },
-          { status: 201 }
-        );
-      else
-        return NextResponse.json(
-          { success: false, message: "Student is not deleted" },
+          {
+            success: false,
+            message: "Unable to delete the student because he is admin",
+          },
           { status: 401 }
         );
+      else {
+        const delStudent = await Students.findByIdAndDelete({ _id: id });
+        if (delStudent)
+          return NextResponse.json(
+            { success: true, message: "Student is deleted" },
+            { status: 201 }
+          );
+        else
+          return NextResponse.json(
+            { success: false, message: "Student is not deleted" },
+            { status: 401 }
+          );
+      }
     }
   } catch (error) {
     return NextResponse.json(
