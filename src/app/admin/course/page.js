@@ -90,18 +90,18 @@ function Courses() {
   // after page view course
 
   return (
-    <div className="w-11/12 flex gap-20">
-      <div className="w-3/12 relative block sm:relative sm:hidden">
+    <div className="w-11/12 flex gap-20 sm:gap-0 md:gap-0">
+      <div className="w-3/12 relative block sm:relative sm:hidden md:relative md:hidden ">
         <Menu info={info} d={"h"} />
       </div>
-      <div className=" sm:w-3/12 sm:relative sm:block relative hidden sm:mx-10 sm:my-5 ">
+      <div className=" sm:relative sm:block md:relative md:block relative hidden sm:my-5 md:my-5">
         <Box menu={<Menu info={info} d={"h"} />} />
       </div>
-      <section className=" w-full -mt-5 sm:relative sm:left-5 sm:top-10  ">
+      <section className=" w-full sm:w-full md:w-full -mt-5 sm:relative sm:left-0 sm:top-10 md:relative md:left-0 md:top-10">
         <form
           ref={formRef}
           onSubmit={addCoursehandler}
-          className="w-full m-auto mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 rounded-md "
+          className="w-full sm:w-full md:w-full sm:border-[2px] sm:border-slate-900 md:border-[2px] md:border-slate-900  mt-10 mb-10 bg-white flex flex-col items-center justify-center  px-8 py-5 rounded-md "
         >
           <div className="px-5 py-3 m-auto w-max font-bold shadow-lg mb-10 text-black border-[2px] border-blue-950">
             Courses
@@ -120,7 +120,7 @@ function Courses() {
           ) : (
             ""
           )}
-          <div className="flex gap-32 font-bold items-center mb-5">
+          <div className="flex sm:w-full md:w-full w-full sm:flex md:flex font-bold sm:font-semibold md:font-semibold items-center sm:justify-between md:justify-between justify-around mb-5">
             <label for="code">Code</label>
             {message.code ? (
               <input
@@ -128,7 +128,7 @@ function Courses() {
                 id="code"
                 name="code"
                 placeholder="enter code"
-                className="w-[300px] border border-red-400  py-3 px-5 outline-none	bg-transparent "
+                className="w-[300px] sm:w-[150px] border border-red-400 sm:px-3 sm:py-1 sm:rounded-md sm:border-[1px] sm:border-slate-600  py-3 px-5 outline-none	bg-transparent "
               />
             ) : (
               <input
@@ -136,7 +136,7 @@ function Courses() {
                 id="code"
                 name="code"
                 placeholder="enter code"
-                className="w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
+                className="w-[300px] sm:w-[150px] border border-slate-40sm:px-3 sm:py-1 sm:rounded-md sm:border-[1px] sm:border-slate-600 0  py-3 px-5 outline-none	bg-transparent "
               />
             )}
           </div>
@@ -154,7 +154,7 @@ function Courses() {
           ) : (
             ""
           )}
-          <div className="flex gap-32 font-bold items-center mb-5">
+          <div className="flex sm:w-full md:w-full w-full sm:flex md:flex font-bold sm:font-semibold md:font-semibold items-center sm:justify-between md:justify-between justify-around mb-5">
             <label for="name">Name</label>
             {message.name ? (
               <input
@@ -162,7 +162,7 @@ function Courses() {
                 id="name"
                 name="name"
                 placeholder="enter name"
-                className="w-[300px] border border-red-400  py-3 px-5 outline-none	bg-transparent "
+                className="w-[300px] sm:w-[150px] border border-red-400 sm:px-3 sm:py-1 sm:rounded-md sm:border-[1px] sm:border-slate-600  py-3 px-5 outline-none	bg-transparent "
               />
             ) : (
               <input
@@ -170,7 +170,7 @@ function Courses() {
                 id="name"
                 name="name"
                 placeholder="enter name"
-                className="w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
+                className="w-[300px] sm:w-[150px] border border-slate-40sm:px-3 sm:py-1 sm:rounded-md sm:border-[1px] sm:border-slate-600 0  py-3 px-5 outline-none	bg-transparent "
               />
             )}
           </div>
@@ -181,14 +181,14 @@ function Courses() {
           ) : (
             ""
           )}
-          <div className="flex gap-20 font-bold  mb-5">
+          <div className="flex sm:w-full md:w-full w-full sm:flex md:flex font-bold sm:font-semibold md:font-semibold items-center sm:justify-between md:justify-between justify-around mb-5">
             <label for="description">Description</label>
             <textarea
               type="text"
               id="description"
               name="description"
               placeholder="enter description"
-              className=" resize-none h-32 w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
+              className=" resize-none h-32 w-[300px] sm:w-[150px] border border-slate-40sm:px-3 sm:py-1 sm:rounded-md sm:border-[1px] sm:border-slate-600 0  py-3 px-5 outline-none	bg-transparent "
             ></textarea>
           </div>
           {errorss.instructor ? (
@@ -198,14 +198,14 @@ function Courses() {
           ) : (
             ""
           )}
-          <div className="flex gap-24 font-bold items-center mb-5">
+          <div className="flex sm:w-full md:w-full w-full sm:flex md:flex font-bold sm:font-semibold md:font-semibold items-center sm:justify-between md:justify-between justify-around mb-5">
             <label for="instructor">Instructor</label>
             <input
               type="text"
               id="instructor"
               name="instructor"
               placeholder="enter instructor"
-              className="w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
+              className="w-[300px] sm:w-[150px] border border-slate-40sm:px-3 sm:py-1 sm:rounded-md sm:border-[1px] sm:border-slate-600 0  py-3 px-5 outline-none	bg-transparent "
             />
           </div>
           {errorss.capacity ? (
@@ -215,14 +215,14 @@ function Courses() {
           ) : (
             ""
           )}
-          <div className="flex gap-24 font-bold items-center mb-5">
+          <div className="flex sm:w-full md:w-full w-full sm:flex md:flex font-bold sm:font-semibold md:font-semibold items-center sm:justify-between md:justify-between justify-around mb-5">
             <label for="capacity">Capacity</label>
             <input
               type="number"
               id="capacity"
               name="capacity"
               placeholder="enter capacity"
-              className="w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
+              className="w-[300px] sm:w-[150px] border border-slate-40sm:px-3 sm:py-1 sm:rounded-md sm:border-[1px] sm:border-slate-600 0  py-3 px-5 outline-none	bg-transparent "
             />
           </div>
           {errorss.prerequisites ? (
@@ -232,18 +232,18 @@ function Courses() {
           ) : (
             ""
           )}
-          <div className="flex  gap-16 font-bold mb-5">
+          <div className="flex sm:w-full md:w-full w-full sm:flex md:flex font-bold sm:font-semibold md:font-semibold items-center sm:justify-between md:justify-between justify-around mb-5">
             <label for="prerequisites">Prerequisites</label>
             <textarea
               type="text"
               id="prerequisites"
               name="prerequisites"
               placeholder="enter prerequisites"
-              className=" resize-none h-32 w-[300px] border border-slate-400  py-3 px-5 outline-none	bg-transparent "
+              className=" resize-none h-32 w-[300px] sm:w-[150px] border border-slate-40sm:px-3 sm:py-1 sm:rounded-md sm:border-[1px] sm:border-slate-600 0  py-3 px-5 outline-none	bg-transparent "
             ></textarea>
           </div>
           <div className="flex gap-10 font-bold items-center justify-center mb-5">
-            <button className="w-[300px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50">
+            <button className="w-[300px] sm:w-[150px] inline-flex items-centsm:px-3 sm:py-1 sm:rounded-md sm:border-[1px] sm:border-slate-600 er justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50">
               Add course
             </button>
 
