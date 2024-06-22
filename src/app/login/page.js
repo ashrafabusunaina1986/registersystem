@@ -74,13 +74,13 @@ function Login() {
         ) : (
           ""
         )}
-        <div className="flex gap-20 font-bold items-center jus mb-5">
+        <div className=" w-full flex justify-center font-bold items-center  mb-5">
           <input
             type="email"
             id="email"
             name="email"
             placeholder="enter email"
-            className="w-[300px] sm:w-[200px] md:w-[250px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
+            className="w-[300px] sm:w-4/5 md:w-[250px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
           />
         </div>
         {errorss.password ? (
@@ -90,17 +90,17 @@ function Login() {
         ) : (
           ""
         )}
-        <div className="flex gap-11 font-bold items-center mb-5 ">
+        <div className="w-full flex justify-center font-bold items-center mb-5 ">
           <input
             type="password"
             id="password"
             name="password"
             placeholder="enter password"
-            className="w-[300px] sm:w-[200px] md:w-[250px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
+            className="w-[300px] sm:w-4/5 md:w-[250px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
           />
         </div>
-        <div className="mt-5">
-          <button className="w-[300px] sm:w-[200px] md:w-[250px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50 ">
+        <div className="mt-5 w-full flex justify-center">
+          <button className="w-[300px] sm:w-4/5 md:w-[250px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50 ">
             Login
           </button>
           {loading ? loading : ""}
