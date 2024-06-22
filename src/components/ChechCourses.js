@@ -18,6 +18,7 @@ function ChechCourses({ message, setNumCourses }) {
             onClick={() => {
               setNumCourses(-1);
               router.push("/admin/course");
+              router.refresh()
             }}
             className="inline-flex bg-slate-900 hover:bg-slate-700 px-2 py-1 rounded-full shadow-md text-white"
           >
@@ -28,6 +29,7 @@ function ChechCourses({ message, setNumCourses }) {
             onClick={() => {
               setNumCourses(-1);
               router.push("/admin");
+              router.refresh()
             }}
             className="inline-flex bg-slate-900  hover:bg-slate-700 px-2 py-1 rounded-full shadow-md text-white"
           >
