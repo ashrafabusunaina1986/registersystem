@@ -28,7 +28,7 @@ function User_Page() {
     var courses_students = dataCourse.coursesstudents;
     setCourses(courses_students);
 
-    console.log(courses_students);
+    // console.log(courses_students);
   };
   const searchCourseHandeler = async (e) => {
     // console.log(Object.keys(courses[0])[0]);
@@ -45,7 +45,7 @@ function User_Page() {
     }
     const result = await res.json();
 
-    console.log(result.coursesstudents);
+    // console.log(result.coursesstudents);
     setCourses(result.coursesstudents);
     setMessage({ success: result.success });
   };
