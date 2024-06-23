@@ -47,7 +47,7 @@ function Registe_Course() {
       <div className=" sm:relative sm:block md:relative md:block relative hidden sm:my-5 md:my-5">
         <Box menu={<Menu info={info_user} d={"h"} />} />
       </div>
-      <section className=" w-full sm:w-full md:w-full -mt-5 sm:relative sm:left-0 sm:top-10 md:relative md:left-0 md:top-10">
+      <section className=" w-full sm:w-full md:w-full mt-20 sm:relative sm:left-0 sm:top-10 md:relative md:left-0 md:top-10 ">
         <ViewData
           data={csr}
           keys={csr[0]}

@@ -6,6 +6,7 @@ import ViewData from "@/components/ViewData";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { info } from "../page";
 import Box from "@/components/Box";
+import { useRouter } from "next/navigation";
 
 export default function ViewStudents() {
   const searchRef = useRef();
@@ -13,7 +14,7 @@ export default function ViewStudents() {
   const [students, setStudents] = useState([]);
   const [student, setStudent] = useState([]);
   const [isShow, setIsShow] = useState(false);
-
+  const route = useRouter();
   const searchStudentHandeler = async (e) => {
     // console.log(Object.keys(students[0])[0]);
     e.preventDefault();

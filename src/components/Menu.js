@@ -8,7 +8,7 @@ function Menu({ info, d }) {
         (d === "v" &&
           "w-11/12 sm:w-5/12  md:w-6/12 m-auto px-5 py-4 border-[1px] shadow-lg mt-20 sm:rounded-lg md:rounded-lg rounded-full") ||
         (d === "h" &&
-          "flex flex-col ms-5 sm:absolute gap-5 h-max w-full sm:w-[250px]  px-5 py-4 border-[1px] shadow-lg mt-5 rounded-lg")
+          "flex flex-col ms-5  sm:bg-gray-400 sm:absolute md:bg-gray-400 md:absolute gap-5 h-max w-full sm:w-[250px] md:w-[250px]  px-5 py-4 border-[1px] shadow-lg mt-5 rounded-lg")
       }
     >
       <ul
