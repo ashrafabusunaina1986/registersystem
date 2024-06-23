@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import { Suspense } from "react";
+import ToggleProvider from "@/context/ToggleProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,8 +14,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={'debug-screens'}>
-        <Suspense>{children}</Suspense>
+      <body className={"debug-screens"}>
+        <Suspense>
+          <ToggleProvider>{children}</ToggleProvider>
+        </Suspense>
       </body>
     </html>
   );

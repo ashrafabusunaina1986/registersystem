@@ -1,7 +1,10 @@
-import React, { Fragment } from "react";
+"use client";
+import React, { Fragment, useContext } from "react";
 import PropTypes from "prop-types";
+import { ToggleContextt } from "@/context/ToggleProvider";
 
 function Menu({ info, d }) {
+  const { setT } = useContext(ToggleContextt);
   return (
     <div
       className={
@@ -31,7 +34,9 @@ function Menu({ info, d }) {
                 }
                 key={item.id}
               >
-                <a href={item.href}>{item.name}</a>
+                <a onClick={() => setT(false)} href={item.href}>
+                  {item.name}
+                </a>
               </li>
             );
           })}
