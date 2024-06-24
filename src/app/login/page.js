@@ -33,9 +33,7 @@ function Login() {
       } else {
         setLoading("");
         const t = await getToken();
-        // console.log(t)
-        t.token && router.push("/users");
-        t.token_admin && router.push("/admin");
+        router.push("/");
         router.refresh();
       }
     } else {

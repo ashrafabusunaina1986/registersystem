@@ -4,11 +4,15 @@ import ViewData from "@/components/ViewData";
 import React, { useEffect, useState } from "react";
 import { info_user } from "../page";
 import Box from "@/components/Box";
+import useFetch from "@/custem-hook/useFetch";
 
 function Registe_Course() {
   const [csr, setCsr] = useState([]);
   const [complete, setComplete] = useState(false);
+
+  
   useEffect(() => {
+    
     const getCsr = async () => {
       const res = await fetch("/api/register");
       if (!res.ok) {
