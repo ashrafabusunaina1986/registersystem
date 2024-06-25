@@ -2,22 +2,21 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { getToken } from "../page";
+import useFetch from "@/custem-hook/useFetch";
+import Cyrcle from "@/shaps/Cyrcle";
 
 function Login() {
   const [errorss, setErrorss] = useState({});
   const router = useRouter();
   const [loading, setLoading] = useState("");
+
   const loginHandler = async (e) => {
     const errors = {};
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const data = Object.fromEntries(fd);
     if (data.email && data.password) {
-      setLoading(
-        <span className=" animate-ping ms-10  text-red-600">
-          {"Loading".toUpperCase()}
-        </span>
-      );
+      setLoading(<Cyrcle />);
       const res = await fetch("/api/login", {
         method: "POST",
         body: JSON.stringify(data),
@@ -27,6 +26,7 @@ function Login() {
       });
       if (!res) throw new Error("wrong went something");
       const result = await res.json();
+
       if (res.status == 401) {
         setLoading("");
         errors.message = result.message;
@@ -47,6 +47,7 @@ function Login() {
     }
     setErrorss(errors);
   };
+
   return (
     <div>
       <form
@@ -97,11 +98,11 @@ function Login() {
             className="w-[300px] sm:w-4/5 md:w-[250px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
           />
         </div>
-        <div className="mt-5 w-full flex justify-center">
+        <div className="mt-5 w-full flex items-center justify-center">
           <button className="w-[300px] sm:w-4/5 md:w-[250px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50 ">
             Login
           </button>
-          {loading ? loading : ""}
+          <div className="w-max ms-10">{loading ? loading : ""}</div>
         </div>
       </form>
       <p className="w-2/5 sm:w-4/5 md:w-3/5 m-auto -mt-10 text-justify font-sm">
