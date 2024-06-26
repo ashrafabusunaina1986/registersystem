@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getToken } from "../page";
 import useFetch from "@/custem-hook/useFetch";
 import Cyrcle from "@/shaps/Cyrcle";
+import Cyrcle1 from "@/shaps/Cyrcle1";
 
 function Login() {
   const [errorss, setErrorss] = useState({});
@@ -16,7 +17,7 @@ function Login() {
     const fd = new FormData(e.currentTarget);
     const data = Object.fromEntries(fd);
     if (data.email && data.password) {
-      setLoading(<Cyrcle />);
+      setLoading(<Cyrcle1 />);
       const res = await fetch("/api/login", {
         method: "POST",
         body: JSON.stringify(data),

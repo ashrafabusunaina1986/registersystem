@@ -79,8 +79,8 @@ export default function Home() {
           </a>
         </div>
       )}
-      {/* <Cyrcle/>
-      <Cyrcle1/> */}
+      <Cyrcle/>
+      <Cyrcle1/>
       {/* <div>
         {!token ? (
           <div className="flex gap-5">
