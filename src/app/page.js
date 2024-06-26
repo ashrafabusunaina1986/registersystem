@@ -2,7 +2,8 @@
 import Box from "@/components/Box";
 import Header from "@/components/Header";
 import Cyrcle from "@/shaps/Cyrcle";
-import Cyrcle1 from "@/shaps/Cyrcle1";
+import Cyrcle1 from "@/shaps/Cyrcle1";import Loading1 from "@/shaps/Loading1";
+;
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -81,6 +82,7 @@ export default function Home() {
       )}
       <Cyrcle/>
       <Cyrcle1/>
+      <Loading1/>
       {/* <div>
         {!token ? (
           <div className="flex gap-5">
