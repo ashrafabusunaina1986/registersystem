@@ -1,6 +1,5 @@
 "use client";
 import Box from "@/components/Box";
-import Form from "@/components/Form";
 import Header from "@/components/Header";
 import Password from "@/components/Password";
 import Image from "next/image";
@@ -78,7 +77,6 @@ export default function Home() {
           </a>
         </div>
       )}
-      <Form/>
       {/* <Cyrcle /> */}
       {/* <Cyrcle1 /> */}
       {/* <div className="w-10 h-10 border-4 border-blue-500 rounded-full animate-spin border-t-transparent"></div> */}
