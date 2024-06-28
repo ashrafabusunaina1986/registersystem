@@ -4,8 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getToken } from "../page";
 import useFetch from "@/custem-hook/useFetch";
 import Cyrcle from "@/shaps/Cyrcle";
-import Cyrcle1 from "@/shaps/Cyrcle1";
-
+import Password from "@/components/Password";
 function Login() {
   const [errorss, setErrorss] = useState({});
   const router = useRouter();
@@ -17,7 +16,7 @@ function Login() {
     const fd = new FormData(e.currentTarget);
     const data = Object.fromEntries(fd);
     if (data.email && data.password) {
-      setLoading(<Cyrcle1 />);
+      setLoading(<Cyrcle />);
       const res = await fetch("/api/login", {
         method: "POST",
         body: JSON.stringify(data),
@@ -91,12 +90,10 @@ function Login() {
           ""
         )}
         <div className="w-full flex justify-center font-bold items-center mb-5 ">
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="enter password"
-            className="w-[300px] sm:w-4/5 md:w-[250px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
+          <Password
+            className={
+              "w-[300px] sm:w-4/5 md:w-[250px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
+            }
           />
         </div>
         <div className="mt-5 w-full flex items-center justify-center">

@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getToken } from "../page";
+import Password from "@/components/Password";
+import Cyrcle from "@/shaps/Cyrcle";
 
 export default function Signup() {
   const [loading, setLoading] = useState("");
@@ -13,11 +15,7 @@ export default function Signup() {
     const fd = new FormData(e.currentTarget);
     const data = Object.fromEntries(fd);
     if (data.name && data.email && data.password) {
-      setLoading(
-        <span className=" animate-ping ms-10  text-red-600">
-          {"Loading".toUpperCase()}
-        </span>
-      );
+      setLoading(<Cyrcle />);
       const res = await fetch("/api/signup", {
         body: JSON.stringify(data),
         method: "POST",
@@ -103,12 +101,10 @@ export default function Signup() {
           ""
         )}
         <div className="w-full flex justify-center font-bold items-center  mb-5">
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="enter password"
-            className="w-[300px] sm:w-4/5 md:w-[250px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
+          <Password
+            className={
+              "w-[300px] sm:w-4/5 md:w-[250px] border-b border-b-blue-950 py-3 px-5 outline-none bg-transparent"
+            }
           />
         </div>
         <div className="mt-5 w-full flex justify-center">

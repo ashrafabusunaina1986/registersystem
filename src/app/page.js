@@ -1,12 +1,11 @@
 "use client";
 import Box from "@/components/Box";
+import Form from "@/components/Form";
 import Header from "@/components/Header";
-import Cyrcle from "@/shaps/Cyrcle";
-import Cyrcle1 from "@/shaps/Cyrcle1";
+import Password from "@/components/Password";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
 export const getToken = async () => {
   const res = await fetch("/api");
   if (!res.ok) {
@@ -79,8 +78,10 @@ export default function Home() {
           </a>
         </div>
       )}
-      <Cyrcle />
-      <Cyrcle1 />
+      <Form/>
+      {/* <Cyrcle /> */}
+      {/* <Cyrcle1 /> */}
+      {/* <div className="w-10 h-10 border-4 border-blue-500 rounded-full animate-spin border-t-transparent"></div> */}
       {/* <div>
         {!token ? (
           <div className="flex gap-5">

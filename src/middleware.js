@@ -5,8 +5,12 @@ export function middleware(req) {
   const token = req.cookies.get("token")?.value || "";
   const token_admin = req.cookies.get("token_admin")?.value || "";
 
-  if (token && url.includes("/users")) return NextResponse.next();
-  if (token_admin && url.includes("/admin")) return NextResponse.next();
+  if (
+    (token && url.includes("/users")) ||
+    (token_admin && url.includes("/admin"))
+  )
+    return NextResponse.next();
+
   if (
     (!token && url.includes("/users") && !token_admin) ||
     (!token && url.includes("/admin") && !token_admin)
