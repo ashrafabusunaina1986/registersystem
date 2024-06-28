@@ -32,7 +32,7 @@ export default function Signup() {
       } else {
         setLoading("");
         const t = await getToken();
-        t.token && router.push("/users");
+        t.token && router.push("/thank_you");
         t.token_admin && router.push("/admin");
         router.refresh();
       }
@@ -111,7 +111,7 @@ export default function Signup() {
           <button className="w-[300px] inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-black rounded-md hover:bg-gray-700 hover:text-gray-50">
             Sign up
           </button>
-          {loading ? loading : ""}
+          {loading ? <div className="ms-5">{loading}</div> : ""}
         </div>
       </form>
       <p className="w-2/5 sm:w-4/5 md:w-3/5 m-auto -mt-10 text-justify font-sm">
