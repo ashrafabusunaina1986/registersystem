@@ -3,7 +3,7 @@ import React, { useState } from "react";
 function Password({ className, title }) {
   const [show, setShow] = useState(false);
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex w-full flex-col gap-2 items-center">
       {title && <label htmlFor="password">Password</label>}
       <input
         placeholder="enter password"
@@ -12,14 +12,16 @@ function Password({ className, title }) {
         id="password"
         name="password"
       />
-      <div className="flex gap-3">
+      <div className="flex w-full gap-3">
         <input
           type="checkbox"
           name="pass"
           id="pass"
           onChange={(e) => setShow(e.target.checked)}
         />
-        <label htmlFor="pass" className="font-normal">show password</label>
+        <label htmlFor="pass" className="font-normal">
+          show password
+        </label>
       </div>
     </div>
   );
