@@ -12,7 +12,7 @@ function Password({ className, title }) {
         id="password"
         name="password"
       />
-      <div className="flex w-full gap-3">
+      <div className=" flex w-4/6 sm:w-4/5 md:w-8/12 gap-3">
         <input
           type="checkbox"
           name="pass"
